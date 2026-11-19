@@ -17,3 +17,59 @@ html[data-theme="light"] .experience-section,html[data-theme="light"] .work-sect
 @media(max-width:900px){.nav{gap:14px}.nav a{font-size:9px}.hero{grid-template-columns:1fr .8fr}.hero-art{transform:scale(.85)}.experience-item{grid-template-columns:.8fr 2fr}.item-type{display:none}.skills-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:680px){.section-wrap{width:calc(100% - 38px)}.topbar{height:72px;padding:0 19px}.brand{font-size:9px}.brand-mark{width:34px;height:34px}.nav{display:none;position:absolute;top:71px;left:0;right:0;padding:22px;background:var(--panel);border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}.nav.open{display:flex}.nav a{font-size:11px}.nav-actions{gap:10px}.nav-cta{display:none}.theme-toggle{padding:8px;font-size:9px}.menu-toggle{display:block}.hero{padding-top:75px;min-height:850px;display:flex;flex-direction:column;align-items:flex-start}.hero h1{font-size:clamp(68px,18vw,100px)}.hero-art{width:100%;height:320px;transform:scale(.8);margin-top:10px}.hero-bottom{font-size:8px}.about-section,.skills-section,.credentials-section{padding-block:85px}.about-grid,.leadership-grid{grid-template-columns:1fr;gap:28px}.about-grid h2,.section-heading h2,.leadership-grid h2{font-size:48px}.stats-grid{grid-template-columns:1fr 1fr;margin-top:55px}.stat{padding:20px 10px 20px 0;border-bottom:1px solid var(--line)}.stat:nth-child(2){border-right:0;padding-left:18px}.stat:nth-child(3){border-bottom:0}.stat:nth-child(4){border:0;padding-left:18px}.stat strong{font-size:43px}.experience-section,.work-section{padding:80px 0}.section-heading{display:block}.section-aside{margin-top:20px}.experience-item{grid-template-columns:1fr;gap:8px;padding:23px 0}.item-date{font-size:9px}.item-main h3{font-size:18px}.leadership-section{padding-block:80px}.skills-grid{grid-template-columns:1fr}.skill-card{min-height:150px}.work-grid{grid-template-columns:1fr}.work-large{grid-row:auto}.work-large .work-art{height:270px}.work-art{height:220px}.credential-grid{grid-template-columns:1fr}.credential-card{min-height:140px;padding:22px 16px}.brand-inner{display:block}.brand-inner .button{margin-top:25px}.next-section{padding-block:55px}.next-card{padding:32px 24px}.next-mark{width:105px;height:105px;font-size:44px;flex-shrink:0;margin-left:10px}.next-mark span{font-size:8px}.next-copy h2{font-size:52px}.contact-section h2{font-size:58px}.contact-grid{grid-template-columns:1fr;gap:25px;margin-top:25px;padding-bottom:50px}.footer-bottom{flex-wrap:wrap;gap:12px;font-size:8px}.footer-bottom span:nth-child(2){order:3;width:100%}.cursor-dot,.cursor-ring{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* =====================================
+   SCROLL REVEAL + BLUR TRANSITIONS
+===================================== */
+
+.reveal {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(35px) scale(0.97);
+  transition:
+    opacity 0.9s ease,
+    filter 0.9s ease,
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+/* Portrait styling */
+
+.hero-art {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-portrait {
+  position: absolute;
+  inset: 8%;
+  width: 84%;
+  height: 84%;
+  object-fit: cover;
+  object-position: center 25%;
+  border-radius: 50%;
+  z-index: 2;
+  opacity: 0.94;
+  filter: saturate(0.82);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.art-core {
+  z-index: 3;
+  background: rgba(10, 12, 11, 0.48);
+  backdrop-filter: blur(5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
