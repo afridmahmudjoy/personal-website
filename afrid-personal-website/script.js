@@ -59,3 +59,40 @@
     });
   }
 })();
+
+/* =====================================
+   SCROLL REVEAL ANIMATION
+===================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const revealElements = document.querySelectorAll(
+    ".hero-copy, .hero-art, .hero-bottom, " +
+    ".about-section, .experience-section, " +
+    ".leadership-section, .skills-section, " +
+    ".work-section, .credentials-section, " +
+    ".brand-section, .next-section, .contact-section"
+  );
+
+  revealElements.forEach((element) => {
+    element.classList.add("reveal");
+  });
+
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -40px 0px"
+    }
+  );
+
+  revealElements.forEach((element) => {
+    observer.observe(element);
+  });
+});
