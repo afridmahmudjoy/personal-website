@@ -195,10 +195,8 @@
   const scenePrev = $('#scene-prev');
   const sceneNext = $('#scene-next');
   let activeScene = 0;
-  let sceneLocked = false;
+  let transitionCleanupTimer = 0;
   let wheelTotal = 0;
-  let queuedWheelSteps = 0;
-  let sceneUnlockTimer = 0;
   let wheelResetTimer = 0;
   function updateSceneUI(index) {
     activeScene = index;
@@ -218,15 +216,18 @@
     if (sceneNext) sceneNext.disabled = index === scenes.length - 1;
   }
   function goToScene(index, options) {
-    if (!opened) return;
-    const nextIndex = Math.max(0, Math.min(scenes.length - 1, index));
-    if (nextIndex === activeScene || sceneLocked) return;
+    if (!opened || !scenes.length) return;
+    const nextIndex = Math.max(0, Math.min(scenes.length - 1, Number(index)));
+    if (!Number.isFinite(nextIndex) || nextIndex === activeScene) return;
     const opts = options || {};
     const direction = nextIndex > activeScene ? 1 : -1;
     const outgoing = scenes[activeScene];
     const incoming = scenes[nextIndex];
-    sceneLocked = true;
-    window.clearTimeout(sceneUnlockTimer);
+
+    // Navigation is interruptible: clicks/wheel never wait for a transition lock.
+    // Cancel old cleanup and clear stale transition classes before starting the new move.
+    window.clearTimeout(transitionCleanupTimer);
+    scenes.forEach(scene => scene.classList.remove('is-exit-left', 'is-exit-right', 'is-enter-left'));
     outgoing.classList.remove('is-active');
     outgoing.classList.add(direction > 0 ? 'is-exit-left' : 'is-exit-right');
     if (direction < 0) incoming.classList.add('is-enter-left');
@@ -235,15 +236,10 @@
     window.requestAnimationFrame(() => incoming.classList.remove('is-enter-left'));
     updateSceneUI(nextIndex);
     if (!opts.silent) playSound('navigate');
-    sceneUnlockTimer = window.setTimeout(() => {
-      outgoing.classList.remove('is-exit-left', 'is-exit-right');
-      sceneLocked = false;
-      if (queuedWheelSteps !== 0) {
-        const queuedDirection = queuedWheelSteps > 0 ? 1 : -1;
-        queuedWheelSteps -= queuedDirection;
-        goToScene(activeScene + queuedDirection);
-      }
-    }, reducedMotion ? 50 : 880);
+
+    transitionCleanupTimer = window.setTimeout(() => {
+      scenes.forEach(scene => scene.classList.remove('is-exit-left', 'is-exit-right', 'is-enter-left'));
+    }, reducedMotion ? 60 : 900);
   }
   navItems.forEach(item => item.addEventListener('click', () => goToScene(Number(item.dataset.go))));
   $$('[data-go]').forEach(item => {
@@ -272,12 +268,7 @@
     if (Math.abs(wheelTotal) >= 32) {
       const direction = wheelTotal > 0 ? 1 : -1;
       wheelTotal = 0;
-      if (sceneLocked) {
-        // Keep a short, bounded queue so quick scrolls don't disappear.
-        queuedWheelSteps = Math.max(-3, Math.min(3, queuedWheelSteps + direction));
-      } else {
-        goToScene(activeScene + direction);
-      }
+      goToScene(activeScene + direction);
     }
 
     window.clearTimeout(wheelResetTimer);
