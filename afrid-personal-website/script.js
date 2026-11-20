@@ -113,6 +113,7 @@
       borderRadius: '2px'
     });
     document.body.appendChild(portraitFlight);
+    destinationAvatar.classList.add('is-arriving');
     openingPortrait.classList.add('portrait-in-flight');
 
     // Reveal the portfolio at its own top so the avatar has a real destination.
