@@ -84,12 +84,24 @@
     if (exploreSubtitle) exploreSubtitle.textContent = 'WELCOME TO MY PORTFOLIO';
     exploreButton.setAttribute('aria-expanded', 'true');
     portfolio.hidden = false;
+    const aboutSection = document.getElementById('about');
+    aboutSection?.classList.add('profile-summary-pending');
     playSound('launch');
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!openingPortrait || !destinationAvatar || reducedMotion) {
+      const aboutSection = document.getElementById('about');
       window.setTimeout(() => {
-        document.getElementById('about')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+        aboutSection?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+        if (reducedMotion) {
+          aboutSection?.classList.remove('profile-summary-pending');
+          aboutSection?.classList.add('profile-summary-reveal');
+        } else {
+          window.setTimeout(() => {
+            aboutSection?.classList.remove('profile-summary-pending');
+            aboutSection?.classList.add('profile-summary-reveal');
+          }, 520);
+        }
       }, 120);
       return;
     }
@@ -131,8 +143,13 @@
       portraitFlight.remove();
       openingPortrait.classList.remove('portrait-in-flight');
       destinationAvatar.classList.remove('is-arriving');
+      const aboutSection = document.getElementById('about');
       window.setTimeout(() => {
-        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.setTimeout(() => {
+          aboutSection?.classList.remove('profile-summary-pending');
+          aboutSection?.classList.add('profile-summary-reveal');
+        }, 520);
       }, 180);
     };
 
