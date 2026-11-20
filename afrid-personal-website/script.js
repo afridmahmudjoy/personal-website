@@ -706,6 +706,7 @@ const AUTO_ROTATE_DELAY = 2000;
 
   let scrollTicking = false;
   let previousScrollY = window.scrollY;
+  let starWarpResetTimer;
 
   const setStarWarp = (distance) => {
     const warp = Math.min(distance, 140);
@@ -725,6 +726,12 @@ const AUTO_ROTATE_DELAY = 2000;
       const currentScrollY = window.scrollY;
       const scrollDistance = Math.abs(currentScrollY - previousScrollY);
       setStarWarp(scrollDistance);
+      window.clearTimeout(starWarpResetTimer);
+      starWarpResetTimer = window.setTimeout(() => {
+        root.style.setProperty('--warp-streak-length', '105px');
+        root.style.setProperty('--warp-streak-opacity', '.36');
+        root.style.setProperty('--warp-secondary-opacity', '.18');
+      }, 140);
       updateScrollSound(scrollDistance);
       previousScrollY = currentScrollY;
       scrollTicking = false;
