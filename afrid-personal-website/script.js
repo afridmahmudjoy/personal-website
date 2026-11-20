@@ -222,116 +222,58 @@
 
   
 
-  // Soft airy wind sound while scrolling.
+  // Subtle cinematic scroll shimmer: airy sweep + a soft tonal glide.
   let scrollAudio = null;
   let scrollSoundTimer = null;
 
   function updateScrollSound(distance) {
-    if (!soundEnabled || distance < 0.8) {
-      stopScrollSound();
-      return;
-    }
-
+    if (!soundEnabled || distance < 0.8) { stopScrollSound(); return; }
     try {
-      const AudioContextClass =
-        window.AudioContext || window.webkitAudioContext;
-
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       if (!AudioContextClass) return;
-
       audioContext ||= new AudioContextClass();
-
-      if (audioContext.state === 'suspended') {
-        audioContext.resume();
-      }
-
+      if (audioContext.state === 'suspended') audioContext.resume();
       const now = audioContext.currentTime;
-
-      if (scrollSoundTimer) {
-        clearTimeout(scrollSoundTimer);
-        scrollSoundTimer = null;
-      }
+      if (scrollSoundTimer) { clearTimeout(scrollSoundTimer); scrollSoundTimer = null; }
 
       if (!scrollAudio) {
-        const bufferSize = audioContext.sampleRate * 2;
-        const noiseBuffer = audioContext.createBuffer(
-          1, bufferSize, audioContext.sampleRate
-        );
+        const length = Math.floor(audioContext.sampleRate * 1.4);
+        const noiseBuffer = audioContext.createBuffer(1, length, audioContext.sampleRate);
+        const noiseData = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < length; i++) noiseData[i] = (Math.random() * 2 - 1) * 0.35;
+        const noiseSource = audioContext.createBufferSource();
+        noiseSource.buffer = noiseBuffer; noiseSource.loop = true;
+        const airyFilter = audioContext.createBiquadFilter();
+        airyFilter.type = 'bandpass'; airyFilter.frequency.value = 1100; airyFilter.Q.value = 0.55;
+        const airyGain = audioContext.createGain(); airyGain.gain.value = 0.0001;
+        noiseSource.connect(airyFilter); airyFilter.connect(airyGain); airyGain.connect(audioContext.destination); noiseSource.start();
 
-        const data = noiseBuffer.getChannelData(0);
-        let lastOut = 0;
-
-        for (let i = 0; i < bufferSize; i++) {
-          const white = Math.random() * 2 - 1;
-          lastOut = (lastOut + 0.025 * white) / 1.025;
-          data[i] = lastOut * 3.5;
-        }
-
-        const source = audioContext.createBufferSource();
-        const filter = audioContext.createBiquadFilter();
-        const gain = audioContext.createGain();
-
-        source.buffer = noiseBuffer;
-        source.loop = true;
-
-        filter.type = 'lowpass';
-        filter.frequency.value = 1000;
-        filter.Q.value = 0.5;
-
-        gain.gain.value = 0.0001;
-
-        source.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioContext.destination);
-
-        source.start();
-
-        scrollAudio = { source, filter, gain };
+        const tone = audioContext.createOscillator(); tone.type = 'triangle'; tone.frequency.value = 220;
+        const toneFilter = audioContext.createBiquadFilter(); toneFilter.type = 'lowpass'; toneFilter.frequency.value = 850;
+        const toneGain = audioContext.createGain(); toneGain.gain.value = 0.0001;
+        tone.connect(toneFilter); toneFilter.connect(toneGain); toneGain.connect(audioContext.destination); tone.start();
+        scrollAudio = { noiseSource, airyFilter, airyGain, tone, toneFilter, toneGain };
       }
 
-      const speed = Math.min(distance, 25);
-
-      scrollAudio.filter.frequency.setTargetAtTime(
-        650 + speed * 65, now, 0.08
-      );
-
-      scrollAudio.gain.gain.setTargetAtTime(
-        Math.min(0.018, 0.003 + speed * 0.00055),
-        now,
-        0.08
-      );
-
-      scrollSoundTimer = window.setTimeout(() => {
-        stopScrollSound();
-      }, 180);
-
-    } catch (_) {
-      // Scrolling remains functional if audio is unavailable.
-    }
+      const speed = Math.min(distance, 32);
+      scrollAudio.airyFilter.frequency.setTargetAtTime(850 + speed * 48, now, 0.06);
+      scrollAudio.airyGain.gain.setTargetAtTime(Math.min(0.006, 0.001 + speed * 0.00016), now, 0.06);
+      scrollAudio.tone.frequency.setTargetAtTime(185 + speed * 7.5, now, 0.07);
+      scrollAudio.toneFilter.frequency.setTargetAtTime(650 + speed * 18, now, 0.07);
+      scrollAudio.toneGain.gain.setTargetAtTime(Math.min(0.0018, 0.00025 + speed * 0.000045), now, 0.07);
+      scrollSoundTimer = window.setTimeout(stopScrollSound, 150);
+    } catch (_) { /* Decorative audio; scrolling always works. */ }
   }
 
   function stopScrollSound() {
-    if (scrollSoundTimer) {
-      clearTimeout(scrollSoundTimer);
-      scrollSoundTimer = null;
-    }
-
+    if (scrollSoundTimer) { clearTimeout(scrollSoundTimer); scrollSoundTimer = null; }
     if (!scrollAudio || !audioContext) return;
-
-    const currentAudio = scrollAudio;
-    scrollAudio = null;
-
+    const currentAudio = scrollAudio; scrollAudio = null;
     try {
-      currentAudio.gain.gain.setTargetAtTime(
-        0.0001,
-        audioContext.currentTime,
-        0.12
-      );
-
-      window.setTimeout(() => {
-        try {
-          currentAudio.source.stop();
-        } catch (_) {}
-      }, 500);
+      const now = audioContext.currentTime;
+      currentAudio.airyGain.gain.setTargetAtTime(0.0001, now, 0.09);
+      currentAudio.toneGain.gain.setTargetAtTime(0.0001, now, 0.09);
+      window.setTimeout(() => { try { currentAudio.noiseSource.stop(); currentAudio.tone.stop(); } catch (_) {} }, 450);
     } catch (_) {}
   }
   // Sound effects toggle.
