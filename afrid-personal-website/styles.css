@@ -140,8 +140,8 @@ button { font: inherit; }
 .portrait-rule { width: 35px; height: 1px; background: var(--accent); }
 .portrait-placeholder strong { font: 9px "DM Mono", monospace; letter-spacing: .15em; }
 .portrait-placeholder small { font-size: 7px; }
-.portrait-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; z-index: 2; }
-.portrait-caption { position: absolute; bottom: 14px; font-size: 7px; color: var(--muted); letter-spacing: .13em; }
+.portrait-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 42%; z-index: 2; }
+.portrait-caption { position: absolute; z-index: 3; bottom: 10px; left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 7px 9px; border: 1px solid rgba(255,255,255,.18); background: rgba(4,17,16,.68); color: #f2fffc; font-size: 7px; letter-spacing: .13em; backdrop-filter: blur(8px); }
 .concept { position: absolute; z-index: 3; min-width: 88px; padding: 12px 14px; border: 1px solid var(--line-strong); background: color-mix(in srgb, var(--panel-solid) 75%, transparent); box-shadow: 0 15px 35px var(--shadow), 0 0 22px rgba(67,234,209,.07); backdrop-filter: blur(12px); animation: float 7s ease-in-out infinite; }
 .concept-icon { display: block; color: var(--accent); font: 21px "Space Grotesk", sans-serif; }
 .concept small { display: block; color: var(--muted); font-size: 7px; margin-top: 4px; }
