@@ -20,24 +20,6 @@
 
   // 
   
-  // JOY logo: desktop hover + touch tap laughing animation.
-  document.querySelectorAll('.joy-face').forEach((face) => {
-    let laughTimer;
-
-    face.addEventListener('click', () => {
-      const logo = face.closest('.joy-logo');
-      if (!logo) return;
-
-      logo.classList.add('is-laughing');
-
-      window.clearTimeout(laughTimer);
-
-      laughTimer = window.setTimeout(() => {
-        logo.classList.remove('is-laughing');
-      }, 1100);
-    });
-  });
-
   const storage = {
     get(key) { try { return localStorage.getItem(key); } catch (_) { return null; } },
     set(key, value) { try { localStorage.setItem(key, value); } catch (_) {} }
