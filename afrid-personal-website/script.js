@@ -709,10 +709,11 @@ const AUTO_ROTATE_DELAY = 2000;
   let starWarpResetTimer;
 
   const setStarWarp = (distance) => {
-    const warp = Math.min(distance, 180);
-    const streakLength = Math.round(105 + warp * 6.2);
-    const primaryOpacity = Math.min(0.98, 0.36 + warp / 165);
-    const secondaryOpacity = Math.min(0.72, 0.18 + warp / 260);
+    // Scroll delta drives streak length and brightness; the starfield stays anchored.
+    const warp = Math.min(distance, 240);
+    const streakLength = Math.round(70 + warp * 5.8);
+    const primaryOpacity = Math.min(0.96, 0.08 + warp / 175);
+    const secondaryOpacity = Math.min(0.78, 0.04 + warp / 250);
     root.style.setProperty('--warp-streak-length', `${streakLength}px`);
     root.style.setProperty('--warp-streak-opacity', String(primaryOpacity));
     root.style.setProperty('--warp-secondary-opacity', String(secondaryOpacity));
@@ -728,10 +729,10 @@ const AUTO_ROTATE_DELAY = 2000;
       setStarWarp(scrollDistance);
       window.clearTimeout(starWarpResetTimer);
       starWarpResetTimer = window.setTimeout(() => {
-        root.style.setProperty('--warp-streak-length', '105px');
-        root.style.setProperty('--warp-streak-opacity', '.36');
-        root.style.setProperty('--warp-secondary-opacity', '.18');
-      }, 140);
+        root.style.setProperty('--warp-streak-length', '70px');
+        root.style.setProperty('--warp-streak-opacity', '.08');
+        root.style.setProperty('--warp-secondary-opacity', '.04');
+      }, 260);
       updateScrollSound(scrollDistance);
       previousScrollY = currentScrollY;
       scrollTicking = false;
