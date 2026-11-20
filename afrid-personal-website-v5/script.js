@@ -257,20 +257,31 @@
     if (!opened || !shell.contains(event.target)) return;
     if (event.target.closest('button,a,.quick-nav')) return;
     event.preventDefault();
-    const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+
+    // Normalize mouse, trackpad, line-mode and page-mode wheel events.
+    const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
+    const raw = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+    const delta = Math.max(-120, Math.min(120, raw * unit));
+    if (!delta) return;
+
+    // Opposite-direction input cancels instead of being mistaken for momentum.
+    if (wheelTotal && Math.sign(wheelTotal) !== Math.sign(delta)) wheelTotal = 0;
     wheelTotal += delta;
-    if (Math.abs(wheelTotal) >= 48) {
+
+    // A lower threshold and longer idle window make small trackpad gestures reliable.
+    if (Math.abs(wheelTotal) >= 32) {
       const direction = wheelTotal > 0 ? 1 : -1;
       wheelTotal = 0;
       if (sceneLocked) {
-        // Preserve scroll input during transitions; queue at most two scenes.
-        queuedWheelSteps = Math.max(-2, Math.min(2, queuedWheelSteps + direction));
+        // Keep a short, bounded queue so quick scrolls don't disappear.
+        queuedWheelSteps = Math.max(-3, Math.min(3, queuedWheelSteps + direction));
       } else {
         goToScene(activeScene + direction);
       }
     }
+
     window.clearTimeout(wheelResetTimer);
-    wheelResetTimer = window.setTimeout(() => { wheelTotal = 0; }, 140);
+    wheelResetTimer = window.setTimeout(() => { wheelTotal = 0; }, 240);
   }, { passive: false });
   let touchStartX = 0;
   let touchStartY = 0;
