@@ -793,6 +793,17 @@ const AUTO_ROTATE_DELAY = 2000;
     }
   }
 
+  // Global turquoise click ripple — subtle visual feedback anywhere on the page.
+  document.addEventListener('click', (event) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ripple = document.createElement('span');
+    ripple.className = 'click-ripple';
+    ripple.style.left = `${event.clientX}px`;
+    ripple.style.top = `${event.clientY}px`;
+    document.body.appendChild(ripple);
+    window.setTimeout(() => ripple.remove(), 720);
+  }, { passive: true });
+
   // Small click cue for ordinary links and buttons; specific controls above play their own tone.
   document.addEventListener('click', (event) => {
     const control = event.target.closest('a, button');
