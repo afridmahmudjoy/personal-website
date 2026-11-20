@@ -2,6 +2,22 @@
   'use strict';
 
   const root = document.documentElement;
+  // V4 cinematic JOY loader: short, animated, and skipped for reduced motion.
+  const joyLoader = document.getElementById('joy-loader');
+  if (joyLoader) {
+    const statusEl = document.getElementById('loader-status');
+    const percentEl = document.getElementById('loader-percent');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const loaderStages = ['INITIALIZING INTERFACE','SYNCING CREATIVE MODULES','PREPARING PORTFOLIO'];
+    if (reduceMotion) { joyLoader.classList.add('is-leaving'); window.setTimeout(() => joyLoader.remove(), 80); }
+    else {
+      let stage = 0; let percent = 0;
+      const stageTimer = window.setInterval(() => { stage = (stage + 1) % loaderStages.length; if(statusEl) statusEl.textContent = loaderStages[stage]; }, 560);
+      const percentTimer = window.setInterval(() => { percent = Math.min(100, percent + Math.ceil(Math.random()*9)); if(percentEl) percentEl.textContent = String(percent).padStart(2,'0')+'%'; if(percent >= 100) window.clearInterval(percentTimer); }, 110);
+      window.setTimeout(() => { window.clearInterval(stageTimer); if(percentEl) percentEl.textContent='100%'; joyLoader.classList.add('is-leaving'); window.setTimeout(() => joyLoader.remove(), 700); }, 2050);
+    }
+  }
+
   // 
   
   // JOY logo: desktop hover + touch tap laughing animation.
