@@ -1184,3 +1184,60 @@ html[data-theme="light"] .topbar { background: rgba(234,247,247,.84); }
 @media (prefers-reduced-motion: reduce) {
   .skill-card[data-slot="active"] .skill-more { transition: none; }
 }
+
+
+/* V4 — Make the Skills in Motion action feel like the View Full Portfolio CTA */
+.skill-card[data-slot="active"] .skill-more {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 12px 19px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .72) !important;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fff 0%, #d9eaff 48%, #a9caff 100%) !important;
+  color: #10213d !important;
+  font-weight: 800;
+  letter-spacing: .045em;
+  box-shadow: 0 8px 24px rgba(93, 157, 255, .32),
+              0 0 18px rgba(255, 255, 255, .16),
+              inset 0 1px 2px rgba(255, 255, 255, .9);
+  transition: transform .28s cubic-bezier(.2,.8,.2,1),
+              box-shadow .28s ease, filter .28s ease;
+}
+.skill-card[data-slot="active"] .skill-more::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -80%;
+  left: -45%;
+  width: 34%;
+  height: 260%;
+  transform: rotate(24deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.82), transparent);
+  transition: left .55s ease;
+}
+.skill-card[data-slot="active"] .skill-more:hover {
+  transform: translateY(-3px) scale(1.035);
+  filter: saturate(1.08) brightness(1.03);
+  box-shadow: 0 14px 32px rgba(93, 157, 255, .48),
+              0 0 25px rgba(255, 255, 255, .28),
+              inset 0 1px 2px rgba(255, 255, 255, .95);
+}
+.skill-card[data-slot="active"] .skill-more:hover::before { left: 125%; }
+.skill-card[data-slot="active"] .skill-more:active { transform: translateY(0) scale(.97); }
+.skill-card[data-slot="active"] .skill-more:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+@media (max-width: 620px) {
+  .skill-card[data-slot="active"] .skill-more { min-height: 42px; padding: 10px 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skill-card[data-slot="active"] .skill-more,
+  .skill-card[data-slot="active"] .skill-more::before { transition: none !important; }
+}
