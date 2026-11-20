@@ -197,7 +197,8 @@
   let activeScene = 0;
   let sceneLocked = false;
   let wheelTotal = 0;
-  let sceneTimer = 0;
+  let sceneUnlockTimer = 0;
+  let wheelResetTimer = 0;
   function updateSceneUI(index) {
     activeScene = index;
     navItems.forEach((item, i) => {
@@ -224,7 +225,7 @@
     const outgoing = scenes[activeScene];
     const incoming = scenes[nextIndex];
     sceneLocked = true;
-    window.clearTimeout(sceneTimer);
+    window.clearTimeout(sceneUnlockTimer);
     outgoing.classList.remove('is-active');
     outgoing.classList.add(direction > 0 ? 'is-exit-left' : 'is-exit-right');
     if (direction < 0) incoming.classList.add('is-enter-left');
@@ -233,7 +234,7 @@
     window.requestAnimationFrame(() => incoming.classList.remove('is-enter-left'));
     updateSceneUI(nextIndex);
     if (!opts.silent) playSound('navigate');
-    sceneTimer = window.setTimeout(() => {
+    sceneUnlockTimer = window.setTimeout(() => {
       outgoing.classList.remove('is-exit-left', 'is-exit-right');
       sceneLocked = false;
     }, reducedMotion ? 50 : 880);
@@ -258,8 +259,8 @@
       wheelTotal = 0;
       goToScene(activeScene + direction);
     }
-    window.clearTimeout(sceneTimer);
-    sceneTimer = window.setTimeout(() => { wheelTotal = 0; }, 170);
+    window.clearTimeout(wheelResetTimer);
+    wheelResetTimer = window.setTimeout(() => { wheelTotal = 0; }, 170);
   }, { passive: false });
   let touchStartX = 0;
   let touchStartY = 0;
