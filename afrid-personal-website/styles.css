@@ -1322,11 +1322,15 @@ html[data-theme="light"] {
   }
 }
 
-/* V4 identity cleanup: remove the legacy wink-face JOY logo/mark completely. */
-.identity-mark,
-.brand-mark,
-.brand-avatar,
-.brand-initials,
-.static-joy,
-.joy-face,
-.joy-logo { display: none !important; }
+/* V4: remove the boxed turquoise wink icon from the opening header. */
+.opening-header .identity-mark,
+.opening-header .brand-mark,
+.opening-header .brand-avatar,
+.opening-header .brand-initials,
+.opening-header .static-joy,
+.opening-header .joy-face,
+.opening-header .joy-logo,
+.opening-header .identity > svg,
+.opening-header .identity > img,
+.opening-header .identity > :not(.identity-copy) { display: none !important; }
+.brand-avatar { display: none !important; }
