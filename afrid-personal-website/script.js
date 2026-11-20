@@ -67,22 +67,95 @@
     playSound('toggle');
   }));
 
-  // Reveal the complete portfolio only when the opening-screen CTA is selected.
+  // Move the opening portrait into the main-page identity as the portfolio opens.
   const exploreButton = document.getElementById('explore-button');
   const portfolio = document.getElementById('portfolio-content');
+  const openingPortrait = document.querySelector('.portrait-image');
+  const destinationAvatar = portfolio?.querySelector('.brand-avatar');
   let portfolioOpened = false;
+
   exploreButton?.addEventListener('click', () => {
     if (!portfolio || portfolioOpened) return;
     portfolioOpened = true;
-    portfolio.hidden = false;
-    exploreButton.setAttribute('aria-expanded', 'true');
-    const exploreTitle = exploreButton.querySelector('strong');
-const exploreSubtitle = exploreButton.querySelector('small');
 
-if (exploreTitle) exploreTitle.textContent = 'PORTFOLIO OPENED';
-if (exploreSubtitle) exploreSubtitle.textContent = 'SCROLL DOWN TO EXPLORE';
+    const exploreTitle = exploreButton.querySelector('strong');
+    const exploreSubtitle = exploreButton.querySelector('small');
+    if (exploreTitle) exploreTitle.textContent = 'PROFILE READY';
+    if (exploreSubtitle) exploreSubtitle.textContent = 'WELCOME TO MY PORTFOLIO';
+    exploreButton.setAttribute('aria-expanded', 'true');
+    portfolio.hidden = false;
     playSound('launch');
-    window.setTimeout(() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!openingPortrait || !destinationAvatar || reducedMotion) {
+      window.setTimeout(() => {
+        document.getElementById('about')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+      }, 120);
+      return;
+    }
+
+    const startRect = openingPortrait.getBoundingClientRect();
+    if (!startRect.width || !startRect.height) {
+      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
+    // The travelling clone stays fixed to the viewport while the page switches scenes.
+    const portraitFlight = openingPortrait.cloneNode(true);
+    portraitFlight.className = 'shared-portrait-flight';
+    portraitFlight.alt = '';
+    portraitFlight.setAttribute('aria-hidden', 'true');
+    Object.assign(portraitFlight.style, {
+      left: startRect.left + 'px',
+      top: startRect.top + 'px',
+      width: startRect.width + 'px',
+      height: startRect.height + 'px',
+      borderRadius: '2px'
+    });
+    document.body.appendChild(portraitFlight);
+    openingPortrait.classList.add('portrait-in-flight');
+
+    // Reveal the portfolio at its own top so the avatar has a real destination.
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, window.scrollY + portfolio.getBoundingClientRect().top);
+    root.style.scrollBehavior = previousScrollBehavior;
+
+    let finished = false;
+    let finishTimer = 0;
+    const finishPortraitFlight = () => {
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(finishTimer);
+      portraitFlight.remove();
+      openingPortrait.classList.remove('portrait-in-flight');
+      destinationAvatar.classList.remove('is-arriving');
+      window.setTimeout(() => {
+        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 180);
+    };
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const targetRect = destinationAvatar.getBoundingClientRect();
+        if (!targetRect.width || !targetRect.height) {
+          finishPortraitFlight();
+          return;
+        }
+        destinationAvatar.classList.add('is-arriving');
+        portraitFlight.style.left = targetRect.left + 'px';
+        portraitFlight.style.top = targetRect.top + 'px';
+        portraitFlight.style.width = targetRect.width + 'px';
+        portraitFlight.style.height = targetRect.height + 'px';
+        portraitFlight.style.borderRadius = '11px';
+        portraitFlight.style.boxShadow = '0 3px 18px rgba(0,0,0,.3), 0 0 18px rgba(67,234,209,.2)';
+      });
+    });
+
+    portraitFlight.addEventListener('transitionend', (event) => {
+      if (event.target === portraitFlight && event.propertyName === 'width') finishPortraitFlight();
+    });
+    finishTimer = window.setTimeout(finishPortraitFlight, 1350);
   });
 
   // Mobile navigation.
