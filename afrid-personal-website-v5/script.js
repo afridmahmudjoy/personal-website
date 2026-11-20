@@ -197,6 +197,7 @@
   let activeScene = 0;
   let sceneLocked = false;
   let wheelTotal = 0;
+  let queuedWheelSteps = 0;
   let sceneUnlockTimer = 0;
   let wheelResetTimer = 0;
   function updateSceneUI(index) {
@@ -237,6 +238,11 @@
     sceneUnlockTimer = window.setTimeout(() => {
       outgoing.classList.remove('is-exit-left', 'is-exit-right');
       sceneLocked = false;
+      if (queuedWheelSteps !== 0) {
+        const queuedDirection = queuedWheelSteps > 0 ? 1 : -1;
+        queuedWheelSteps -= queuedDirection;
+        goToScene(activeScene + queuedDirection);
+      }
     }, reducedMotion ? 50 : 880);
   }
   navItems.forEach(item => item.addEventListener('click', () => goToScene(Number(item.dataset.go))));
@@ -251,16 +257,20 @@
     if (!opened || !shell.contains(event.target)) return;
     if (event.target.closest('button,a,.quick-nav')) return;
     event.preventDefault();
-    if (sceneLocked) return;
     const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
     wheelTotal += delta;
-    if (Math.abs(wheelTotal) > 48) {
+    if (Math.abs(wheelTotal) >= 48) {
       const direction = wheelTotal > 0 ? 1 : -1;
       wheelTotal = 0;
-      goToScene(activeScene + direction);
+      if (sceneLocked) {
+        // Preserve scroll input during transitions; queue at most two scenes.
+        queuedWheelSteps = Math.max(-2, Math.min(2, queuedWheelSteps + direction));
+      } else {
+        goToScene(activeScene + direction);
+      }
     }
     window.clearTimeout(wheelResetTimer);
-    wheelResetTimer = window.setTimeout(() => { wheelTotal = 0; }, 170);
+    wheelResetTimer = window.setTimeout(() => { wheelTotal = 0; }, 140);
   }, { passive: false });
   let touchStartX = 0;
   let touchStartY = 0;
