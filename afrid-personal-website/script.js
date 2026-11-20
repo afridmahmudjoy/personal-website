@@ -700,26 +700,32 @@ const AUTO_ROTATE_DELAY = 2000;
     });
   }
 
-  // Current year and subtle parallax background tied to page scroll.
+  // Current year + scroll-speed-reactive hyperspace streaks. The starfield itself stays anchored.
   const year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
-  
+
   let scrollTicking = false;
   let previousScrollY = window.scrollY;
 
+  const setStarWarp = (distance) => {
+    const warp = Math.min(distance, 140);
+    const streakLength = Math.round(105 + warp * 4.5);
+    const primaryOpacity = Math.min(0.92, 0.36 + warp / 210);
+    const secondaryOpacity = Math.min(0.62, 0.18 + warp / 340);
+    root.style.setProperty('--warp-streak-length', `${streakLength}px`);
+    root.style.setProperty('--warp-streak-opacity', String(primaryOpacity));
+    root.style.setProperty('--warp-secondary-opacity', String(secondaryOpacity));
+  };
+
   window.addEventListener('scroll', () => {
     if (scrollTicking) return;
-
     scrollTicking = true;
 
     window.requestAnimationFrame(() => {
       const currentScrollY = window.scrollY;
       const scrollDistance = Math.abs(currentScrollY - previousScrollY);
-
-      root.style.setProperty('--scroll-shift', `${currentScrollY}px`);
-
+      setStarWarp(scrollDistance);
       updateScrollSound(scrollDistance);
-
       previousScrollY = currentScrollY;
       scrollTicking = false;
     });
