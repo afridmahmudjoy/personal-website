@@ -333,6 +333,7 @@
   let orbitVelocity = 0;
   let pointerDown = false;
   let pointerMoved = false;
+  let suppressSkillClickUntil = 0;
   let lastPointerX = 0;
   let lastMoveTime = 0;
   let pauseAutoUntil = 0;
@@ -456,12 +457,14 @@
     if (!pointerDown) return;
     pointerDown = false;
     orbitWrap && orbitWrap.classList.remove('is-dragging');
+    if (pointerMoved) suppressSkillClickUntil = performance.now() + 260;
     if (Math.abs(orbitVelocity) > .2) pauseAutoUntil = performance.now() + 1800;
   }
   orbitWrap && orbitWrap.addEventListener('pointerup', finishOrbitDrag);
   orbitWrap && orbitWrap.addEventListener('pointercancel', finishOrbitDrag);
   orbitWrap && orbitWrap.addEventListener('lostpointercapture', finishOrbitDrag);
   orbitNodes && orbitNodes.addEventListener('click', event => {
+    if (performance.now() < suppressSkillClickUntil) return;
     const button = event.target.closest('.orbit-node');
     if (!button) return;
     selectSkill(Number(button.dataset.skillIndex));
