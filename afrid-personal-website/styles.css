@@ -1322,9 +1322,11 @@ html[data-theme="light"] {
   }
 }
 
-/* V4 professional identity cleanup: text-only brand, no portrait in the portfolio header. */
-.brand-avatar { display: none !important; }
-.brand-initials, .static-joy { display: inline-flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 800; letter-spacing: -.08em; color: #62e6df; }
-.brand-initials { font-size: 18px; margin-right: 12px; }
-.static-joy { min-width: 43px; padding-inline: 7px; font-size: 19px; }
-.static-joy, .static-joy * { animation: none !important; transition: none !important; transform: none !important; }
+/* V4 identity cleanup: remove the legacy wink-face JOY logo/mark completely. */
+.identity-mark,
+.brand-mark,
+.brand-avatar,
+.brand-initials,
+.static-joy,
+.joy-face,
+.joy-logo { display: none !important; }
