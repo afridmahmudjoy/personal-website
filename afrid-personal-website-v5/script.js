@@ -157,7 +157,7 @@
       easing: 'cubic-bezier(.2,.78,.18,1)',
       fill: 'both'
     });
-    return animation.finished.then(finish).catch(finish);
+    return animation.finished.then(() => { animation.cancel(); finish(); }).catch(() => { animation.cancel(); finish(); });
   }
   async function enterPortfolio() {
     if (opened) return;
