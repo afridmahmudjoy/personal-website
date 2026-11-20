@@ -154,6 +154,7 @@ button { font: inherit; }
 .brand-sub { display: block; color: var(--muted); font-size: 7px; margin-top: 4px; letter-spacing: .11em; }
 .shared-portrait-flight {
   position: fixed !important;
+  inset: auto !important;
   display: block !important;
   z-index: 1000002 !important;
   max-width: none !important;
