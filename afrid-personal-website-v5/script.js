@@ -107,38 +107,57 @@
   function moveElement(elementId, targetId, duration) {
     const node = $('#' + elementId);
     const target = $('#' + targetId);
-    if (!node || !target) return Promise.resolve();
-    if (window.gsap && window.Flip) {
-      try {
-        window.gsap.registerPlugin(window.Flip);
-        const state = window.Flip.getState(node);
-        target.appendChild(node);
-        return new Promise(resolve => {
-          window.Flip.from(state, {
-            duration: duration || 1.05,
-            ease: 'power3.inOut',
-            absolute: true,
-            onComplete: resolve
-          });
-        });
-      } catch (_) {}
-    }
+    const flightLayer = $('#flight-layer');
+    if (!node || !target || !flightLayer) return Promise.resolve();
+
     const first = node.getBoundingClientRect();
-    target.appendChild(node);
-    const last = node.getBoundingClientRect();
-    if (!node.animate || reducedMotion) return Promise.resolve();
-    const dx = first.left - last.left;
-    const dy = first.top - last.top;
-    const sx = last.width ? first.width / last.width : 1;
-    const sy = last.height ? first.height / last.height : 1;
-    const from = 'translate(' + dx + 'px,' + dy + 'px) scale(' + sx + ',' + sy + ')';
-    node.style.transformOrigin = 'top left';
-    const animation = node.animate([{ transform: from }, { transform: 'none' }], {
+    const placeholder = node.cloneNode(true);
+    placeholder.removeAttribute('id');
+    placeholder.setAttribute('aria-hidden', 'true');
+    placeholder.classList.add('flight-placeholder');
+    target.appendChild(placeholder);
+    const last = placeholder.getBoundingClientRect();
+
+    flightLayer.appendChild(node);
+    Object.assign(node.style, {
+      position: 'fixed',
+      left: first.left + 'px',
+      top: first.top + 'px',
+      width: first.width + 'px',
+      height: first.height + 'px',
+      margin: '0',
+      zIndex: '1',
+      transformOrigin: 'top left',
+      pointerEvents: 'none'
+    });
+
+    function finish() {
+      target.insertBefore(node, placeholder);
+      placeholder.remove();
+      ['position','left','top','width','height','margin','zIndex','transform','transformOrigin','pointerEvents'].forEach(name => {
+        node.style.removeProperty(name.replace(/[A-Z]/g, char => '-' + char.toLowerCase()));
+      });
+    }
+
+    if (!node.animate || reducedMotion || !first.width || !last.width) {
+      finish();
+      return Promise.resolve();
+    }
+
+    const dx = last.left - first.left;
+    const dy = last.top - first.top;
+    const sx = last.width / first.width;
+    const sy = last.height / first.height;
+    const to = 'translate(' + dx + 'px,' + dy + 'px) scale(' + sx + ',' + sy + ')';
+    const animation = node.animate([
+      { transform: 'translate(0,0) scale(1,1)' },
+      { transform: to }
+    ], {
       duration: duration || 950,
       easing: 'cubic-bezier(.2,.78,.18,1)',
       fill: 'both'
     });
-    return animation.finished.then(() => { node.style.transform = ''; }).catch(() => {});
+    return animation.finished.then(finish).catch(finish);
   }
   async function enterPortfolio() {
     if (opened) return;
