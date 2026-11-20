@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07110f">
+  <meta name="description" content="Md. Afrid Mahmud Joy — Business, Technology and Creativity. Explore selected work, skills, education and experience.">
+  <meta name="color-scheme" content="dark light">
+  <meta property="og:title" content="Md. Afrid Mahmud Joy — Digital Portfolio">
+  <meta property="og:description" content="Business · Technology · Creativity">
+  <meta property="og:type" content="website">
+  <title>Md. Afrid Mahmud Joy — Digital Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-grid" aria-hidden="true"></div>
+  <div class="ambient ambient-glow glow-one" aria-hidden="true"></div>
+  <div class="ambient ambient-glow glow-two" aria-hidden="true"></div>
+  <div class="ambient ambient-noise" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <div class="preloader" id="preloader" aria-label="Loading portfolio">
+    <div class="preloader-mark"><span>J</span><i></i><span>Y</span></div>
+    <p>INITIALIZING DIGITAL EXPERIENCE</p>
+    <div class="preloader-track"><span id="load-progress"></span></div>
+    <small id="load-label">LOADING 00%</small>
+  </div>
+
+  <section class="entry-screen" id="entry-screen" aria-labelledby="entry-name">
+    <div class="entry-backdrop" aria-hidden="true">
+      <div class="entry-orbit orbit-a"></div><div class="entry-orbit orbit-b"></div>
+      <div class="entry-light"></div>
+    </div>
+    <div class="entry-card">
+      <div class="entry-status" id="move-status"><span></span> AVAILABLE FOR OPPORTUNITIES</div>
+      <img class="entry-photo" id="move-photo" src="assets/profile.jpg" alt="Portrait of Md. Afrid Mahmud Joy" fetchpriority="high">
+      <h1 class="entry-name" id="move-name">AFRID MAHMUD JOY</h1>
+      <p class="entry-role" id="move-role">BUSINESS · TECHNOLOGY · CREATIVITY</p>
+      <p class="entry-intro" id="move-intro">Creative-minded, technology-driven, and curious about how business and ideas can make a meaningful impact.</p>
+      <div class="entry-tags" id="move-tags"><span>BUSINESS</span><i></i><span>ICT</span><i></i><span>DESIGN</span><i></i><span>PHOTOGRAPHY</span></div>
+      <button class="enter-button" id="enter-button" type="button">
+        <span>ENTER FULL PORTFOLIO</span><b>↗</b>
+      </button>
+      <small class="entry-foot">DHAKA, BANGLADESH <span>•</span> DIGITAL PROFILE</small>
+    </div>
+    <div class="entry-hint">A PERSONAL SPACE FOR IDEAS, WORK & POSSIBILITY</div>
+  </section>
+
+  <div class="experience-shell" id="experience-shell" aria-hidden="true">
+    <header class="site-header">
+      <div class="header-main">
+        <a class="identity" href="#home" data-go="0" aria-label="Return to home">
+          <span class="avatar-slot" id="avatar-slot"></span>
+          <span class="identity-copy"><strong id="name-slot"></strong><small id="role-slot"></small></span>
+        </a>
+        <div class="header-controls">
+          <button class="icon-control theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch theme"><span class="control-symbol theme-symbol">☼</span><span class="control-label theme-word">LIGHT</span></button>
+          <button class="icon-control sound-toggle" type="button" aria-label="Turn sound effects on" aria-pressed="false" title="Sound effects"><span class="control-symbol sound-symbol">♪</span><span class="control-label sound-word">SOUND OFF</span></button>
+        </div>
+      </div>
+      <nav class="quick-nav" aria-label="Jump to portfolio section">
+        <button class="nav-item is-active" data-go="0">Home</button>
+        <button class="nav-item" data-go="1">About</button>
+        <button class="nav-item" data-go="2">Skills</button>
+        <button class="nav-item" data-go="3">NUCB</button>
+        <button class="nav-item" data-go="4">Experience</button>
+        <button class="nav-item" data-go="5">Leadership</button>
+        <button class="nav-item" data-go="6">Diploma</button>
+        <button class="nav-item" data-go="7">Projects</button>
+        <button class="nav-item" data-go="8">Education</button>
+        <button class="nav-item" data-go="9">Credentials</button>
+        <button class="nav-item" data-go="10">Turquoise</button>
+        <button class="nav-item" data-go="11">Contact</button>
+      </nav>
+    </header>
+
+    <main class="scene-stage" id="scene-stage">
+      <section class="scene scene-home is-active" id="home" data-scene="0" aria-label="Home">
+        <div class="scene-inner home-layout">
+          <div class="home-copy">
+            <div class="hero-status-slot" id="status-slot"></div>
+            <p class="eyebrow">A MULTIDISCIPLINARY CREATIVE PROFILE <span>/</span> DHAKA, BANGLADESH</p>
+            <h2 class="hero-title">Ideas into<br><em>impact.</em></h2>
+            <div class="hero-intro-slot" id="intro-slot"></div>
+            <div class="hero-tags-slot" id="tags-slot"></div>
+            <div class="hero-actions">
+              <button class="primary-action" data-go="7">EXPLORE SELECTED WORK <span>↗</span></button>
+              <a class="secondary-action" href="assets/cv.pdf" target="_blank" rel="noopener">VIEW CURRICULUM VITAE <span>↗</span></a>
+            </div>
+          </div>
+          <div class="hero-art" aria-label="Abstract turquoise digital identity artwork">
+            <div class="art-grid"></div>
+            <div class="art-orbit art-orbit-1"></div><div class="art-orbit art-orbit-2"></div><div class="art-orbit art-orbit-3"></div>
+            <div class="art-core"><div class="core-ring"></div><div class="core-monogram">J<span>•</span>Y</div><small>IDEAS / PEOPLE / POSSIBILITY</small></div>
+            <div class="art-label label-top">CREATIVE SYSTEM <b>05</b></div>
+            <div class="art-label label-bottom">BUSINESS × TECHNOLOGY × CREATIVITY</div>
+            <div class="floating-note note-a"><span>↗</span><small>THINK<br>FORWARD</small></div>
+            <div class="floating-note note-b"><span>{ }</span><small>MAKE<br>USEFUL</small></div>
+          </div>
+          <div class="home-bottom"><span>SCROLL OR USE THE NAVIGATION TO EXPLORE</span><span class="bottom-line"></span><span>01 <b>/</b> 12</span></div>
+        </div>
+      </section>
+
+      <section class="scene" id="about" data-scene="1" aria-label="About">
+        <div class="scene-inner">
+          <div class="section-heading">
+            <div><p class="section-kicker">01 / THE PERSON</p><h2>Curious by nature.<br><span>Creative by choice.</span></h2></div>
+            <p class="section-lead">A blend of creative execution, communication, technical learning and a growing interest in business analytics.</p>
+          </div>
+          <div class="about-layout">
+            <div class="about-statement">
+              <div class="quote-mark">“</div>
+              <p>I connect creative thinking with practical execution — bringing ideas to life through design, communication and technology.</p>
+              <small>MY WORKING PHILOSOPHY</small>
+            </div>
+            <div class="about-copy">
+              <p>My journey has grown through freelance design projects, teaching, college clubs and collaborative initiatives. I enjoy learning by doing, taking responsibility and finding thoughtful ways to solve problems.</p>
+              <p>I'm especially interested in the space where business strategy, digital tools and analytical thinking meet — and in how thoughtful ideas can become meaningful experiences.</p>
+              <p>Outside work, I enjoy photography, sketching, learning about technology and exploring stories through films and books.</p>
+              <div class="about-facts"><span>BASED IN <b>DHAKA, BANGLADESH</b></span><span>INTERESTS <b>BUSINESS / ICT / DESIGN</b></span></div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <article><strong>7<span>+</span></strong><small>YEARS OF CREATIVE EXPERIENCE</small></article>
+            <article><strong>100<span>+</span></strong><small>PROJECTS COMPLETED</small></article>
+            <article><strong>03</strong><small>CONNECTED INTERESTS</small></article>
+            <article><strong>∞</strong><small>IDEAS TO EXPLORE</small></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene-skills" id="skills" data-scene="2" aria-label="Skills">
+        <div class="scene-inner skills-layout">
+          <div class="section-heading skills-heading">
+            <div><p class="section-kicker">02 / MY TOOLKIT</p><h2>Skills in<br><span>motion.</span></h2></div>
+            <p class="section-lead">Drag the orbit, swipe, or select a category to explore practical skills and learning foundations.</p>
+          </div>
+          <div class="skill-filters" id="skill-filters" aria-label="Filter skills"></div>
+          <div class="skill-explorer">
+            <div class="orbit-wrap" id="orbit-wrap" aria-label="Interactive rotating skills wheel">
+              <div class="orbit-halo"></div><div class="orbit-ring-line"></div>
+              <div class="orbit-nodes" id="orbit-nodes"></div>
+              <div class="orbit-center">
+                <span class="orbit-center-kicker" id="skill-category">SELECTED SKILL</span>
+                <strong id="skill-name">Graphic Design</strong>
+                <p id="skill-description">Visual communication through layout, typography, imagery and promotional design.</p>
+                <small id="skill-context">PRACTICAL CREATIVE WORK</small>
+              </div>
+            </div>
+            <div class="skill-side">
+              <div class="skill-side-number"><span id="skill-number">01</span><i>/</i><span id="skill-total">28</span></div>
+              <h3>Explore the toolkit.</h3>
+              <p id="skill-evidence">Supported by practical creative work and collaborative projects. Formal certification is only shown when a verified document is available.</p>
+              <div class="skill-buttons"><button id="skill-prev" type="button" aria-label="Previous skill">←</button><button id="skill-next" type="button" aria-label="Next skill">→</button></div>
+              <span class="drag-hint">DRAG THE ORBIT / CLICK A SKILL</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene-nucb" id="nucb" data-scene="3" aria-label="NUCB">
+        <div class="scene-inner nucb-layout">
+          <div class="nucb-copy">
+            <p class="section-kicker">03 / GLOBAL BUSINESS EDUCATION</p>
+            <p class="nucb-overline">JAPAN <span>·</span> INTERNATIONAL PERSPECTIVE</p>
+            <h2>Global BBA<br><em>bound for Japan.</em></h2>
+            <h3>Nagoya University of Commerce and Business</h3>
+            <p>Incoming Global BBA student for the April 2027 intake. Preparing to study international business, management, entrepreneurship, economics and marketing while exploring how technology and analytical thinking can support better decisions.</p>
+            <div class="nucb-tags"><span>GLOBAL BUSINESS</span><span>CASE METHOD</span><span>BUSINESS ANALYTICS</span></div>
+            <a class="text-action" href="https://www.nucba.ac.jp/english/" target="_blank" rel="noopener noreferrer">DISCOVER NUCB <span>↗</span></a>
+          </div>
+          <div class="nucb-visual">
+            <div class="nucb-orbit nucb-orbit-a"></div><div class="nucb-orbit nucb-orbit-b"></div>
+            <div class="nucb-seal"><span>NU</span><b>CB</b><small>NAGOYA · JAPAN</small></div>
+            <div class="nucb-coordinate">35°10' N / 136°54' E</div>
+            <div class="nucb-side-label">LEARN / CONNECT / BUILD</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" id="experience" data-scene="4" aria-label="Experience">
+        <div class="scene-inner">
+          <div class="section-heading">
+            <div><p class="section-kicker">04 / WHAT I'VE DONE</p><h2>Experience &<br><span>involvement.</span></h2></div>
+            <p class="section-lead">Roles and responsibilities that have shaped how I work, communicate and contribute.</p>
+          </div>
+          <div class="experience-grid">
+            <article class="experience-card"><span class="card-index">01 / FREELANCE</span><div class="card-symbol">↗</div><h3>Freelance Graphic Designer</h3><p class="card-place">BD MART <span>·</span> Alberta, Canada</p><p>Social media content, catalogs, promotional campaigns and brand visuals.</p><small>DESIGN / DIGITAL CONTENT</small></article>
+            <article class="experience-card"><span class="card-index">02 / FREELANCE</span><div class="card-symbol">✳</div><h3>Freelance Graphic Designer</h3><p class="card-place">Iqra Meat and Supermarket <span>·</span> Alberta, Canada</p><p>Flyers, promotional graphics and digital advertising creatives.</p><small>VISUAL COMMUNICATION</small></article>
+            <article class="experience-card"><span class="card-index">03 / EDUCATION</span><div class="card-symbol">{ }</div><h3>ICT Teacher</h3><p class="card-place">Carbon Academy <span>·</span> Dhaka, Bangladesh</p><p>Taught ICT to Class 11 students and supported their learning.</p><small>TEACHING / ICT</small></article>
+            <article class="experience-card"><span class="card-index">04 / VOLUNTEERING</span><div class="card-symbol">◎</div><h3>Assistant Patrol Leader & Graphic Designer</h3><p class="card-place">Red Crescent Youth <span>·</span> Government Titumir College Unit</p><p>Supported youth activities, team initiatives and visual communication.</p><small>COMMUNITY / TEAMWORK</small></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" id="leadership" data-scene="5" aria-label="Leadership and community">
+        <div class="scene-inner">
+          <div class="section-heading">
+            <div><p class="section-kicker">05 / LEADERSHIP & COMMUNITY</p><h2>Beyond the<br><span>classroom.</span></h2></div>
+            <p class="section-lead">Experiences built around teamwork, creative contribution and taking responsibility.</p>
+          </div>
+          <div class="leadership-list">
+            <article><span class="leadership-no">01</span><div><small>VICE PRESIDENT</small><h3>Photography & Arts Club</h3><p>Sabujbagh Government College</p></div><span class="leadership-arrow">↗</span></article>
+            <article><span class="leadership-no">02</span><div><small>VICE PRESIDENT · ADMINISTRATION & IT</small><h3>English Language Club</h3><p>Sabujbagh Government College</p></div><span class="leadership-arrow">↗</span></article>
+            <article><span class="leadership-no">03</span><div><small>GRAPHIC DESIGNER</small><h3>Psychology Society</h3><p>Government Titumir College</p></div><span class="leadership-arrow">↗</span></article>
+            <article><span class="leadership-no">04</span><div><small>ASSISTANT PATROL LEADER</small><h3>Red Crescent Youth</h3><p>Government Titumir College Unit</p></div><span class="leadership-arrow">↗</span></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene-diploma" id="diploma" data-scene="6" aria-label="Technical diploma">
+        <div class="scene-inner diploma-layout">
+          <div class="diploma-copy">
+            <p class="section-kicker">06 / TECHNICAL EDUCATION</p>
+            <h2>Information &<br><span>Communication Technology.</span></h2>
+            <p>A two-year, skills-oriented technical programme covering computing, software, networking and digital production.</p>
+            <div class="diploma-badge"><span>ICT</span><div><b>TECHNICAL DIPLOMA</b><small>PURE INFORMATION TECHNOLOGY ENGINEERING TRAINING INSTITUTE BANGLADESH</small></div></div>
+            <div class="diploma-facts"><div><small>DURATION</small><b>JAN 2024 – DEC 2025</b></div><div><small>PROGRAMME</small><b>2 YEARS</b></div><div><small>COURSE LOAD</small><b>80 CREDITS · 20 SUBJECTS</b></div></div>
+            <p class="diploma-note">Academic grades are not displayed on this public profile. Document spaces will be linked when verified files are added.</p>
+          </div>
+          <div class="subjects-panel">
+            <div class="subjects-head"><span>PROGRAMME SUBJECTS</span><b>20</b></div>
+            <div class="subject-list" id="subject-list">
+              <span>Computing Basics</span><span>Application Packages</span><span>Computer Programming</span><span>Database Management Systems</span><span>Professional English</span><span>CAD and Multimedia</span><span>Data Communication & Networks</span><span>Internet & Web Technology</span><span>System Analysis & Design</span><span>Project</span><span>Computer Fundamentals & Office Automation</span><span>Operating System (Windows & Linux)</span><span>Data Structure & Algorithm</span><span>Programming Business English</span><span>Graphics Designing</span><span>Programming With Visual Tools</span><span>Cloud Computing</span><span>Internet & Web Technology with Programming</span><span>Multimedia & CAD</span><span>Computer Applications</span>
+            </div>
+            <div class="subjects-foot">A COURSEWORK OVERVIEW — NOT A PROFESSIONAL CERTIFICATION CLAIM.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene-projects" id="work" data-scene="7" aria-label="Selected projects">
+        <div class="scene-inner">
+          <div class="section-heading project-heading">
+            <div><p class="section-kicker">07 / SELECTED WORK</p><h2>Made with<br><span>intention.</span></h2></div>
+            <p class="section-lead">A growing collection of design work, campaigns, community projects and creative experiments.</p>
+          </div>
+          <div class="project-filters" id="project-filters"><button class="filter-button is-active" data-filter="All">ALL WORK</button><button class="filter-button" data-filter="Design">DESIGN</button><button class="filter-button" data-filter="Digital">DIGITAL CONTENT</button><button class="filter-button" data-filter="Community">COMMUNITY</button></div>
+          <div class="project-grid">
+            <article class="project-card" data-category="Design"><div class="project-art art-brand"><span>BD</span><small>VISUAL SYSTEM / 01</small><i>↗</i></div><div class="project-meta"><span>BRAND & GRAPHIC DESIGN</span><b>01</b></div><h3>Brand visuals & campaigns</h3><p>Promotional graphics, catalog layouts and social content created for BD MART.</p><small class="asset-note">PROJECT PREVIEW ASSETS TO BE ADDED</small></article>
+            <article class="project-card" data-category="Digital"><div class="project-art art-digital"><span>CONTENT</span><small>CREATIVE COMMUNICATION / 02</small><i>✳</i></div><div class="project-meta"><span>DIGITAL CONTENT</span><b>02</b></div><h3>Social content & promotions</h3><p>Flyers and digital advertising creatives developed for Iqra Meat and Supermarket.</p><small class="asset-note">PROJECT PREVIEW ASSETS TO BE ADDED</small></article>
+            <article class="project-card" data-category="Community"><div class="project-art art-community"><span>TOGETHER</span><small>COMMUNITY / 03</small><i>◎</i></div><div class="project-meta"><span>COMMUNITY DESIGN</span><b>03</b></div><h3>Club & community projects</h3><p>Visual communication and creative contributions for student clubs and youth initiatives.</p><small class="asset-note">PROJECT PREVIEW ASSETS TO BE ADDED</small></article>
+          </div>
+          <p class="project-footnote">These cards describe work areas from the experience listed above. Original visual samples will be added when the matching project files are available.</p>
+        </div>
+      </section>
+
+      <section class="scene" id="education" data-scene="8" aria-label="Education">
+        <div class="scene-inner education-layout">
+          <div class="section-heading">
+            <div><p class="section-kicker">08 / ACADEMIC BACKGROUND</p><h2>Learning is a<br><span>continuum.</span></h2></div>
+            <p class="section-lead">Academic and technical learning across business studies, psychology and information technology.</p>
+          </div>
+          <div class="education-timeline">
+            <article><span class="education-year">2021</span><div class="timeline-dot"></div><div><small>SECONDARY SCHOOL CERTIFICATE · SCIENCE</small><h3>Ideal School & College</h3><p>Motijheel, Dhaka</p></div><b>SSC</b></article>
+            <article><span class="education-year">2023</span><div class="timeline-dot"></div><div><small>HIGHER SECONDARY CERTIFICATE · BUSINESS STUDIES</small><h3>Sabujbagh Government College</h3><p>Dhaka, Bangladesh</p></div><b>HSC</b></article>
+            <article><span class="education-year">2023–24</span><div class="timeline-dot"></div><div><small>PSYCHOLOGY STUDIES</small><h3>Government Titumir College</h3><p>Dhaka, Bangladesh</p></div><b>PSY</b></article>
+            <article><span class="education-year">2027 →</span><div class="timeline-dot timeline-future"></div><div><small>INCOMING · GLOBAL BUSINESS ADMINISTRATION</small><h3>Nagoya University of Commerce and Business</h3><p>Nagoya, Japan · April 2027 intake</p></div><b>BBA</b></article>
+          </div>
+          <p class="education-note">Academic grades and language-test scores are intentionally not published on this portfolio.</p>
+        </div>
+      </section>
+
+      <section class="scene" id="credentials" data-scene="9" aria-label="Credentials and recognition">
+        <div class="scene-inner">
+          <div class="section-heading">
+            <div><p class="section-kicker">09 / LEARNING & RECOGNITION</p><h2>My journey,<br><span>documented.</span></h2></div>
+            <p class="section-lead">Verified certificates, achievements and supporting documents belong here. Empty spaces are intentional until source files are added.</p>
+          </div>
+          <div class="credential-grid">
+            <article><span>01</span><div class="credential-icon">◎</div><small>EXTRA-CURRICULAR ACTIVITIES</small><h3>Clubs & volunteering</h3><p>Club involvement, volunteering, leadership roles and event participation.</p><b>DOCUMENTS TO BE ADDED</b></article>
+            <article><span>02</span><div class="credential-icon">✳</div><small>AWARDS & ACHIEVEMENTS</small><h3>Recognition</h3><p>Event achievements, organizing recognition and notable milestones.</p><b>DOCUMENTS TO BE ADDED</b></article>
+            <article><span>03</span><div class="credential-icon">{ }</div><small>SKILL CERTIFICATIONS</small><h3>Training & learning</h3><p>Training certificates, workshops, courses and professional development.</p><a href="https://drive.google.com/drive/folders/10NMa6vzYUs70Mgr1zJuOoRrvjVai0hAB?usp=drive_link" target="_blank" rel="noopener noreferrer">OPEN CERTIFICATES FOLDER ↗</a></article>
+            <article><span>04</span><div class="credential-icon">↗</div><small>SUPPORTING DOCUMENTS</small><h3>Selected evidence</h3><p>Additional documents for selected activities and technical education.</p><b>VERIFIED FILES ONLY</b></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene-turquoise" id="turquoise" data-scene="10" aria-label="Turquoise venture">
+        <div class="scene-inner turquoise-layout">
+          <div class="turquoise-copy">
+            <p class="section-kicker">10 / A PERSONAL VENTURE</p>
+            <p class="founder-label">FOUNDER & CREATIVE LEAD</p>
+            <h2>TURQUOISE<span>.</span></h2>
+            <h3>A clothing and creative venture.</h3>
+            <p>A space for ideas, identity and personal style — bringing together visual direction, brand thinking and creative experimentation.</p>
+            <a class="text-action" href="https://www.facebook.com/yourturquoise" target="_blank" rel="noopener noreferrer">VISIT TURQUOISE ON FACEBOOK <span>↗</span></a>
+          </div>
+          <div class="turquoise-art" aria-label="Abstract turquoise brand artwork">
+            <div class="turquoise-ring ring-one"></div><div class="turquoise-ring ring-two"></div>
+            <div class="turquoise-wordmark">T<span>Q</span></div>
+            <small>IDENTITY / FORM / EXPRESSION</small>
+            <div class="turquoise-stamp">TURQUOISE<br>CREATIVE VENTURE</div>
+          </div>
+          <p class="turquoise-note">Brand logo, product visuals, campaigns and brand-story images will be added from the original source assets. This is a visual identity placeholder, not a product listing.</p>
+        </div>
+      </section>
+
+      <section class="scene scene-contact" id="contact" data-scene="11" aria-label="Contact">
+        <div class="scene-inner contact-layout">
+          <div class="contact-topline"><p class="section-kicker">11 / START A CONVERSATION</p><span>OPEN TO MEANINGFUL CONNECTIONS</span></div>
+          <h2>Have an idea?<br><em>Let's connect.</em></h2>
+          <div class="contact-grid">
+            <div class="contact-primary"><p>For collaborations, design projects, opportunities or a thoughtful conversation — reach out.</p><a class="email-link" href="mailto:afridmahmudjoy@gmail.com">afridmahmudjoy@gmail.com <span>↗</span></a><a class="cv-link" href="assets/cv.pdf" target="_blank" rel="noopener">VIEW CURRICULUM VITAE ↗</a></div>
+            <div class="contact-links">
+              <a href="https://wa.me/8801301918968" target="_blank" rel="noopener noreferrer"><span>WHATSAPP</span><b>↗</b></a>
+              <a href="https://www.linkedin.com/in/afridmahmudjoy/" target="_blank" rel="noopener noreferrer"><span>LINKEDIN</span><b>↗</b></a>
+              <a href="https://www.instagram.com/afridmahmud_joy/" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span><b>↗</b></a>
+              <a href="https://www.facebook.com/afrid.joy" target="_blank" rel="noopener noreferrer"><span>FACEBOOK</span><b>↗</b></a>
+            </div>
+          </div>
+          <div class="contact-footer"><span>© <span id="year"></span> MD. AFRID MAHMUD JOY</span><span>MADE WITH INTENTION <i>✳</i></span><button id="back-home" type="button">BACK TO HOME ↑</button></div>
+        </div>
+      </section>
+    </main>
+
+    <div class="scene-controls">
+      <button id="scene-prev" type="button" aria-label="Previous section">←</button>
+      <div class="scene-progress"><span id="scene-progress-fill"></span></div>
+      <span class="scene-counter"><b id="scene-current">01</b> / 12</span>
+      <button id="scene-next" type="button" aria-label="Next section">→</button>
+    </div>
+    <div class="site-toast" id="site-toast" role="status" aria-live="polite"></div>
+  </div>
+</body>
+</html>
