@@ -47,7 +47,7 @@ button { font: inherit; }
 [hidden] { display: none !important; }
 .section-wrap { width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
 .ambient { position: fixed; inset: -8%; pointer-events: none; z-index: -1; transition: opacity .6s; }
-.ambient-stars { opacity: var(--star-opacity); background-image: radial-gradient(1px 1px at 8% 15%, rgba(213,255,250,.9) 50%, transparent 100%), radial-gradient(2px 2px at 28% 72%, rgba(67,234,209,.7) 50%, transparent 100%), radial-gradient(1px 1px at 73% 22%, rgba(231,255,251,.8) 50%, transparent 100%), radial-gradient(1px 1px at 88% 67%, rgba(67,234,209,.8) 50%, transparent 100%), radial-gradient(1px 1px at 45% 39%, rgba(213,255,250,.65) 50%, transparent 100%), radial-gradient(2px 2px at 62% 88%, rgba(67,234,209,.55) 50%, transparent 100%); background-size: 390px 330px, 520px 450px, 470px 390px, 560px 480px, 330px 300px, 610px 520px; background-repeat: repeat; animation: starfield-rise 48s linear infinite; transform: translateY(clamp(-220px, calc(var(--scroll-shift, 0px) * -2.8), 220px)); }
+.ambient-stars { opacity: var(--star-opacity); background-image: radial-gradient(1px 1px at 8% 15%, rgba(213,255,250,.9) 50%, transparent 100%), radial-gradient(2px 2px at 28% 72%, rgba(67,234,209,.7) 50%, transparent 100%), radial-gradient(1px 1px at 73% 22%, rgba(231,255,251,.8) 50%, transparent 100%), radial-gradient(1px 1px at 88% 67%, rgba(67,234,209,.8) 50%, transparent 100%), radial-gradient(1px 1px at 45% 39%, rgba(213,255,250,.65) 50%, transparent 100%), radial-gradient(2px 2px at 62% 88%, rgba(67,234,209,.55) 50%, transparent 100%); background-size: 390px 330px, 520px 450px, 470px 390px, 560px 480px, 330px 300px, 610px 520px; background-repeat: repeat; animation: starfield-rise 48s linear infinite; transform: none !important; }
 
 /* Hyperspace layer: restrained streaks add forward motion without competing with content. */
 .ambient-stars::before,
@@ -61,22 +61,22 @@ button { font: inherit; }
   will-change: transform;
 }
 .ambient-stars::before {
-  opacity: calc(var(--star-opacity) * .42);
+  opacity: var(--warp-streak-opacity, .42);
   background-image:
     linear-gradient(180deg, transparent 0%, rgba(177,255,249,.82) 48%, transparent 100%),
     linear-gradient(180deg, transparent 0%, rgba(67,234,209,.72) 48%, transparent 100%),
     linear-gradient(180deg, transparent 0%, rgba(223,255,252,.68) 48%, transparent 100%),
     linear-gradient(180deg, transparent 0%, rgba(67,234,209,.58) 48%, transparent 100%);
-  background-size: 1px 105px, 2px 145px, 1px 185px, 1px 125px;
+  background-size: 1px var(--warp-streak-length, 105px), 2px calc(var(--warp-streak-length, 105px) * 1.35), 1px calc(var(--warp-streak-length, 105px) * 1.7), 1px calc(var(--warp-streak-length, 105px) * 1.15); transition: background-size 110ms linear;
   background-position: 9% 0, 37% 42px, 69% 18px, 91% 70px;
   animation: star-streak-forward 2.8s linear infinite;
 }
 .ambient-stars::after {
-  opacity: calc(var(--star-opacity) * .24);
+  opacity: var(--warp-streak-opacity, .24);
   background-image:
     linear-gradient(180deg, transparent 0%, rgba(191,255,251,.9) 48%, transparent 100%),
     linear-gradient(180deg, transparent 0%, rgba(67,234,209,.72) 48%, transparent 100%);
-  background-size: 2px 190px, 1px 135px;
+  background-size: 2px calc(var(--warp-streak-length, 105px) * 1.8), 1px calc(var(--warp-streak-length, 105px) * 1.3); transition: background-size 110ms linear;
   background-position: 23% 30px, 78% 90px;
   animation: star-streak-forward 4.1s linear infinite reverse;
 }
