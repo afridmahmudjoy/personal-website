@@ -1185,3 +1185,39 @@ html[data-theme="light"] {
 @media (prefers-reduced-motion: reduce) {
   .ambient-stars { animation: none !important; }
 }
+
+/* Global turquoise click ripple */
+.click-ripple {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(67, 234, 209, .85);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000000;
+  transform: translate(-50%, -50%) scale(.15);
+  opacity: .85;
+  box-shadow: 0 0 12px rgba(67, 234, 209, .2), inset 0 0 8px rgba(67, 234, 209, .12);
+  animation: turquoise-ripple .68s cubic-bezier(.12, .55, .25, 1) forwards;
+}
+.click-ripple::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(67, 234, 209, .4);
+  border-radius: 50%;
+  animation: turquoise-ripple-inner .68s cubic-bezier(.12, .55, .25, 1) forwards;
+}
+@keyframes turquoise-ripple {
+  0% { transform: translate(-50%, -50%) scale(.15); opacity: .85; }
+  55% { opacity: .42; }
+  100% { transform: translate(-50%, -50%) scale(9); opacity: 0; }
+}
+@keyframes turquoise-ripple-inner {
+  0% { transform: scale(1); opacity: .65; }
+  100% { transform: scale(.45); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .click-ripple { animation-duration: .01ms !important; opacity: 0 !important; }
+  .click-ripple::after { animation: none !important; }
+}
