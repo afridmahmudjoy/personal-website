@@ -1322,15 +1322,10 @@ html[data-theme="light"] {
   }
 }
 
-/* V4: remove the boxed turquoise wink icon from the opening header. */
-.opening-header .identity-mark,
-.opening-header .brand-mark,
-.opening-header .brand-avatar,
-.opening-header .brand-initials,
-.opening-header .static-joy,
-.opening-header .joy-face,
-.opening-header .joy-logo,
-.opening-header .identity > svg,
-.opening-header .identity > img,
-.opening-header .identity > :not(.identity-copy) { display: none !important; }
+/* V4 opening header: text-only identity, absolutely no icon/emoji/mark. */
+.opening-header .identity { display: inline-flex !important; gap: 0 !important; background: none !important; background-image: none !important; border: 0 !important; box-shadow: none !important; }
+.opening-header .identity::before,
+.opening-header .identity::after { content: none !important; display: none !important; background: none !important; }
+.opening-header .identity > *:not(.identity-copy) { display: none !important; }
+.opening-header .identity-copy { display: block !important; }
 .brand-avatar { display: none !important; }
