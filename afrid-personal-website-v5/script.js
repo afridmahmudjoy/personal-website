@@ -284,7 +284,7 @@
     touchStartY = event.changedTouches[0].clientY;
   }, { passive: true });
   shell.addEventListener('touchend', event => {
-    if (!opened || !event.changedTouches.length || sceneLocked) return;
+    if (!opened || !event.changedTouches.length) return;
     if (touchTarget && touchTarget.closest && touchTarget.closest('#orbit-wrap,button,a,.quick-nav')) return;
     const dx = event.changedTouches[0].clientX - touchStartX;
     const dy = event.changedTouches[0].clientY - touchStartY;
