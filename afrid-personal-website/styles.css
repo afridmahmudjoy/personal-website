@@ -1,10 +1,10 @@
 :root {
   color-scheme: dark;
-  --bg: #071312;
-  --bg-deep: #040b0a;
-  --panel: rgba(10, 27, 25, .82);
-  --panel-solid: #0b1b19;
-  --panel-soft: rgba(18, 48, 44, .68);
+  --bg: #030807;
+  --bg-deep: #010403;
+  --panel: rgba(5, 13, 12, .88);
+  --panel-solid: #06100e;
+  --panel-soft: rgba(8, 25, 22, .68);
   --ink: #ecfffb;
   --muted: #91aaa5;
   --dim: #5d7772;
