@@ -67,12 +67,12 @@ button { font: inherit; }
     linear-gradient(180deg, transparent 0%, rgba(67,234,209,.72) 48%, transparent 100%),
     linear-gradient(180deg, transparent 0%, rgba(223,255,252,.68) 48%, transparent 100%),
     linear-gradient(180deg, transparent 0%, rgba(67,234,209,.58) 48%, transparent 100%);
-  background-size: 1px var(--warp-streak-length, 105px), 2px calc(var(--warp-streak-length, 105px) * 1.35), 1px calc(var(--warp-streak-length, 105px) * 1.7), 1px calc(var(--warp-streak-length, 105px) * 1.15); transition: background-size 110ms linear;
+  background-size: 1px var(--warp-streak-length, 105px), 2px calc(var(--warp-streak-length, 105px) * 1.35), 1px calc(var(--warp-streak-length, 105px) * 1.7), 1px calc(var(--warp-streak-length, 105px) * 1.15); transition: opacity 180ms ease, background-size 110ms linear;
   background-position: 9% 0, 37% 42px, 69% 18px, 91% 70px;
   animation: star-streak-forward 2.8s linear infinite;
 }
 .ambient-stars::after {
-  opacity: var(--warp-streak-opacity, .24);
+  opacity: var(--warp-secondary-opacity, .24); transition: opacity 180ms ease, background-size 110ms linear;
   background-image:
     linear-gradient(180deg, transparent 0%, rgba(191,255,251,.9) 48%, transparent 100%),
     linear-gradient(180deg, transparent 0%, rgba(67,234,209,.72) 48%, transparent 100%);
