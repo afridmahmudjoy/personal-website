@@ -709,10 +709,10 @@ const AUTO_ROTATE_DELAY = 2000;
   let starWarpResetTimer;
 
   const setStarWarp = (distance) => {
-    const warp = Math.min(distance, 140);
-    const streakLength = Math.round(105 + warp * 4.5);
-    const primaryOpacity = Math.min(0.92, 0.36 + warp / 210);
-    const secondaryOpacity = Math.min(0.62, 0.18 + warp / 340);
+    const warp = Math.min(distance, 180);
+    const streakLength = Math.round(105 + warp * 6.2);
+    const primaryOpacity = Math.min(0.98, 0.36 + warp / 165);
+    const secondaryOpacity = Math.min(0.72, 0.18 + warp / 260);
     root.style.setProperty('--warp-streak-length', `${streakLength}px`);
     root.style.setProperty('--warp-streak-opacity', String(primaryOpacity));
     root.style.setProperty('--warp-secondary-opacity', String(secondaryOpacity));
