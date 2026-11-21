@@ -2252,3 +2252,11 @@ button:not(.menu-toggle):not(.document-reveal):hover,
     transition: none !important;
   }
 }
+
+
+/* V4 footer social brand marks */
+.contact-links a { display:flex; align-items:center; gap:12px; }
+.contact-links .social-icon { width:19px; height:19px; flex:0 0 19px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; opacity:.9; }
+.contact-links a:hover .social-icon { color:var(--accent, #69d7c7); transform:translateY(-1px); }
+.contact-links .social-label { flex:1; }
+@media (max-width:600px) { .contact-links a { gap:10px; } .contact-links .social-icon { width:18px; height:18px; flex-basis:18px; } }
