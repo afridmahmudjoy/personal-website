@@ -2712,3 +2712,17 @@ img, video, iframe { max-width:100%; }
   .concept-icon { font-size:15px!important; }
   .concept small { font-size:5.5px!important; }
 }
+
+
+/* V4 skill text: ember ignite → hot flicker → ash burn-away */
+.hero-skill-words>span{color:#fff7df;text-shadow:0 0 3px #fff,0 0 8px #ffb347,0 0 16px #ff6a22,0 0 26px #f04412;transform-origin:50% 100%;will-change:opacity,transform,filter;animation-name:hero-skill-fire!important}
+@keyframes hero-skill-fire{
+  0%,3%{opacity:0;transform:translateY(13px) scale(.96);filter:blur(5px);clip-path:inset(100% 0 0 0);text-shadow:0 0 0 transparent}
+  6%{opacity:.55;transform:translateY(4px) scale(1);filter:blur(1.8px);clip-path:inset(35% 0 0 0);text-shadow:0 0 8px #ff8c38,0 0 20px #f64b16}
+  9%,22%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);clip-path:inset(0);text-shadow:0 0 3px #fff,0 0 9px #ffc35a,0 0 17px #ff6a22,0 0 28px #ef3c10}
+  23%{opacity:1;transform:translateY(-1px) scale(1.015);filter:brightness(1.35);clip-path:inset(0);text-shadow:0 0 5px #fff,0 0 12px #ffbb44,0 0 24px #ff5a16,0 0 40px #e62e08}
+  27%{opacity:.85;transform:translateY(-5px) scale(1.02);filter:blur(.7px) brightness(1.4);clip-path:inset(0 0 18% 0);text-shadow:0 0 5px #ffbd50,0 0 20px #ff5b19,0 0 38px #d92b08}
+  30%{opacity:.4;transform:translateY(-11px) scale(1.04);filter:blur(2.4px) brightness(1.25);clip-path:inset(0 0 68% 0);text-shadow:0 0 10px #ff661e,0 0 22px #e83b0c}
+  33%,100%{opacity:0;transform:translateY(-17px) scale(1.06);filter:blur(5px);clip-path:inset(0 0 100% 0);text-shadow:0 0 0 transparent}
+}
+@media(prefers-reduced-motion:reduce){.hero-skill-words>span{animation:none!important;opacity:0!important;filter:none!important;clip-path:none!important}.hero-skill-words>span:first-child{opacity:1!important;color:var(--accent);text-shadow:none!important}}
