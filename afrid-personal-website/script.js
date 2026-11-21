@@ -867,7 +867,46 @@ if (glassDock) {
     });
   });
 
-  // Small functional micro-animation on each dock navigation icon (no controls affected).\n  dockLinks.forEach(link => {\n    link.addEventListener('click', () => {\n      if (link.classList.contains('dock-control')) return;\n      link.classList.remove('dock-animate');\n      void link.offsetWidth;\n      link.classList.add('dock-animate');\n      window.setTimeout(() => link.classList.remove('dock-animate'), 720);\n    });\n  });\n\n  // Highlight the current section
+  // Icon-specific micro-motion on click.
+  dockLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (link.classList.contains('dock-control')) return;
+      link.classList.remove('dock-animate');
+      void link.offsetWidth;
+      link.classList.add('dock-animate');
+      window.setTimeout(() => link.classList.remove('dock-animate'), 720);
+    });
+  });
+
+  // Desktop Mac-Dock proximity magnification: centre icon grows most, neighbours less.
+  if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const magnifyIcons = dockLinks.map(link => link.querySelector('.dock-icon')).filter(Boolean);
+    let raf = 0, pointerX = 0;
+    const resetMagnification = () => magnifyIcons.forEach(icon => {
+      icon.style.setProperty('--dock-magnify', '1');
+      icon.closest('.dock-item')?.style.setProperty('--dock-lift', '0px');
+    });
+    glassDock.addEventListener('pointermove', event => {
+      if (event.pointerType === 'touch') return;
+      pointerX = event.clientX;
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        magnifyIcons.forEach(icon => {
+          const item = icon.closest('.dock-item');
+          const rect = item.getBoundingClientRect();
+          const distance = Math.abs(pointerX - (rect.left + rect.width / 2));
+          const influence = Math.max(0, 1 - distance / 118);
+          icon.style.setProperty('--dock-magnify', (1 + influence * .42).toFixed(3));
+          item.style.setProperty('--dock-lift', (influence * 7).toFixed(1) + 'px');
+        });
+      });
+    }, { passive: true });
+    glassDock.addEventListener('pointerleave', resetMagnification);
+    glassDock.addEventListener('pointercancel', resetMagnification);
+  }
+
+  // Highlight the current section
   const dockObserver = new IntersectionObserver(entries => {
     const visibleSections = entries
       .filter(entry => entry.isIntersecting)
