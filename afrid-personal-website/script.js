@@ -901,3 +901,15 @@ if (glassDock) {
   dockSections.forEach(section => dockObserver.observe(section));
 }
 })();
+
+// V4 diploma preview privacy blur: click/tap to reveal or conceal.
+document.querySelectorAll('.document-reveal').forEach(button => {
+  button.addEventListener('click', () => {
+    const preview = button.closest('.document-preview');
+    const revealed = preview.classList.toggle('is-revealed');
+    button.setAttribute('aria-pressed', String(revealed));
+    button.querySelector('strong').textContent = revealed ? 'DOCUMENT VISIBLE' : 'DOCUMENT PROTECTED';
+    button.querySelector('small').textContent = revealed ? 'CLICK TO CONCEAL' : 'CLICK TO REVEAL';
+    button.querySelector('.reveal-hint').textContent = revealed ? 'Tap to hide' : 'Tap to view';
+  });
+});
