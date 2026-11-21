@@ -867,7 +867,7 @@ if (glassDock) {
     });
   });
 
-  // Highlight the current section
+  // Small functional micro-animation on each dock navigation icon (no controls affected).\n  dockLinks.forEach(link => {\n    link.addEventListener('click', () => {\n      if (link.classList.contains('dock-control')) return;\n      link.classList.remove('dock-animate');\n      void link.offsetWidth;\n      link.classList.add('dock-animate');\n      window.setTimeout(() => link.classList.remove('dock-animate'), 720);\n    });\n  });\n\n  // Highlight the current section
   const dockObserver = new IntersectionObserver(entries => {
     const visibleSections = entries
       .filter(entry => entry.isIntersecting)
