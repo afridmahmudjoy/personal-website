@@ -639,7 +639,7 @@ if (shouldMove) {
 
  // Elegant automatic 3D carousel rotation, paused during interaction.
 let autoRotateTimer = null;
-const AUTO_ROTATE_DELAY = 2000;
+const AUTO_ROTATE_DELAY = 3200;
 
   const stopAutoRotation = () => {
     if (autoRotateTimer !== null) {
