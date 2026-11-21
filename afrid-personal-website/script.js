@@ -428,7 +428,7 @@ const renderSkills = () => {
         openSkillDetails(card._skill);
       });
 
-      if (window.matchMedia('(pointer: fine)').matches) {
+      if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         card.addEventListener('pointermove', (event) => {
           if (card.dataset.slot !== 'active') return;
 
@@ -687,7 +687,7 @@ const AUTO_ROTATE_DELAY = 3200;
   });
 
   // Subtle desktop magnetic response for primary controls.
-  if (window.matchMedia('(pointer: fine)').matches) {
+  if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll('.explore-button, .nav-cta, .carousel-arrow, .skill-more, .turquoise-link').forEach((control) => {
       control.addEventListener('pointermove', (event) => {
         const rect = control.getBoundingClientRect();
@@ -759,7 +759,7 @@ const AUTO_ROTATE_DELAY = 3200;
   }
 
   // Desktop-only custom cursor. The native pointer remains on touch devices.
-  if (window.matchMedia('(pointer: fine)').matches) {
+  if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const dot = document.querySelector('.cursor-dot');
     const ring = document.querySelector('.cursor-ring');
     if (dot && ring) {
