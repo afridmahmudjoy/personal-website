@@ -2714,21 +2714,6 @@ img, video, iframe { max-width:100%; }
 }
 
 
-/* V4 skill text: ember ignite → hot flicker → ash burn-away */
-.hero-skill-words>span{color:#fff7df;text-shadow:0 0 3px #fff,0 0 8px #ffb347,0 0 16px #ff6a22,0 0 26px #f04412;transform-origin:50% 100%;will-change:opacity,transform,filter;animation-name:hero-skill-fire!important}
-@keyframes hero-skill-fire{
-  /* One word gets a 2-second window in the 12-second six-word loop. */
-  0%,1%{opacity:0;transform:translateY(12px) scale(.96);filter:blur(4px);clip-path:inset(100% 0 0 0);text-shadow:0 0 0 transparent}
-  2%{opacity:.65;transform:translateY(3px) scale(1);filter:blur(1px);clip-path:inset(30% 0 0 0);text-shadow:0 0 8px #ff8c38,0 0 20px #f64b16}
-  3%,10%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);clip-path:inset(0);text-shadow:0 0 3px #fff,0 0 9px #ffc35a,0 0 17px #ff6a22,0 0 28px #ef3c10}
-  11%{opacity:1;transform:translateY(-1px) scale(1.015);filter:brightness(1.35);clip-path:inset(0);text-shadow:0 0 5px #fff,0 0 12px #ffbb44,0 0 24px #ff5a16,0 0 40px #e62e08}
-  13%{opacity:.8;transform:translateY(-5px) scale(1.02);filter:blur(.7px) brightness(1.4);clip-path:inset(0 0 25% 0);text-shadow:0 0 5px #ffbd50,0 0 20px #ff5b19,0 0 38px #d92b08}
-  15%{opacity:.3;transform:translateY(-10px) scale(1.04);filter:blur(2px) brightness(1.25);clip-path:inset(0 0 72% 0);text-shadow:0 0 10px #ff661e,0 0 22px #e83b0c}
-  16.6%,100%{opacity:0;transform:translateY(-15px) scale(1.06);filter:blur(4px);clip-path:inset(0 0 100% 0);text-shadow:0 0 0 transparent}
-}
-@media(prefers-reduced-motion:reduce){.hero-skill-words>span{animation:none!important;opacity:0!important;filter:none!important;clip-path:none!important}.hero-skill-words>span:first-child{opacity:1!important;color:var(--accent);text-shadow:none!important}}
-
-
 /* V4 ENTRY LOADER — premium aurora / chromatic motion pass */
 .joy-loader{
   background:radial-gradient(ellipse at 50% 45%,rgba(30,24,75,.42),transparent 48%),radial-gradient(ellipse at 12% 16%,rgba(0,219,255,.18),transparent 38%),radial-gradient(ellipse at 90% 84%,rgba(255,42,160,.17),transparent 42%),radial-gradient(ellipse at 78% 18%,rgba(255,145,30,.12),transparent 34%),#050711!important;color:#eafaff!important;
@@ -2760,93 +2745,27 @@ img, video, iframe { max-width:100%; }
 @keyframes joy-loader-bar-colors{to{background-position:250% 0}}
 @media(max-width:480px){.joy-loader-orbit{width:145px!important;height:145px!important}}
 @media(prefers-reduced-motion:reduce){.joy-loader:before,.joy-loader:after,.joy-loader-orbit,.joy-loader-core,.joy-loader-progress span{animation:none!important}}
-
-/* V4 HERO SKILLS — true ignite / flicker / ember burn, sequential timing */
-.hero-skill-words{overflow:visible!important}
-.hero-skill-words>span{
-  position:relative;
-  display:inline-block;
-  white-space:nowrap;
-  animation:hero-skill-fire 12s linear infinite!important;
-  color:#fff6d6!important;
-  will-change:opacity,transform,filter,clip-path;
-}
-.hero-skill-words>span::before,
-.hero-skill-words>span::after{
-  content:"";
-  position:absolute;
-  pointer-events:none;
-  opacity:0;
-  border-radius:50%;
-}
-.hero-skill-words>span::before{
-  width:3px;height:3px;left:18%;top:35%;
-  background:#fff7be;
-  box-shadow:0 0 5px 2px #ffb22e,0 0 11px 4px #ff4c14;
-  animation:skill-ember-pop 12s linear infinite;
-}
-.hero-skill-words>span::after{
-  width:2px;height:5px;right:20%;top:25%;
-  background:#ffcf57;
-  box-shadow:0 0 5px 2px #ff771d,0 0 12px 3px #ff3b0b;
-  animation:skill-ember-pop 12s linear infinite reverse;
-}
-.hero-skill-words>span:nth-child(1)::before,.hero-skill-words>span:nth-child(1)::after{animation-delay:0s}
-.hero-skill-words>span:nth-child(2)::before,.hero-skill-words>span:nth-child(2)::after{animation-delay:2s}
-.hero-skill-words>span:nth-child(3)::before,.hero-skill-words>span:nth-child(3)::after{animation-delay:4s}
-.hero-skill-words>span:nth-child(4)::before,.hero-skill-words>span:nth-child(4)::after{animation-delay:6s}
-.hero-skill-words>span:nth-child(5)::before,.hero-skill-words>span:nth-child(5)::after{animation-delay:8s}
-.hero-skill-words>span:nth-child(6)::before,.hero-skill-words>span:nth-child(6)::after{animation-delay:10s}
-@keyframes skill-ember-pop{
-  0%,2%,16.7%,100%{opacity:0;transform:translate(0,0) scale(.2)}
-  5%,11%{opacity:1;transform:translate(0,-2px) scale(1)}
-  14%{opacity:.6;transform:translate(12px,-12px) scale(.7)}
+/* V4 HERO SKILLS — deterministic word-by-word burn with upward ember trails */
+.hero-skill-rotator{z-index:12!important;overflow:visible!important}
+.hero-skill-words{overflow:visible!important;min-width:0!important;width:max-content!important;max-width:100%;text-align:left}
+.hero-skill-words>span{position:relative;display:inline-block;white-space:nowrap;opacity:0!important;animation:none!important;transform:none!important;filter:none!important;clip-path:none!important;text-shadow:none!important;color:#fff9df!important;will-change:opacity,transform,filter,clip-path}
+.hero-skill-words>span.is-burning{animation:skill-word-ignite 2.5s ease-out forwards!important;opacity:1!important}
+.skill-fire-canvas{position:absolute;left:-18%;top:-18%;width:136%;height:136%;z-index:9;pointer-events:none;overflow:visible}
+@keyframes skill-word-ignite{
+  0%{opacity:0;transform:translateY(8px) scale(.94);filter:blur(4px);clip-path:inset(100% 0 0 0);text-shadow:none}
+  8%{opacity:1;transform:translateY(0) scale(1);filter:brightness(1.4);clip-path:inset(0);text-shadow:0 0 3px #fff,0 0 8px #ffe47a,0 0 18px #ff861f,0 0 30px #f23808}
+  22%{opacity:1;filter:brightness(1.8);text-shadow:0 0 5px #fff,0 0 14px #ffc52f,0 0 30px #ff4e0b,0 0 44px #e52b06}
+  42%{opacity:1;transform:translateY(-2px) scale(1.02);filter:brightness(1.5);clip-path:inset(0 0 8% 0)}
+  68%{opacity:.65;transform:translateY(-9px) skewX(-3deg) scale(1.04);filter:blur(1px) brightness(1.3);clip-path:inset(0 0 55% 0);text-shadow:0 0 18px #ff6516}
+  100%{opacity:0;transform:translateY(-20px) skewX(4deg) scale(1.08);filter:blur(5px);clip-path:inset(0 0 100% 0);text-shadow:none}
 }
 @media(prefers-reduced-motion:reduce){
- .hero-skill-words>span{animation:none!important;opacity:0!important;clip-path:none!important}
+ .skill-fire-canvas{display:none!important}
+ .hero-skill-words>span{animation:none!important;opacity:0!important;transform:none!important;filter:none!important;clip-path:none!important}
  .hero-skill-words>span:first-child{opacity:1!important;color:var(--accent)!important;text-shadow:none!important}
- .hero-skill-words>span::before,.hero-skill-words>span::after{display:none!important}
 }
 
-/* FINAL correction: drive the six skill words as a single sequential 2s loop */
-.hero-skill-words>span{animation:none!important;opacity:0!important;clip-path:none!important;filter:none!important;text-shadow:none!important;transform:none!important}
-.hero-skill-words>span.is-burning{animation:skill-word-burn 1.9s ease-out forwards!important;opacity:1!important}
-.hero-skill-words>span.is-burning::before,.hero-skill-words>span.is-burning::after{animation:skill-spark-burst .85s ease-out forwards!important}
-.hero-skill-words>span::before,.hero-skill-words>span::after{animation:none!important;opacity:0!important}
-@keyframes skill-word-burn{
-  0%{opacity:0;transform:translateY(10px) scale(.94);filter:blur(5px);text-shadow:0 0 0 transparent;clip-path:inset(100% 0 0 0)}
-  12%{opacity:1;transform:translateY(0) scale(1);filter:brightness(1.4) blur(0);clip-path:inset(0);text-shadow:0 0 3px #fff,0 0 9px #ffe27b,0 0 18px #ff821f,0 0 30px #f23b0c}
-  35%{opacity:1;filter:brightness(1.8);text-shadow:0 0 5px #fff,0 0 15px #ffb52e,0 0 30px #ff5b14,0 0 45px #e83108}
-  52%{opacity:.95;transform:translateY(-2px) scale(1.02);filter:brightness(1.6);clip-path:inset(0 0 8% 0)}
-  70%{opacity:.55;transform:translateY(-9px) scale(1.05);filter:blur(1.5px) brightness(1.4);clip-path:inset(0 0 55% 0);text-shadow:0 0 16px #ff4b13}
-  100%{opacity:0;transform:translateY(-19px) scale(1.1);filter:blur(5px);clip-path:inset(0 0 100% 0);text-shadow:none}
-}
-@keyframes skill-spark-burst{
-  0%,100%{opacity:0;transform:translate(0,0) scale(.2)}
-  25%{opacity:1;transform:translate(-4px,-5px) scale(1)}
-  65%{opacity:.7;transform:translate(13px,-15px) scale(.7)}
-}
-@media(prefers-reduced-motion:reduce){.hero-skill-words>span{animation:none!important;opacity:0!important}.hero-skill-words>span:first-child{opacity:1!important;color:var(--accent)!important;text-shadow:none!important}}
-
-/* V4 REAL EMBER BURN: sequential skill text + flying fire-dust over portrait */
-.portrait-frame{position:relative;isolation:isolate}
-.skill-fire-canvas{position:absolute;inset:-25% -35% -22%;width:170%;height:147%;z-index:8;pointer-events:none;overflow:visible}
-.hero-skill-rotator{z-index:12!important}
-.hero-skill-words{overflow:visible!important}
-.hero-skill-words>span{animation:none!important;opacity:0!important;clip-path:none!important;filter:none!important;transform:none!important;text-shadow:none!important;color:#fff!important}
-.hero-skill-words>span.is-burning{animation:skill-real-burn 2.45s ease-out forwards!important;opacity:1!important}
-.hero-skill-words>span.is-burning::before,.hero-skill-words>span.is-burning::after{animation:none!important;opacity:0!important}
-@keyframes skill-real-burn{
-  0%{opacity:0;clip-path:inset(100% 0 0 0);transform:translateY(8px) scale(.97);filter:blur(4px)}
-  8%{opacity:1;clip-path:inset(0);transform:none;filter:brightness(1.25);text-shadow:0 0 3px #fff,0 0 8px #ffd75b,0 0 18px #ff741b,0 0 28px #f52e08}
-  25%{opacity:1;filter:brightness(1.7);text-shadow:0 0 5px #fff,0 0 14px #ffd34e,0 0 30px #ff4c0b}
-  42%{opacity:1;clip-path:inset(0 0 12% 0);filter:brightness(1.5)}
-  68%{opacity:.72;clip-path:inset(0 0 55% 0);transform:translateY(-8px) skewX(-3deg);filter:blur(1px) brightness(1.3);text-shadow:0 0 18px #ff6516}
-  100%{opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(-20px) skewX(4deg) scale(1.08);filter:blur(5px);text-shadow:none}
-}
-@media(prefers-reduced-motion:reduce){.skill-fire-canvas{display:none!important}.hero-skill-words>span{animation:none!important;opacity:0!important}.hero-skill-words>span:first-child{opacity:1!important;color:var(--accent)!important;text-shadow:none!important}}
-
-/* V4 footer LinkedIn mark: restore the white "in" glyph over its solid brand tile */
+ /* V4 footer LinkedIn mark: restore the white "in" glyph over its solid brand tile */
 .contact-links .linkedin-icon{fill:none!important;stroke:none!important}
 .contact-links .linkedin-icon rect{fill:currentColor!important;stroke:none!important}
 .contact-links .linkedin-icon path{fill:#fff!important;stroke:none!important}
