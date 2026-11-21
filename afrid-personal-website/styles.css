@@ -2207,3 +2207,48 @@ button:not(.menu-toggle):not(.document-reveal):hover,
     transition: none !important;
   }
 }
+
+
+/* V4 control glow — sound and appearance toggles included. */
+.floating-utilities .utility-button,
+.sound-toggle,
+.topbar .theme-toggle,
+.nav-actions .theme-toggle {
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--line-strong)) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent),
+    0 0 13px color-mix(in srgb, var(--accent) 19%, transparent),
+    inset 0 0 9px color-mix(in srgb, var(--accent) 5%, transparent) !important;
+  transition: box-shadow .28s ease, border-color .28s ease,
+              background .28s ease, transform .28s ease !important;
+}
+.floating-utilities .utility-button:hover,
+.sound-toggle:hover,
+.topbar .theme-toggle:hover,
+.nav-actions .theme-toggle:hover,
+.floating-utilities .utility-button:focus-visible,
+.sound-toggle:focus-visible,
+.topbar .theme-toggle:focus-visible,
+.nav-actions .theme-toggle:focus-visible {
+  border-color: var(--accent) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 24%, transparent),
+    0 0 14px color-mix(in srgb, var(--accent) 34%, transparent),
+    0 0 28px color-mix(in srgb, var(--accent) 20%, transparent),
+    inset 0 0 12px color-mix(in srgb, var(--accent) 8%, transparent) !important;
+}
+.floating-utilities .utility-button[aria-pressed="true"],
+.sound-toggle[aria-pressed="true"],
+.theme-toggle[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--accent) 65%, var(--line)) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent),
+    0 0 18px color-mix(in srgb, var(--accent) 25%, transparent),
+    inset 0 0 12px color-mix(in srgb, var(--accent) 9%, transparent) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .floating-utilities .utility-button, .sound-toggle,
+  .topbar .theme-toggle, .nav-actions .theme-toggle {
+    transition: none !important;
+  }
+}
