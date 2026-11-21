@@ -1737,3 +1737,26 @@ img, iframe, video { max-width: 100%; }
   .hero-stats { margin-top: 11px !important; }
   .explore-button, #explore-button { margin-top: 11px !important; min-height: 44px !important; }
 }
+
+
+/* V4.1 certificate gallery: small thumbnails, open the full document on demand */
+.skill-certificates-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.skill-certificate-card .document-preview { aspect-ratio:1.48 / 1 !important; max-height:220px; }
+.skill-certificate-card .document-card-heading { padding:10px 12px 9px; }
+.skill-certificate-card .document-card-footer { padding:9px 12px 11px; }
+.skill-certificate-card .document-card-footer > span { font-size:6.5px; }
+.skill-certificate-card .document-view-link { padding:7px 9px; font-size:7px; }
+@media(max-width:1000px){.skill-certificates-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){
+  .skill-certificates-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px}
+  .skill-certificate-card .document-preview{aspect-ratio:1.25 / 1!important;max-height:145px}
+  .skill-certificate-card .document-card-heading{gap:7px;padding:8px 8px 7px}
+  .skill-certificate-card .document-type-icon{width:26px;height:26px;flex-basis:26px;font-size:14px}
+  .skill-certificate-card .document-card-heading small{font-size:6px}
+  .skill-certificate-card .document-card-heading strong{font-size:10px}
+  .skill-certificate-card .document-number{font-size:8px}
+  .skill-certificate-card .document-preview{margin-inline:8px}
+  .skill-certificate-card .document-card-footer{display:grid;gap:7px;padding:8px}
+  .skill-certificate-card .document-card-footer>span{font-size:5.5px}
+  .skill-certificate-card .document-view-link{justify-content:center;font-size:6px;padding:7px 5px}
+}
