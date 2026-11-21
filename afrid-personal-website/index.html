@@ -68,14 +68,6 @@
 
   <!-- The rest of the portfolio is revealed by the opening-screen button. -->
   <div class="portfolio-content" id="portfolio-content" hidden>
-    <div class="floating-utilities" aria-label="Site preferences">
-  <button class="utility-button sound-toggle interactive" type="button" aria-label="Turn sound effects off" aria-pressed="true" title="Sound effects">
-    <span class="utility-icon sound-symbol" aria-hidden="true">♫</span><span class="utility-label sound-word">SOUND ON</span>
-  </button>
-  <button class="utility-button theme-toggle interactive" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Change theme">
-    <span class="utility-icon theme-symbol" aria-hidden="true">☼</span><span class="utility-label theme-word">LIGHT</span>
-  </button>
-</div>
     <header class="topbar">
       <a class="brand" href="#home" aria-label="Back to opening screen">
   <img class="brand-avatar" src="profile.jpg" alt="" aria-hidden="true" loading="eager" decoding="async">
@@ -95,6 +87,12 @@
 
 <nav class="glass-dock" id="glass-dock" aria-label="Quick navigation">
   <a class="dock-item active" href="#home" aria-label="Home"><span class="dock-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.8 12 3l9 7.8 M5.5 9.5V21h13V9.5 M9 21v-6h6v6"/></svg></span><span class="dock-label">Home</span></a>
+  <button class="dock-item dock-control sound-toggle" type="button" aria-label="Turn sound effects off" aria-pressed="true" title="Toggle sound effects">
+    <span class="dock-icon sound-symbol" aria-hidden="true">♫</span><span class="dock-label sound-word">SOUND ON</span>
+  </button>
+  <button class="dock-item dock-control theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Toggle appearance">
+    <span class="dock-icon theme-symbol" aria-hidden="true">☼</span><span class="dock-label theme-word">LIGHT</span>
+  </button>
   
   <a class="dock-item" href="#about" aria-label="About"><span class="dock-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 1 0 0 6.4 M5 20c.7-3.1 3-4.7 7-4.7s6.3 1.6 7 4.7"/></svg></span><span class="dock-label">About</span></a>
   <a class="dock-item" href="#skills" aria-label="Skills"><span class="dock-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7z M18.5 15l.8 2.1 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8"/></svg></span><span class="dock-label">Skills</span></a>
