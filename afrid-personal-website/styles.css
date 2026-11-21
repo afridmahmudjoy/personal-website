@@ -2750,7 +2750,7 @@ img, video, iframe { max-width:100%; }
 .hero-skill-words{overflow:visible!important;min-width:0!important;width:max-content!important;max-width:100%;text-align:left}
 .hero-skill-words>span{position:relative;display:inline-block;white-space:nowrap;opacity:0!important;animation:none!important;transform:none!important;filter:none!important;clip-path:none!important;text-shadow:none!important;color:#fff9df!important;will-change:opacity,transform,filter,clip-path}
 .hero-skill-words>span.is-burning{animation:skill-word-ignite 2.5s ease-out forwards!important;opacity:1!important}
-.skill-fire-canvas{position:absolute;left:-18%;top:-18%;width:136%;height:136%;z-index:9;pointer-events:none;overflow:visible}
+.skill-fire-canvas{position:absolute;left:-18%;top:-18%;width:136%;height:155%;z-index:9;pointer-events:none;overflow:visible}
 @keyframes skill-word-ignite{
   0%{opacity:0;transform:translateY(8px) scale(.94);filter:blur(4px);clip-path:inset(100% 0 0 0);text-shadow:none}
   8%{opacity:1;transform:translateY(0) scale(1);filter:brightness(1.4);clip-path:inset(0);text-shadow:0 0 3px #fff,0 0 8px #ffe47a,0 0 18px #ff861f,0 0 30px #f23808}
