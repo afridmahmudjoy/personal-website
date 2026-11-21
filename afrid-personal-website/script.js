@@ -1092,11 +1092,10 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   });
 })();
 
-/* Clean cover skill animation handled by lightweight CSS fade-up cycle. */
-
-/* Reliable cover skills: simple fade-and-rise rotation */
+/* Cover skill words: sequential type-on / hold / fade cycle. */
 (() => {
  const skills=[...document.querySelectorAll('.hero-skill-words > span')];
- if(!skills.length)return; const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches; let active=0; const show=(index)=>skills.forEach((el,i)=>{el.style.setProperty('opacity',i===index?'1':'0','important');el.style.setProperty('transform',i===index?'translateY(0)':'translateY(8px)','important');}); show(0);
- if(reduced)return; window.setInterval(()=>{active=(active+1)%skills.length;show(active);},3000);
+ if(!skills.length)return; const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches; let active=0; const show=(index)=>skills.forEach((el,i)=>{el.classList.remove('is-typing');el.style.removeProperty('opacity');el.style.removeProperty('transform');el.style.removeProperty('visibility');if(i===index){void el.offsetWidth;el.classList.add('is-typing');}});
+ show(0);
+ if(reduced)return; window.setInterval(()=>{active=(active+1)%skills.length;show(active);},3200);
 })();
