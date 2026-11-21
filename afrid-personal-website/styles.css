@@ -2438,4 +2438,4 @@ button:not(.menu-toggle):not(.document-reveal):not(.document-lightbox-close):hov
 
 
 /* Use the filled LinkedIn brand mark rather than the generic outline icon. */
-.contact-links .linkedin-icon { fill: currentColor; stroke: none; }
+.contact-links .linkedin-icon { fill: none; stroke: currentColor; }
