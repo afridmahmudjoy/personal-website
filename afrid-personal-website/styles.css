@@ -1346,3 +1346,11 @@ html[data-theme="light"] .journey-card { background:linear-gradient(145deg,rgba(
 .turquoise-showcase-note { margin-top:14px!important; font-size:9px!important; }
 @media(max-width:700px) { .turquoise-feature { grid-template-columns:1fr; } .turquoise-feature-art { min-height:205px; border-right:0; border-bottom:1px solid var(--line); } .turquoise-feature-copy { min-height:180px; padding:22px; } .turquoise-feature-copy strong { font-size:27px; } .turquoise-mini-card { min-height:122px; padding:13px; } }
 @media(prefers-reduced-motion:reduce) { .turquoise-shop-link,.turquoise-feature,.turquoise-feature:hover .feature-arrow,.turquoise-mini-card,.turquoise-page-link { transition:none!important; } .turquoise-feature:hover,.turquoise-mini-card:hover,.turquoise-shop-link:hover { transform:none; } }
+
+/* V4 — official Turquoise logo placement */
+.turquoise-brandmark { padding:0; overflow:hidden; background:#3fe0d0; border-color:rgba(63,224,208,.55); box-shadow:0 12px 30px rgba(63,224,208,.10); }
+.turquoise-official-logo { display:block; width:76px; height:76px; object-fit:contain; background:#3fe0d0; border-radius:11px; }
+.turquoise-feature-art { background:#3fe0d0 !important; border-right-color:var(--line); }
+.turquoise-feature-art::before,.turquoise-feature-art::after,.turquoise-feature-art .feature-orbit,.turquoise-feature-art .feature-t,.turquoise-feature-art .feature-label { display:none !important; }
+.turquoise-feature-logo { display:block; width:min(82%,230px); aspect-ratio:1; height:auto; object-fit:contain; border-radius:8px; box-shadow:0 12px 36px rgba(0,0,0,.12); }
+@media(max-width:700px) { .turquoise-official-logo { width:68px; height:68px; } .turquoise-feature-logo { width:min(68%,210px); } }
