@@ -1285,3 +1285,10 @@ html[data-theme="light"] .topbar { background: rgba(234,247,247,.84); }
 .skill-certificates-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:26px; }.skill-certificate-card .document-card-heading { padding:15px 15px 12px; }.skill-certificate-card .document-preview { aspect-ratio: .92 / 1; }.skill-certificate-card .document-card-footer { padding:12px 15px 15px; }.skill-certificate-card .document-card-footer > span { font-size:7px; }.skill-certificate-card .document-view-link { font-size:8px; padding:9px 10px; }
 @media (max-width:1000px) { .skill-certificates-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:600px) { .skill-certificates-grid { grid-template-columns:1fr; gap:13px; } .skill-certificate-card .document-preview { aspect-ratio:1 / 1.05; } }
+
+/* V4 recognition archive card */
+.recognition-archive { margin-top:24px; }
+.recognition-preview { aspect-ratio:auto; height:520px; background:var(--panel); }
+.recognition-preview iframe { height:100%; }
+.recognition-archive .document-card-footer > span { font-size:7px; }
+@media (max-width:700px) { .recognition-preview { height:460px; } }
