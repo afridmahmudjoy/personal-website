@@ -1509,7 +1509,7 @@ html[data-theme="light"] .journey-card { background:linear-gradient(145deg,rgba(
 
 /* V4 macOS-style floating dock: persistent portfolio-wide controls */
 #glass-dock.glass-dock{
- top:auto!important;bottom:22px!important;left:50%!important;transform:translateX(-50%)!important;
+ top:auto!important;bottom:38px!important;left:50%!important;transform:translateX(-50%)!important;
  max-width:min(1120px,calc(100vw - 22px))!important;padding:6px 8px!important;gap:3px!important;border-radius:18px!important
 }
 #glass-dock .dock-item{
@@ -1528,7 +1528,7 @@ html[data-theme="light"] .journey-card { background:linear-gradient(145deg,rgba(
 #glass-dock .dock-control:focus-visible{outline:2px solid rgba(67,234,209,.65)!important;outline-offset:1px!important}
 #glass-dock .dock-control[aria-pressed="true"] .dock-icon{color:var(--accent)!important;filter:drop-shadow(0 0 6px rgba(67,234,209,.3))}
 @media(max-width:700px){
- #glass-dock.glass-dock{bottom:10px!important;top:auto!important;max-width:calc(100vw - 12px)!important;padding:5px 6px!important;gap:2px!important;border-radius:16px!important}
+ #glass-dock.glass-dock{bottom:24px!important;top:auto!important;max-width:calc(100vw - 12px)!important;padding:5px 6px!important;gap:2px!important;border-radius:16px!important}
  #glass-dock .dock-item{width:55px!important;min-width:55px!important;height:52px!important;padding:3px 2px!important;gap:3px!important}
  #glass-dock .dock-item::before{inset:4px 10px 22px!important}
  #glass-dock .dock-icon{width:23px!important;height:23px!important}
@@ -1593,3 +1593,15 @@ html[data-theme="light"] .journey-card { background:linear-gradient(145deg,rgba(
   #glass-dock .dock-icon { scale: 1 !important; transition: none !important; }
   #glass-dock .dock-item { translate: none !important; }
 }
+
+/* V4 utilities: floating system controls separated from section navigation */
+.floating-utilities{position:fixed;z-index:10010;top:18px;right:20px;display:flex;align-items:center;gap:8px;padding:6px;border-radius:999px;background:color-mix(in srgb,var(--panel) 70%,transparent);border:1px solid color-mix(in srgb,var(--line) 75%,transparent);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);box-shadow:0 8px 28px rgba(0,0,0,.13),inset 0 1px 0 rgba(255,255,255,.13)}
+.floating-utilities .utility-button{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--line) 75%,transparent);background:color-mix(in srgb,var(--panel) 75%,transparent);color:var(--ink);cursor:pointer;transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease}
+.floating-utilities .utility-button:hover{transform:translateY(-2px);background:var(--accent-soft);border-color:var(--accent);box-shadow:0 0 16px color-mix(in srgb,var(--accent) 22%,transparent)}
+.floating-utilities .utility-icon{font-size:18px;line-height:1;color:var(--accent)}
+.floating-utilities .utility-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.floating-utilities .utility-button[aria-pressed="true"]{border-color:color-mix(in srgb,var(--accent) 55%,var(--line));background:color-mix(in srgb,var(--accent-soft) 70%,transparent)}
+@media(max-width:700px){.floating-utilities{top:12px;right:12px;padding:4px;gap:5px}.floating-utilities .utility-button{width:35px;height:35px}}
+/* Lift the Mac-inspired quick-navigation dock so it feels less edge-bound. */
+#glass-dock.glass-dock{bottom:38px!important}
+@media(max-width:700px){#glass-dock.glass-dock{bottom:24px!important}}
