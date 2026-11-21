@@ -1053,3 +1053,22 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   };
   requestAnimationFrame(tick);
 })();
+
+
+/* V4 certificate cards: gentle cursor-driven 3D tilt, reset smoothly on exit */
+(() => {
+  if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.skill-certificate-card').forEach(card => {
+    card.addEventListener('pointermove', event => {
+      if (event.pointerType && event.pointerType !== 'mouse') return;
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - .5;
+      const y = (event.clientY - rect.top) / rect.height - .5;
+      card.style.setProperty('--certificate-tilt-y', (x * 4).toFixed(2) + 'deg');
+      card.style.setProperty('--certificate-tilt-x', (-y * 3).toFixed(2) + 'deg');
+    });
+    const reset = () => { card.style.setProperty('--certificate-tilt-x','0deg'); card.style.setProperty('--certificate-tilt-y','0deg'); };
+    card.addEventListener('pointerleave', reset);
+    card.addEventListener('pointercancel', reset);
+  });
+})();
