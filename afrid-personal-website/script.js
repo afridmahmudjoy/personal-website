@@ -1101,7 +1101,7 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){words.forEach((w,i)=>{w.style.opacity=i===0?'1':'0';});return;}
   const canvas=document.createElement('canvas');canvas.className='hero-skill-particles';canvas.setAttribute('aria-hidden','true');rotator.appendChild(canvas);
   const ctx=canvas.getContext('2d');let w=0,h=0,current=0,particles=[],raf=null,start=0;
-  const cycle=4200,hold=1700;
+  const cycle=4600,hold=2600;
   function resize(){const r=rotator.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);w=Math.ceil(r.width);h=Math.ceil(Math.max(host.getBoundingClientRect().height,28));canvas.width=w*d;canvas.height=h*d;canvas.style.width=w+'px';canvas.style.height=h+'px';ctx.setTransform(d,0,0,d,0,0);}
   function sample(word){resize();const text=word.textContent.trim(),style=getComputedStyle(word),font=style.font;
     const m=document.createElement('canvas').getContext('2d');m.font=font;const tw=Math.ceil(m.measureText(text).width);
@@ -1111,9 +1111,19 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     return arr;
   }
   function draw(now){ctx.clearRect(0,0,w,h);const t=now-start;
-    for(const p of particles){if(t<p.delay)continue;let x=p.ox,y=p.oy,a=1;
-      if(t>hold){const k=Math.min(1,(t-hold)/(cycle-hold));x+=p.vx*(t-hold)*.025+Math.sin((t-hold)*.008+p.oy)*1.5;y+=p.vy*(t-hold)*.035-k*17;a=1-k;}
-      ctx.globalAlpha=a;ctx.fillStyle=Math.random()<.15?'#ffffff':'#38e7d6';ctx.shadowColor='#30dccc';ctx.shadowBlur=5;ctx.fillRect(x,y,p.size,p.size);
+    if(t<=hold){
+      const word=words[current],style=getComputedStyle(word);
+      ctx.save();ctx.font=style.font;ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillStyle='#f3ffff';ctx.shadowColor='#35e6d6';ctx.shadowBlur=12;
+      ctx.fillText(word.textContent.trim(),w/2,h/2);
+      ctx.shadowBlur=0;ctx.restore();
+    } else {
+      const k=Math.min(1,(t-hold)/(cycle-hold));
+      for(const p of particles){if(t<hold+p.delay)continue;let x=p.ox,y=p.oy,a=1-k;
+        x+=p.vx*(t-hold)*.025+Math.sin((t-hold)*.008+p.oy)*1.5;
+        y+=p.vy*(t-hold)*.035-k*17;
+        ctx.globalAlpha=Math.max(0,a);ctx.fillStyle=Math.random()<.15?'#ffffff':'#38e7d6';ctx.shadowColor='#30dccc';ctx.shadowBlur=5;ctx.fillRect(x,y,p.size,p.size);
+      }
     }
     ctx.globalAlpha=1;ctx.shadowBlur=0;if(t<cycle)raf=requestAnimationFrame(draw);else{ctx.clearRect(0,0,w,h);show(current+1);}
   }
