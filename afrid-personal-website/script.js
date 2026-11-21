@@ -1092,41 +1092,4 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   });
 })();
 
-
-/* V4 HERO SKILLS — turquoise particle materialize / dissolve cycle */
-(() => {
-  const rotator=document.querySelector('.hero-skill-rotator'), host=document.querySelector('.hero-skill-words');
-  const words=[...document.querySelectorAll('.hero-skill-words > span')];
-  if(!rotator||!host||!words.length)return;
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){words.forEach((w,i)=>{w.style.opacity=i===0?'1':'0';});return;}
-  const canvas=document.createElement('canvas');canvas.className='hero-skill-particles';canvas.setAttribute('aria-hidden','true');rotator.appendChild(canvas);
-  const ctx=canvas.getContext('2d');let w=0,h=0,current=0,particles=[],raf=null,start=0;
-  const cycle=4600,hold=2600;
-  function resize(){const r=rotator.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);w=Math.ceil(r.width);h=Math.ceil(Math.max(host.getBoundingClientRect().height,28));canvas.width=w*d;canvas.height=h*d;canvas.style.width=w+'px';canvas.style.height=h+'px';ctx.setTransform(d,0,0,d,0,0);}
-  function sample(word){resize();const text=word.textContent.trim(),style=getComputedStyle(word),font=style.font;
-    const m=document.createElement('canvas').getContext('2d');m.font=font;const tw=Math.ceil(m.measureText(text).width);
-    const off=document.createElement('canvas');off.width=tw+12;off.height=h+10;const o=off.getContext('2d');o.font=font;o.textBaseline='middle';o.fillStyle='#fff';o.fillText(text,5,off.height/2);
-    const pixels=o.getImageData(0,0,off.width,off.height).data,arr=[],step=3,dx=Math.max(0,(w-tw)/2),dy=Math.max(0,(h-off.height)/2);
-    for(let y=0;y<off.height;y+=step)for(let x=0;x<off.width;x+=step)if(pixels[(y*off.width+x)*4+3]>75)arr.push({x:dx+x,y:dy+y,ox:dx+x,oy:dy+y,vx:(Math.random()-.5)*1.3,vy:-.25-Math.random()*1.2,delay:Math.random()*520,size:.7+Math.random()*1.25});
-    return arr;
-  }
-  function draw(now){ctx.clearRect(0,0,w,h);const t=now-start;
-    if(t<=hold){
-      const word=words[current],style=getComputedStyle(word);
-      ctx.save();ctx.font=style.font;ctx.textAlign='center';ctx.textBaseline='middle';
-      ctx.fillStyle='#f3ffff';ctx.shadowColor='#35e6d6';ctx.shadowBlur=12;
-      ctx.fillText(word.textContent.trim(),w/2,h/2);
-      ctx.shadowBlur=0;ctx.restore();
-    } else {
-      const k=Math.min(1,(t-hold)/(cycle-hold));
-      for(const p of particles){if(t<hold+p.delay)continue;let x=p.ox,y=p.oy,a=1-k;
-        x+=p.vx*(t-hold)*.025+Math.sin((t-hold)*.008+p.oy)*1.5;
-        y+=p.vy*(t-hold)*.035-k*17;
-        ctx.globalAlpha=Math.max(0,a);ctx.fillStyle=Math.random()<.15?'#ffffff':'#38e7d6';ctx.shadowColor='#30dccc';ctx.shadowBlur=5;ctx.fillRect(x,y,p.size,p.size);
-      }
-    }
-    ctx.globalAlpha=1;ctx.shadowBlur=0;if(t<cycle)raf=requestAnimationFrame(draw);else{ctx.clearRect(0,0,w,h);show(current+1);}
-  }
-  function show(i){if(raf)cancelAnimationFrame(raf);current=i%words.length;words.forEach(word=>{word.style.visibility='hidden';word.style.opacity='0';});particles=sample(words[current]);start=performance.now();raf=requestAnimationFrame(draw);}
-  window.addEventListener('resize',()=>show(current),{passive:true});show(0);
-})();
+/* Clean cover skill animation handled by lightweight CSS fade-up cycle. */
