@@ -1076,7 +1076,8 @@ html[data-theme="light"] .topbar { background: rgba(234,247,247,.84); }
 .opening-header .identity::after { content: none !important; display: none !important; background: none !important; }
 .opening-header .identity > *:not(.identity-copy) { display: none !important; }
 .opening-header .identity-copy { display: block !important; }
-.brand-avatar { display: none !important; }
+/* Keep the travelling portrait visible in the main-page brand. */
+.brand-avatar { display: block !important; }
 
 
 /* =========================================
