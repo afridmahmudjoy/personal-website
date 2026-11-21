@@ -972,45 +972,25 @@ document.querySelectorAll('.document-reveal').forEach(button => {
 });
 
 
-/* V4: scroll-reactive quick dock — rises near the top while scrolling, then settles with a small gap. */
+/* V4: keep the Mac-style dock anchored at the bottom; add only a tiny scroll lift. */
 (() => {
   const dock = document.getElementById('glass-dock');
   if (!dock) return;
   let settleTimer = 0;
-  let raf = 0;
-  let dockShift = 0;
-  const moveDock = (gap) => {
-    const rect = dock.getBoundingClientRect();
-    const layoutTop = rect.top - dockShift;
-    dockShift = gap - layoutTop;
-    dock.style.setProperty('transform', `translateX(-50%) translateY(${dockShift}px)`, 'important');
-  };
   const onScroll = () => {
-    if (window.scrollY <= 0) {
-      clearTimeout(settleTimer);
-      dockShift = 0;
-      dock.style.removeProperty('transform');
-      dock.classList.remove('dock-scroll-motion');
-      return;
-    }
     dock.classList.add('dock-scroll-motion');
-    if (raf) cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => moveDock(6));
+    dock.style.setProperty('transform', 'translateX(-50%) translateY(-3px)', 'important');
     clearTimeout(settleTimer);
     settleTimer = window.setTimeout(() => {
       dock.classList.remove('dock-scroll-motion');
-      moveDock(22);
-    }, 170);
+      dock.style.setProperty('transform', 'translateX(-50%) translateY(0)', 'important');
+    }, 180);
   };
-  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => {
-    if (window.scrollY > 0) moveDock(22);
-    else { dockShift = 0; dock.style.removeProperty('transform'); }
-  }, {passive:true});
-  if (window.scrollY > 0) moveDock(22);
+    dock.style.setProperty('transform', 'translateX(-50%) translateY(0)', 'important');
+  }, { passive: true });
 })();
-
-
 // V4 document preview expansion: compact cards, full-size on demand.
 (() => {
   const dialog = document.createElement('div');
