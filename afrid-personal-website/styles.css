@@ -1605,3 +1605,9 @@ html[data-theme="light"] .journey-card { background:linear-gradient(145deg,rgba(
 /* Lift the Mac-inspired quick-navigation dock so it feels less edge-bound. */
 #glass-dock.glass-dock{bottom:38px!important}
 @media(max-width:700px){#glass-dock.glass-dock{bottom:24px!important}}
+
+
+/* V4 dock scroll-to-top behavior: glide up on scroll, settle slightly lower when idle. */
+#glass-dock.glass-dock{transition:transform 420ms cubic-bezier(.22,.72,.2,1)!important;will-change:transform}
+#glass-dock.glass-dock.dock-scroll-motion{transition-duration:260ms!important}
+@media(prefers-reduced-motion:reduce){#glass-dock.glass-dock{transition:none!important}}
