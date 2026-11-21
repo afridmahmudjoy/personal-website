@@ -878,32 +878,49 @@ if (glassDock) {
     });
   });
 
-  // Desktop Mac-Dock proximity magnification: centre icon grows most, neighbours less.
+  // Desktop Mac-Dock proximity magnification: react as the pointer approaches,
+  // even before it enters the dock. Reduced-motion and touch users are excluded.
   if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const magnifyIcons = dockLinks.map(link => link.querySelector('.dock-icon')).filter(Boolean);
-    let raf = 0, pointerX = 0;
+    let raf = 0, pointerX = null;
     const resetMagnification = () => magnifyIcons.forEach(icon => {
       icon.style.setProperty('--dock-magnify', '1');
       icon.closest('.dock-item')?.style.setProperty('--dock-lift', '0px');
     });
-    glassDock.addEventListener('pointermove', event => {
+    const updateMagnification = () => {
+      raf = 0;
+      if (pointerX === null) return;
+      magnifyIcons.forEach(icon => {
+        const item = icon.closest('.dock-item');
+        const rect = item.getBoundingClientRect();
+        if (!rect.width || !rect.height) {
+          icon.style.setProperty('--dock-magnify', '1');
+          item.style.setProperty('--dock-lift', '0px');
+          return;
+        }
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distance = Math.hypot(pointerX - centerX, window.__dockPointerY - centerY);
+        const influence = Math.max(0, 1 - distance / 165);
+        const eased = influence * influence * (3 - 2 * influence);
+        icon.style.setProperty('--dock-magnify', (1 + eased * .48).toFixed(3));
+        item.style.setProperty('--dock-lift', (eased * 9).toFixed(1) + 'px');
+      });
+    };
+    window.addEventListener('pointermove', event => {
       if (event.pointerType === 'touch') return;
       pointerX = event.clientX;
-      if (raf) return;
-      raf = window.requestAnimationFrame(() => {
-        raf = 0;
-        magnifyIcons.forEach(icon => {
-          const item = icon.closest('.dock-item');
-          const rect = item.getBoundingClientRect();
-          const distance = Math.abs(pointerX - (rect.left + rect.width / 2));
-          const influence = Math.max(0, 1 - distance / 118);
-          icon.style.setProperty('--dock-magnify', (1 + influence * .42).toFixed(3));
-          item.style.setProperty('--dock-lift', (influence * 7).toFixed(1) + 'px');
-        });
-      });
+      window.__dockPointerY = event.clientY;
+      if (!raf) raf = window.requestAnimationFrame(updateMagnification);
     }, { passive: true });
-    glassDock.addEventListener('pointerleave', resetMagnification);
-    glassDock.addEventListener('pointercancel', resetMagnification);
+    window.addEventListener('pointerleave', () => {
+      pointerX = null;
+      resetMagnification();
+    });
+    window.addEventListener('blur', () => {
+      pointerX = null;
+      resetMagnification();
+    });
   }
 
   // Highlight the current section
