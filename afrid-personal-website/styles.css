@@ -1280,3 +1280,8 @@ html[data-theme="light"] .topbar { background: rgba(234,247,247,.84); }
 .document-preview.is-revealed .document-reveal { opacity:0; pointer-events:none; backdrop-filter:none; -webkit-backdrop-filter:none; }
 @keyframes document-glass-sweep { 0%,10% { left:-30%; opacity:0; } 30% { opacity:1; } 60%,100% { left:135%; opacity:0; } }
 @media (prefers-reduced-motion:reduce) { .document-reveal::before { animation:none; } .document-preview iframe,.document-reveal,.reveal-lock { transition:none; } }
+
+/* V4 skill certificates: compact gallery in credentials section */
+.skill-certificates-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:26px; }.skill-certificate-card .document-card-heading { padding:15px 15px 12px; }.skill-certificate-card .document-preview { aspect-ratio: .92 / 1; }.skill-certificate-card .document-card-footer { padding:12px 15px 15px; }.skill-certificate-card .document-card-footer > span { font-size:7px; }.skill-certificate-card .document-view-link { font-size:8px; padding:9px 10px; }
+@media (max-width:1000px) { .skill-certificates-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:600px) { .skill-certificates-grid { grid-template-columns:1fr; gap:13px; } .skill-certificate-card .document-preview { aspect-ratio:1 / 1.05; } }
