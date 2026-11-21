@@ -978,12 +978,21 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   if (!dock) return;
   let settleTimer = 0;
   let raf = 0;
+  let dockShift = 0;
   const moveDock = (gap) => {
     const rect = dock.getBoundingClientRect();
-    const delta = gap - rect.top;
-    dock.style.setProperty('transform', `translateX(-50%) translateY(${delta}px)`, 'important');
+    const layoutTop = rect.top - dockShift;
+    dockShift = gap - layoutTop;
+    dock.style.setProperty('transform', `translateX(-50%) translateY(${dockShift}px)`, 'important');
   };
   const onScroll = () => {
+    if (window.scrollY <= 0) {
+      clearTimeout(settleTimer);
+      dockShift = 0;
+      dock.style.removeProperty('transform');
+      dock.classList.remove('dock-scroll-motion');
+      return;
+    }
     dock.classList.add('dock-scroll-motion');
     if (raf) cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => moveDock(6));
@@ -996,7 +1005,7 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', () => {
     if (window.scrollY > 0) moveDock(22);
-    else dock.style.removeProperty('transform');
+    else { dockShift = 0; dock.style.removeProperty('transform'); }
   }, {passive:true});
   if (window.scrollY > 0) moveDock(22);
 })();
