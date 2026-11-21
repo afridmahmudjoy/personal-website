@@ -1072,3 +1072,22 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     card.addEventListener('pointercancel', reset);
   });
 })();
+
+/* Single-controller skill burner: one word at a time, repeat in a clean six-word loop */
+(() => {
+  const words = document.querySelectorAll('.hero-skill-words > span');
+  if (!words.length) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) { words.forEach((w,i)=>w.classList.toggle('is-burning',i===0)); return; }
+  let current = -1;
+  const activate = () => {
+    words.forEach(w => w.classList.remove('is-burning'));
+    current = (current + 1) % words.length;
+    const word = words[current];
+    word.classList.remove('is-burning');
+    void word.offsetWidth;
+    word.classList.add('is-burning');
+  };
+  activate();
+  window.setInterval(activate, 2000);
+})();
