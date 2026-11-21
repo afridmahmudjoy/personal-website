@@ -142,6 +142,25 @@
     finishTimer = window.setTimeout(finishPortraitFlight, 1350);
   });
 
+  // Deep links into the portfolio (e.g. /#diploma) must reveal the hidden portfolio first.
+  const revealPortfolioForHash = () => {
+    if (!portfolio || !window.location.hash || window.location.hash === '#home') return;
+    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+    if (!target || !portfolio.contains(target)) return;
+    portfolio.hidden = false;
+    portfolioOpened = true;
+    if (exploreButton) {
+      exploreButton.setAttribute('aria-expanded', 'true');
+      const title = exploreButton.querySelector('strong');
+      const subtitle = exploreButton.querySelector('small');
+      if (title) title.textContent = 'PROFILE READY';
+      if (subtitle) subtitle.textContent = 'WELCOME TO MY PORTFOLIO';
+    }
+    window.setTimeout(() => target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }), 80);
+  };
+  window.addEventListener('hashchange', revealPortfolioForHash);
+  revealPortfolioForHash();
+
   // Mobile navigation.
   const menuButton = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav');
