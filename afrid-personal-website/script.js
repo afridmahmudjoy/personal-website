@@ -1074,24 +1074,101 @@ document.querySelectorAll('.document-reveal').forEach(button => {
 })();
 
 
-/* V4 skill word fire: canvas embers erupt upward from each burning label */
+/* V4 HERO SKILLS — timed word burn + upward flying embers */
 (() => {
-  const frame=document.querySelector('.portrait-frame');
-  const strip=document.querySelector('.hero-skill-rotator');
-  const words=[...document.querySelectorAll('.hero-skill-words > span')];
-  if(!frame||!strip||!words.length)return;
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){words.forEach((w,i)=>w.classList.toggle('is-burning',i===0));return;}
-  const canvas=document.createElement('canvas');canvas.className='skill-fire-canvas';canvas.setAttribute('aria-hidden','true');frame.appendChild(canvas);
-  const ctx=canvas.getContext('2d');let W=0,H=0,ratio=1,active=-1,particles=[],emitUntil=0,last=0;
-  const resize=()=>{const r=canvas.getBoundingClientRect();ratio=Math.min(window.devicePixelRatio||1,2);W=r.width;H=r.height;canvas.width=Math.max(1,Math.round(W*ratio));canvas.height=Math.max(1,Math.round(H*ratio));ctx.setTransform(ratio,0,0,ratio,0,0)};
-  new ResizeObserver(resize).observe(frame);resize();
-  const ignite=()=>{words.forEach(w=>w.classList.remove('is-burning'));active=(active+1)%words.length;const word=words[active];void word.offsetWidth;word.classList.add('is-burning');emitUntil=performance.now()+2300;};
-  const burst=(x,y)=>{for(let n=0;n<8;n++){const angle=(-Math.PI/2)+(Math.random()-.5)*1.65,speed=1.1+Math.random()*3.6;particles.push({x,y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed-1.2,life:500+Math.random()*900,max:1400,size:1+Math.random()*3.2,heat:Math.random()})}};
-  const tick=now=>{const dt=Math.min(34,now-(last||now));last=now;ctx.clearRect(0,0,W,H);
-    if(active>=0&&now<emitUntil){const wr=words[active].getBoundingClientRect(),cr=canvas.getBoundingClientRect();const x=wr.left+wr.width*(.15+Math.random()*.7)-cr.left,y=wr.top+wr.height*.5-cr.top;burst(x,y)}
-    particles=particles.filter(p=>p.life>0&&p.y>-25);for(const p of particles){p.life-=dt;p.vy-=.018*dt;p.x+=p.vx*dt/16;p.y+=p.vy*dt/16;p.vx*=.995;const fade=Math.max(0,p.life/p.max),rad=p.size*(.5+fade);
-      const glow=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,rad*4);glow.addColorStop(0,p.heat>.65?'rgba(255,255,225,.95)':'rgba(255,190,60,.9)');glow.addColorStop(.28,'rgba(255,105,20,.7)');glow.addColorStop(1,'rgba(255,30,0,0)');ctx.fillStyle=glow;ctx.beginPath();ctx.arc(p.x,p.y,rad*4,0,Math.PI*2);ctx.fill();
-      ctx.fillStyle=p.heat>.65?'rgba(255,255,230,.9)':'rgba(255,170,35,.8)';ctx.beginPath();ctx.arc(p.x,p.y,rad,0,Math.PI*2);ctx.fill();}
-    requestAnimationFrame(tick)};
-  ignite();window.setInterval(ignite,2700);requestAnimationFrame(tick);
+  const frame = document.querySelector('.portrait-frame');
+  const rotator = document.querySelector('.hero-skill-rotator');
+  const words = [...document.querySelectorAll('.hero-skill-words > span')];
+  if (!frame || !rotator || !words.length) return;
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) {
+    words.forEach((word, index) => {
+      word.classList.remove('is-burning');
+      word.style.opacity = index === 0 ? '1' : '0';
+    });
+    return;
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.className = 'skill-fire-canvas';
+  canvas.setAttribute('aria-hidden', 'true');
+  frame.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  if (!ctx) { canvas.remove(); return; }
+
+  let width = 0, height = 0, dpr = 1, current = -1, particles = [], emitEnd = 0, lastTime = 0;
+  const resize = () => {
+    const rect = canvas.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = rect.width; height = rect.height;
+    canvas.width = Math.max(1, Math.round(width * dpr));
+    canvas.height = Math.max(1, Math.round(height * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  if ('ResizeObserver' in window) new ResizeObserver(resize).observe(frame);
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+
+  const ignite = () => {
+    words.forEach(word => word.classList.remove('is-burning'));
+    current = (current + 1) % words.length;
+    const word = words[current];
+    void word.offsetWidth;
+    word.classList.add('is-burning');
+    emitEnd = performance.now() + 1750;
+  };
+
+  const burst = (x, y) => {
+    for (let i = 0; i < 6; i++) {
+      const angle = -Math.PI / 2 + (Math.random() - .5) * 1.35;
+      const speed = 1.4 + Math.random() * 3.2;
+      const life = 520 + Math.random() * 760;
+      particles.push({
+        x: x + (Math.random() - .5) * 20, y,
+        vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - .8,
+        life, maxLife: life, size: 1.1 + Math.random() * 2.7,
+        heat: Math.random(), wobble: Math.random() * Math.PI * 2
+      });
+    }
+  };
+
+  const paint = (now) => {
+    const dt = Math.min(32, now - (lastTime || now));
+    lastTime = now;
+    ctx.clearRect(0, 0, width, height);
+
+    if (current >= 0 && now < emitEnd) {
+      const wordRect = words[current].getBoundingClientRect();
+      const canvasRect = canvas.getBoundingClientRect();
+      burst(wordRect.left + wordRect.width * (.18 + Math.random() * .64) - canvasRect.left,
+        wordRect.top + wordRect.height * .55 - canvasRect.top);
+    }
+
+    particles = particles.filter(p => p.life > 0 && p.y > -36);
+    for (const p of particles) {
+      p.life -= dt;
+      p.wobble += dt * .008;
+      p.vy -= .022 * dt;
+      p.vx += Math.sin(p.wobble) * .018;
+      p.x += p.vx * dt / 16;
+      p.y += p.vy * dt / 16;
+      p.vx *= .994;
+      const fade = Math.max(0, p.life / p.maxLife);
+      const radius = Math.max(.3, p.size * (.35 + fade));
+      const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 4.8);
+      glow.addColorStop(0, p.heat > .72 ? 'rgba(255,255,240,.95)' : 'rgba(255,190,55,.92)');
+      glow.addColorStop(.24, 'rgba(255,112,25,.72)');
+      glow.addColorStop(1, 'rgba(255,35,0,0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath(); ctx.arc(p.x, p.y, radius * 4.8, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = p.heat > .72 ? 'rgba(255,255,228,.94)' : 'rgba(255,172,40,.84)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, radius, 0, Math.PI * 2); ctx.fill();
+    }
+    requestAnimationFrame(paint);
+  };
+
+  ignite();
+  window.setInterval(ignite, 3000);
+  requestAnimationFrame(paint);
 })();
