@@ -1025,3 +1025,31 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     });
   });
 })();
+
+
+/* V4 entry loader: ~2s progress then fade into the portfolio */
+(() => {
+  const loader = document.getElementById('joy-loader');
+  if (!loader) return;
+  const bar = document.getElementById('joy-loader-bar');
+  const percent = document.getElementById('joy-loader-percent');
+  const status = document.getElementById('joy-loader-status');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const duration = reduced ? 650 : 2050;
+  const labels = ['INITIALIZING','SYNCING CREATIVE SYSTEM','PREPARING EXPERIENCE'];
+  let start = 0, lastStage = -1;
+  const tick = now => {
+    if (!start) start = now;
+    const progress = Math.min(1,(now-start)/duration);
+    const value = Math.round(progress*100);
+    if(bar) bar.style.width=value+'%';
+    if(percent) percent.textContent=String(value).padStart(2,'0')+'%';
+    const stage=Math.min(2,Math.floor(progress*3));
+    if(stage!==lastStage && status){status.textContent=labels[stage];lastStage=stage;}
+    if(progress<1) requestAnimationFrame(tick);
+    else {
+      window.setTimeout(()=>{loader.classList.add('is-exiting');window.setTimeout(()=>loader.remove(),reduced?220:600);},160);
+    }
+  };
+  requestAnimationFrame(tick);
+})();
