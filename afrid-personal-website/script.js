@@ -980,7 +980,7 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   let raf = 0;
   const moveDock = (gap) => {
     const rect = dock.getBoundingClientRect();
-    const delta = Math.max(0, gap - rect.top);
+    const delta = gap - rect.top;
     dock.style.setProperty('transform', `translateX(-50%) translateY(${delta}px)`, 'important');
   };
   const onScroll = () => {
