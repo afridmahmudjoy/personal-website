@@ -1535,3 +1535,45 @@ html[data-theme="light"] .journey-card { background:linear-gradient(145deg,rgba(
  #glass-dock .dock-icon svg{width:18px!important;height:18px!important}
  #glass-dock .dock-label{font-size:7.5px!important}
 }
+
+
+/* V4 dock: restrained, icon-specific micro motions */
+#glass-dock .dock-item:not(.dock-control):hover .dock-icon,
+#glass-dock .dock-item:not(.dock-control).dock-animate .dock-icon { transform-origin: 50% 65%; }
+#glass-dock .dock-item:nth-child(1):hover .dock-icon,
+#glass-dock .dock-item:nth-child(1).dock-animate .dock-icon { animation: dock-home-bounce .58s cubic-bezier(.2,.75,.25,1); }
+#glass-dock .dock-item:nth-child(4):hover .dock-icon,
+#glass-dock .dock-item:nth-child(4).dock-animate .dock-icon { animation: dock-about-nod .56s ease; }
+#glass-dock .dock-item:nth-child(5):hover .dock-icon,
+#glass-dock .dock-item:nth-child(5).dock-animate .dock-icon { animation: dock-skill-spark .62s ease; }
+#glass-dock .dock-item:nth-child(6):hover .dock-icon,
+#glass-dock .dock-item:nth-child(6).dock-animate .dock-icon { animation: dock-building-glint .65s ease; }
+#glass-dock .dock-item:nth-child(7):hover .dock-icon,
+#glass-dock .dock-item:nth-child(7).dock-animate .dock-icon { animation: dock-case-shift .55s ease; }
+#glass-dock .dock-item:nth-child(8):hover .dock-icon,
+#glass-dock .dock-item:nth-child(8).dock-animate .dock-icon { animation: dock-team-orbit .62s ease; }
+#glass-dock .dock-item:nth-child(9):hover .dock-icon,
+#glass-dock .dock-item:nth-child(9).dock-animate .dock-icon { animation: dock-page-flip .55s ease; }
+#glass-dock .dock-item:nth-child(10):hover .dock-icon,
+#glass-dock .dock-item:nth-child(10).dock-animate .dock-icon { animation: dock-badge-pop .58s ease; }
+#glass-dock .dock-item:nth-child(11):hover .dock-icon,
+#glass-dock .dock-item:nth-child(11).dock-animate .dock-icon { animation: dock-project-grid .58s ease; }
+#glass-dock .dock-item:nth-child(12):hover .dock-icon,
+#glass-dock .dock-item:nth-child(12).dock-animate .dock-icon { animation: dock-cap-tilt .58s ease; }
+#glass-dock .dock-item:nth-child(13):hover .dock-icon,
+#glass-dock .dock-item:nth-child(13).dock-animate .dock-icon { animation: dock-turquoise-wave .65s ease; }
+#glass-dock .dock-item:nth-child(14):hover .dock-icon,
+#glass-dock .dock-item:nth-child(14).dock-animate .dock-icon { animation: dock-mail-send .58s ease; }
+@keyframes dock-home-bounce { 0%,100%{transform:translateY(0)} 42%{transform:translateY(-3px)} 72%{transform:translateY(1px)} }
+@keyframes dock-about-nod { 0%,100%{transform:rotate(0)} 35%{transform:rotate(-7deg) translateY(-1px)} 70%{transform:rotate(4deg)} }
+@keyframes dock-skill-spark { 0%,100%{transform:rotate(0) scale(1)} 35%{transform:rotate(12deg) scale(1.12)} 70%{transform:rotate(-5deg) scale(1.04)} }
+@keyframes dock-building-glint { 0%,100%{transform:translateY(0)} 30%{transform:translateY(-2px)} 55%{transform:translateY(0)} 75%{transform:translateY(-1px)} }
+@keyframes dock-case-shift { 0%,100%{transform:translateY(0)} 40%{transform:translateY(-2px) rotate(-3deg)} 70%{transform:translateY(1px) rotate(2deg)} }
+@keyframes dock-team-orbit { 0%,100%{transform:rotate(0)} 35%{transform:rotate(6deg)} 70%{transform:rotate(-4deg)} }
+@keyframes dock-page-flip { 0%,100%{transform:rotateX(0)} 40%{transform:rotateX(18deg) translateY(-2px)} 75%{transform:rotateX(-5deg)} }
+@keyframes dock-badge-pop { 0%,100%{transform:scale(1)} 40%{transform:scale(1.12)} 70%{transform:scale(.98)} }
+@keyframes dock-project-grid { 0%,100%{transform:scale(1)} 35%{transform:scale(1.08) rotate(3deg)} 70%{transform:scale(.98) rotate(-2deg)} }
+@keyframes dock-cap-tilt { 0%,100%{transform:rotate(0)} 40%{transform:rotate(-8deg) translateY(-2px)} 70%{transform:rotate(4deg)} }
+@keyframes dock-turquoise-wave { 0%,100%{transform:translateY(0)} 35%{transform:translateY(-2px) rotate(3deg)} 65%{transform:translateY(1px) rotate(-3deg)} }
+@keyframes dock-mail-send { 0%,100%{transform:translate(0,0)} 35%{transform:translate(2px,-2px) rotate(5deg)} 70%{transform:translate(-1px,1px) rotate(-2deg)} }
+@media(prefers-reduced-motion:reduce){ #glass-dock .dock-item:hover .dock-icon,#glass-dock .dock-item.dock-animate .dock-icon{animation:none!important;transform:none!important} }
