@@ -2845,3 +2845,8 @@ img, video, iframe { max-width:100%; }
   100%{opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(-20px) skewX(4deg) scale(1.08);filter:blur(5px);text-shadow:none}
 }
 @media(prefers-reduced-motion:reduce){.skill-fire-canvas{display:none!important}.hero-skill-words>span{animation:none!important;opacity:0!important}.hero-skill-words>span:first-child{opacity:1!important;color:var(--accent)!important;text-shadow:none!important}}
+
+/* V4 footer LinkedIn mark: restore the white "in" glyph over its solid brand tile */
+.contact-links .linkedin-icon{fill:none!important;stroke:none!important}
+.contact-links .linkedin-icon rect{fill:currentColor!important;stroke:none!important}
+.contact-links .linkedin-icon path{fill:#fff!important;stroke:none!important}
