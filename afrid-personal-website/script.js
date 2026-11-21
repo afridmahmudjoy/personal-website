@@ -1106,7 +1106,7 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   function sample(word){resize();const text=word.textContent.trim(),style=getComputedStyle(word),font=style.font;
     const m=document.createElement('canvas').getContext('2d');m.font=font;const tw=Math.ceil(m.measureText(text).width);
     const off=document.createElement('canvas');off.width=tw+12;off.height=h+10;const o=off.getContext('2d');o.font=font;o.textBaseline='middle';o.fillStyle='#fff';o.fillText(text,5,off.height/2);
-    const pixels=o.getImageData(0,0,off.width,off.height).data,arr=[],step=3,dx=word.offsetLeft-host.offsetLeft+4,dy=Math.max(0,(h-off.height)/2);
+    const pixels=o.getImageData(0,0,off.width,off.height).data,arr=[],step=3,dx=Math.max(0,(w-tw)/2),dy=Math.max(0,(h-off.height)/2);
     for(let y=0;y<off.height;y+=step)for(let x=0;x<off.width;x+=step)if(pixels[(y*off.width+x)*4+3]>75)arr.push({x:dx+x,y:dy+y,ox:dx+x,oy:dy+y,vx:(Math.random()-.5)*1.3,vy:-.25-Math.random()*1.2,delay:Math.random()*520,size:.7+Math.random()*1.25});
     return arr;
   }
