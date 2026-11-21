@@ -2761,3 +2761,15 @@ img, video, iframe { max-width:100%; }
  .hero-skill-words>span{animation:none!important;opacity:0!important;transform:none!important;filter:none!important;clip-path:none!important}
  .hero-skill-words>span:first-child{opacity:1!important;color:var(--accent)!important}
 }
+
+/* HERO SKILL WORDS — turquoise/white luminous vapor fade */
+.hero-skill-words>span{color:#f3ffff!important;text-shadow:0 0 5px rgba(255,255,255,.85),0 0 12px rgba(43,240,224,.9),0 0 24px rgba(24,211,197,.55)!important}
+.hero-skill-words>span:nth-child(even){color:#35e6d6!important;text-shadow:0 0 5px rgba(53,230,214,.95),0 0 14px rgba(53,230,214,.85),0 0 28px rgba(53,230,214,.55)!important}
+@keyframes skill-word-ignite{
+  0%{opacity:0;transform:translateY(7px) scale(.98);filter:blur(4px);text-shadow:none}
+  12%{opacity:1;transform:translateY(0) scale(1);filter:brightness(1.2);text-shadow:0 0 4px #fff,0 0 12px #31e9d8,0 0 24px #1ccdbf}
+  32%{opacity:1;filter:brightness(1.35);text-shadow:0 0 6px #fff,0 0 16px #41f0df,0 0 32px #17bfb5}
+  55%{opacity:.9;transform:translateY(-2px) scale(1.01);filter:blur(.3px)}
+  76%{opacity:.35;transform:translateY(-7px) scale(1.03);filter:blur(1.4px);clip-path:inset(0 0 22% 0);text-shadow:0 0 12px #48e9d9}
+  100%{opacity:0;transform:translateY(-13px) scale(1.05);filter:blur(4px);clip-path:inset(0 0 100% 0);text-shadow:none}
+}
