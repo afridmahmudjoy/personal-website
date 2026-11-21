@@ -2921,3 +2921,10 @@ img, video, iframe { max-width:100%; }
   .hero-skill-words > span { visibility:hidden!important;opacity:0!important; }
   .hero-skill-words > span:first-child { visibility:visible!important;opacity:1!important; }
 }
+
+/* V4 LOADER CONTEXT TEXT — larger, easier to read */
+.joy-loader-caption{font-size:clamp(12px,1.25vw,15px)!important;letter-spacing:.19em!important;line-height:1.5!important}
+.joy-loader-status{font-size:clamp(15px,1.55vw,19px)!important;letter-spacing:.2em!important;line-height:1.4!important}
+.joy-loader-hud{font-size:clamp(10px,1vw,12px)!important;letter-spacing:.14em!important}
+.joy-loader-percent{font-size:12px!important;letter-spacing:.1em!important}
+@media(max-width:480px){.joy-loader-caption{font-size:11px!important;letter-spacing:.11em!important}.joy-loader-status{font-size:15px!important;letter-spacing:.14em!important}.joy-loader-hud{font-size:9px!important;letter-spacing:.09em!important}.joy-loader-percent{font-size:11px!important}}
