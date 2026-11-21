@@ -970,3 +970,33 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     button.querySelector('.reveal-hint').textContent = revealed ? 'Tap to hide' : 'Tap to view';
   });
 });
+
+
+/* V4: scroll-reactive quick dock — rises near the top while scrolling, then settles with a small gap. */
+(() => {
+  const dock = document.getElementById('glass-dock');
+  if (!dock) return;
+  let settleTimer = 0;
+  let raf = 0;
+  const moveDock = (gap) => {
+    const rect = dock.getBoundingClientRect();
+    const delta = Math.max(0, gap - rect.top);
+    dock.style.setProperty('transform', `translateX(-50%) translateY(${delta}px)`, 'important');
+  };
+  const onScroll = () => {
+    dock.classList.add('dock-scroll-motion');
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => moveDock(6));
+    clearTimeout(settleTimer);
+    settleTimer = window.setTimeout(() => {
+      dock.classList.remove('dock-scroll-motion');
+      moveDock(22);
+    }, 170);
+  };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', () => {
+    if (window.scrollY > 0) moveDock(22);
+    else dock.style.removeProperty('transform');
+  }, {passive:true});
+  if (window.scrollY > 0) moveDock(22);
+})();
