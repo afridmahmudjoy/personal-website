@@ -1765,3 +1765,52 @@ img, iframe, video { max-width: 100%; }
 .recognition-preview { height:220px !important; max-height:220px; aspect-ratio:1.5 / 1 !important; }
 .recognition-preview iframe { height:100% !important; }
 @media(max-width:620px){.recognition-preview{height:150px!important;max-height:150px}}
+
+/* V4 responsive refinement */
+@media (min-width:621px){.opening{min-height:100svh}.opening-grid{padding-block:clamp(8px,2vh,20px) clamp(22px,4vh,42px)}.hero-visual{min-height:min(530px,68svh)}}
+@media(max-width:620px){
+.opening{min-height:100svh!important;height:100svh;height:100dvh;max-height:100dvh;overflow:hidden}
+.opening-header{height:58px;min-height:58px;width:calc(100% - 32px);flex:0 0 58px}
+.opening-grid{flex:1 1 auto;min-height:0;width:calc(100% - 32px);display:grid;grid-template-columns:minmax(0,1.48fr) minmax(92px,.72fr);align-items:center;gap:8px;padding:5px 0 10px}
+.opening-copy{min-width:0;padding:0}.eyebrow{flex-wrap:wrap;gap:5px;font-size:clamp(5px,1.55vw,7px);line-height:1.5}.eyebrow-pulse{width:5px;height:5px;flex:0 0 5px}
+.opening h1{font-size:clamp(43px,12.4vw,62px);line-height:.91;margin:12px 0;letter-spacing:-.085em}
+.hero-intro{max-width:none;margin:0;font-size:clamp(9px,2.65vw,11px);line-height:1.55}
+.identity-tags{flex-wrap:wrap;gap:6px;margin-top:12px;font-size:6px}.identity-tags i{width:2px;height:2px}
+.hero-stats{gap:clamp(12px,4vw,24px);margin-top:14px;padding-top:10px}.hero-stats strong{font-size:clamp(27px,8vw,36px)}.hero-stats small{max-width:90px;margin-top:4px;font-size:5px;line-height:1.35}
+.explore-button{min-height:48px;margin-top:16px;padding:7px 8px;gap:8px}.explore-icon{width:28px;height:28px;font-size:16px}.explore-button strong{font-size:7px;letter-spacing:.07em}.explore-button small{margin-top:3px;font-size:5px;letter-spacing:.035em}.explore-arrow{font-size:14px}
+.hero-visual{width:100%;min-width:0;min-height:205px;height:min(34svh,270px);margin:0;overflow:visible}.portrait-frame{width:min(100%,132px);aspect-ratio:.78}
+.portrait-caption{bottom:6px;padding:4px 5px;font-size:5px;letter-spacing:.07em}.concept{min-width:0;padding:5px 6px}.concept-icon{font-size:13px}.concept small{font-size:5px;margin-top:2px}
+.concept-growth{left:-3%;top:14%}.concept-code{right:-4%;top:13%}.concept-world{left:-5%;bottom:12%}.concept-idea{right:-5%;bottom:10%}
+.mini-bars{height:12px;margin-top:4px}.mini-bars i:nth-child(1){height:3px}.mini-bars i:nth-child(2){height:5px}.mini-bars i:nth-child(3){height:7px}.mini-bars i:nth-child(4){height:9px}.mini-bars i:nth-child(5){height:12px}
+.code-lines{gap:3px;margin-top:5px}.code-lines i{width:26px}.code-lines i:nth-child(2){width:18px}.code-lines i:nth-child(3){width:22px}
+.orbit-one{width:175px}.orbit-two{width:205px}.orbit-three{width:150px}.visual-grid{inset:12%;background-size:28px 28px}.visual-coordinate{font-size:4px}.coordinate-top{top:2%;right:0}.coordinate-bottom{bottom:2%;left:0}
+.opening-footer{width:calc(100% - 32px);flex:0 0 22px;padding:0 0 5px;font-size:6px}.opening-footer .footer-line{width:34px}
+.about-section,.skills-section,.experience-section,.leadership-section,.diploma-section,.credentials-section,.projects-section,.turquoise-section,.nucb-section{padding-block:58px}
+.education-section{padding-block:56px}.section-heading{margin-bottom:22px}.stats-strip{margin-top:28px}.experience-item{padding-block:16px}
+.diploma-card{padding:18px 14px}.diploma-card h3{font-size:23px}.diploma-facts{gap:10px;margin-top:16px}
+.document-slots,.diploma-documents{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.document-card-heading{gap:7px;padding:11px 10px 9px}.document-type-icon{flex-basis:28px;width:28px;height:28px;font-size:16px;border-radius:8px}
+.document-card-heading small{font-size:6px;letter-spacing:.07em}.document-card-heading strong{font-size:10px;line-height:1.3}.document-number{font-size:8px}
+.document-preview{margin-inline:8px;aspect-ratio:1.18/1}.document-card-footer{align-items:flex-start;flex-direction:column;gap:7px;padding:9px 10px 11px}
+.document-card-footer>span{font-size:6px;line-height:1.4}.document-view-link{padding:7px 8px;font-size:7px}
+.skill-certificates-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+.skill-certificate-card .document-card-heading{padding:10px 9px 8px}.skill-certificate-card .document-preview{aspect-ratio:1.18/1}
+.skill-certificate-card .document-card-footer{padding:8px 9px 10px}.skill-certificate-card .document-card-footer>span{font-size:6px}.skill-certificate-card .document-view-link{font-size:6px;padding:7px}
+.recognition-preview{height:250px}.recognition-archive{margin-top:16px}.journey-card{min-height:190px;padding:17px}.journey-card-body{margin-top:18px}footer{padding-top:55px}
+}
+@media(max-width:380px){
+.opening-grid{grid-template-columns:minmax(0,1.55fr) minmax(82px,.65fr);gap:5px}.opening h1{font-size:clamp(40px,12vw,48px)}.hero-intro{font-size:9px}
+.hero-visual{min-height:175px;height:28svh}.portrait-frame{width:min(100%,108px)}.concept{display:none}.orbit-two{width:165px}.orbit-one{width:140px}.orbit-three{width:120px}
+.document-slots,.diploma-documents{grid-template-columns:1fr}.document-preview{aspect-ratio:1.45/1}
+}
+@media(min-width:621px) and (max-width:1000px){
+.opening{min-height:100svh}.opening-header{height:72px}.opening-grid{padding-block:8px 28px}
+.opening h1{font-size:clamp(58px,8vw,84px);margin-block:18px}.hero-intro{font-size:13px;line-height:1.7}
+.hero-stats{margin-top:22px}.explore-button{margin-top:24px}.hero-visual{min-height:min(410px,60svh)}
+}
+.document-expand{position:absolute;z-index:3;right:9px;bottom:9px;padding:7px 9px;border:1px solid var(--line-strong);border-radius:6px;background:color-mix(in srgb,var(--panel-solid) 88%,transparent);color:var(--accent);font:7px "DM Mono",monospace;letter-spacing:.08em;cursor:pointer}
+.document-lightbox{position:fixed;inset:0;z-index:10000;display:none;place-items:center;padding:clamp(12px,3vw,34px);background:rgba(0,8,7,.88);backdrop-filter:blur(12px)}
+.document-lightbox.is-open{display:grid}.document-lightbox-panel{position:relative;width:min(100%,980px);height:min(88dvh,850px);padding:42px 10px 10px;border:1px solid var(--line-strong);border-radius:14px;background:var(--panel-solid);box-shadow:0 25px 90px rgba(0,0,0,.5)}
+.document-lightbox iframe{width:100%;height:100%;border:0;border-radius:7px;background:#fff}
+.document-lightbox-close{position:absolute;top:9px;right:10px;min-width:30px;min-height:26px;border:1px solid var(--line-strong);border-radius:6px;background:var(--accent-soft);color:var(--ink);cursor:pointer;font:12px "DM Mono",monospace}
+@media(max-width:620px){.document-lightbox-panel{height:90dvh;padding-top:40px}}
