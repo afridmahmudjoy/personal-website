@@ -2435,3 +2435,7 @@ button:not(.menu-toggle):not(.document-reveal):not(.document-lightbox-close):hov
 @media (prefers-reduced-motion: reduce) {
   .topbar .topbar-control { transition: none; }
 }
+
+
+/* Use the filled LinkedIn brand mark rather than the generic outline icon. */
+.contact-links .linkedin-icon { fill: currentColor; stroke: none; }
