@@ -2372,3 +2372,66 @@ button:not(.menu-toggle):not(.document-reveal):not(.document-lightbox-close):hov
     transition: none !important;
   }
 }
+
+
+/* V4: place global sound and appearance controls beside the topbar CTA. */
+.topbar .nav-actions {
+  gap: 9px;
+  flex-shrink: 0;
+}
+.topbar .topbar-control {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 9px;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--line-strong));
+  border-radius: 9px;
+  background: var(--panel);
+  color: var(--ink);
+  font: 600 8px/1 "DM Mono", monospace;
+  letter-spacing: .08em;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent),
+    0 0 12px color-mix(in srgb, var(--accent) 15%, transparent);
+  transition: box-shadow .25s ease, border-color .25s ease,
+              background .25s ease, transform .25s ease;
+}
+.topbar .topbar-control:hover,
+.topbar .topbar-control:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent),
+              0 0 16px color-mix(in srgb, var(--accent) 28%, transparent);
+  transform: translateY(-1px);
+}
+.topbar .topbar-control[aria-pressed="true"] {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+}
+.topbar .topbar-control .sound-symbol,
+.topbar .topbar-control .theme-symbol {
+  color: var(--accent);
+  font: 700 14px/1 "Manrope", sans-serif;
+  letter-spacing: 0;
+}
+@media (max-width: 620px) {
+  .topbar .nav-actions { gap: 5px; }
+  .topbar .topbar-control {
+    min-height: 30px;
+    gap: 4px;
+    padding: 5px 6px;
+    font-size: 6.5px;
+    letter-spacing: .04em;
+  }
+  .topbar .topbar-control .sound-symbol,
+  .topbar .topbar-control .theme-symbol { font-size: 12px; }
+}
+@media (max-width: 370px) {
+  .topbar .topbar-control { padding-inline: 5px; font-size: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .topbar .topbar-control { transition: none; }
+}
