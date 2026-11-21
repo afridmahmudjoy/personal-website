@@ -2773,3 +2773,10 @@ img, video, iframe { max-width:100%; }
   76%{opacity:.35;transform:translateY(-7px) scale(1.03);filter:blur(1.4px);clip-path:inset(0 0 22% 0);text-shadow:0 0 12px #48e9d9}
   100%{opacity:0;transform:translateY(-13px) scale(1.05);filter:blur(4px);clip-path:inset(0 0 100% 0);text-shadow:none}
 }
+
+/* PARTICLE SKILL CYCLE CANVAS — overlay only the label zone below portrait */
+.hero-skill-rotator{position:absolute!important;isolation:isolate}
+.hero-skill-words{position:relative!important;display:inline-block!important}
+.hero-skill-particles{position:absolute!important;left:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:3!important;pointer-events:none!important;overflow:visible!important}
+.hero-skill-words>span{visibility:hidden!important;opacity:0!important;animation:none!important}
+@media(prefers-reduced-motion:reduce){.hero-skill-particles{display:none!important}.hero-skill-words>span:first-child{visibility:visible!important;opacity:1!important;color:#39e7d7!important}}
