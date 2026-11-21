@@ -882,14 +882,14 @@ if (glassDock) {
   // even before it enters the dock. Reduced-motion and touch users are excluded.
   if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const magnifyIcons = dockLinks.map(link => link.querySelector('.dock-icon')).filter(Boolean);
-    let raf = 0, pointerX = null;
+    let raf = 0, pointerX = null, pointerY = null;
     const resetMagnification = () => magnifyIcons.forEach(icon => {
       icon.style.setProperty('--dock-magnify', '1');
       icon.closest('.dock-item')?.style.setProperty('--dock-lift', '0px');
     });
     const updateMagnification = () => {
       raf = 0;
-      if (pointerX === null) return;
+      if (pointerX === null || pointerY === null) return;
       magnifyIcons.forEach(icon => {
         const item = icon.closest('.dock-item');
         const rect = item.getBoundingClientRect();
@@ -900,7 +900,7 @@ if (glassDock) {
         }
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const distance = Math.hypot(pointerX - centerX, window.__dockPointerY - centerY);
+        const distance = Math.hypot(pointerX - centerX, pointerY - centerY);
         const influence = Math.max(0, 1 - distance / 165);
         const eased = influence * influence * (3 - 2 * influence);
         icon.style.setProperty('--dock-magnify', (1 + eased * .48).toFixed(3));
@@ -910,11 +910,12 @@ if (glassDock) {
     window.addEventListener('pointermove', event => {
       if (event.pointerType === 'touch') return;
       pointerX = event.clientX;
-      window.__dockPointerY = event.clientY;
+      pointerY = event.clientY;
       if (!raf) raf = window.requestAnimationFrame(updateMagnification);
     }, { passive: true });
     window.addEventListener('pointerleave', () => {
       pointerX = null;
+      pointerY = null;
       resetMagnification();
     });
     window.addEventListener('blur', () => {
