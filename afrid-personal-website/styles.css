@@ -1814,3 +1814,20 @@ img, iframe, video { max-width: 100%; }
 .document-lightbox iframe{width:100%;height:100%;border:0;border-radius:7px;background:#fff}
 .document-lightbox-close{position:absolute;top:9px;right:10px;min-width:30px;min-height:26px;border:1px solid var(--line-strong);border-radius:6px;background:var(--accent-soft);color:var(--ink);cursor:pointer;font:12px "DM Mono",monospace}
 @media(max-width:620px){.document-lightbox-panel{height:90dvh;padding-top:40px}}
+
+/* Keep document thumbnails restrained on wide screens as well. */
+.diploma-documents .document-preview { aspect-ratio: 1.42 / 1; }
+.skill-certificate-card .document-preview { aspect-ratio: 1.3 / 1; }
+.recognition-preview { height: 300px; }
+@media (max-height:700px) and (max-width:620px) {
+  .opening-header { height:50px; min-height:50px; flex-basis:50px; }
+  .opening h1 { font-size:clamp(38px,10.8vw,48px); margin-block:8px; }
+  .hero-intro { font-size:8px; line-height:1.45; }
+  .identity-tags { margin-top:8px; }
+  .hero-stats { margin-top:9px; padding-top:7px; }
+  .hero-stats strong { font-size:25px; }
+  .explore-button { min-height:42px; margin-top:10px; }
+  .hero-visual { min-height:140px; height:24svh; }
+  .portrait-frame { width:min(100%,96px); }
+  .opening-footer { flex-basis:18px; }
+}
