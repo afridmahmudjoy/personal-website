@@ -2896,3 +2896,28 @@ img, video, iframe { max-width:100%; }
 .hero-skill-words>span.is-typing{visibility:visible!important;opacity:1!important;animation:cover-skill-wipe 3.05s steps(24,end) forwards!important}
 @keyframes cover-skill-wipe{0%,4%{clip-path:inset(0 100% 0 0)}55%,78%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 100% 0 0)}}
 @media(prefers-reduced-motion:reduce){.hero-skill-words>span.is-typing{animation:none!important;clip-path:none!important}}
+
+
+/* RESTORE COVER PORTRAIT SKILLS: animated words below the photo */
+.hero-skill-rotator { visibility: visible !important; }
+.hero-skill-words > span {
+  opacity: 0 !important; visibility: hidden !important;
+  clip-path: inset(0 100% 0 0) !important; animation: none !important;
+  transform: translateY(4px) !important;
+}
+.hero-skill-words > span.is-typing {
+  visibility: visible !important;
+  animation: v4-cover-skill-typefade 3.05s ease-in-out forwards !important;
+}
+@keyframes v4-cover-skill-typefade {
+  0% { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateY(4px); filter: blur(2px); }
+  8% { opacity: 1; filter: blur(0); }
+  42% { opacity: 1; clip-path: inset(0 0 0 0); transform: translateY(0); }
+  75% { opacity: 1; clip-path: inset(0 0 0 0); }
+  100% { opacity: 0; clip-path: inset(0 0 0 0); transform: translateY(-3px); filter: blur(1px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-skill-words > span, .hero-skill-words > span.is-typing { animation:none!important;clip-path:none!important;transform:none!important; }
+  .hero-skill-words > span { visibility:hidden!important;opacity:0!important; }
+  .hero-skill-words > span:first-child { visibility:visible!important;opacity:1!important; }
+}
