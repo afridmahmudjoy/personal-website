@@ -2437,9 +2437,6 @@ button:not(.menu-toggle):not(.document-reveal):not(.document-lightbox-close):hov
 }
 
 
-/* Use the filled LinkedIn brand mark rather than the generic outline icon. */
-.contact-links .linkedin-icon { fill: none; stroke: currentColor; }
-
 
 /* V4 entry loader — restored */
 .joy-loader{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;overflow:hidden;background:#050d0c;color:#b9fff2;opacity:1;visibility:visible;transition:opacity .55s ease,visibility .55s ease}
