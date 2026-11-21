@@ -1009,3 +1009,39 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   }, {passive:true});
   if (window.scrollY > 0) moveDock(22);
 })();
+
+
+// V4 document preview expansion: compact cards, full-size on demand.
+(() => {
+  const dialog = document.createElement('div');
+  dialog.className = 'document-lightbox';
+  dialog.setAttribute('role', 'dialog');
+  dialog.setAttribute('aria-modal', 'true');
+  dialog.setAttribute('aria-label', 'Expanded document preview');
+  dialog.innerHTML = '<div class="document-lightbox-panel"><button class="document-lightbox-close" type="button" aria-label="Close document preview">✕</button><iframe title="Expanded document preview" allow="autoplay"></iframe></div>';
+  document.body.appendChild(dialog);
+  const frame = dialog.querySelector('iframe');
+  const close = () => { dialog.classList.remove('is-open'); frame.removeAttribute('src'); document.body.style.overflow = ''; };
+  dialog.querySelector('.document-lightbox-close').addEventListener('click', close);
+  dialog.addEventListener('click', event => { if (event.target === dialog) close(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && dialog.classList.contains('is-open')) close(); });
+  document.querySelectorAll('.document-reveal').forEach(button => {
+    button.addEventListener('click', () => {
+      const preview = button.closest('.document-preview');
+      const existing = preview.querySelector('.document-expand');
+      if (preview.classList.contains('is-revealed')) {
+        if (!existing) {
+          const expand = document.createElement('button');
+          expand.type = 'button'; expand.className = 'document-expand'; expand.textContent = 'EXPAND ↗';
+          expand.addEventListener('click', event => {
+            event.stopPropagation();
+            const source = preview.querySelector('iframe')?.getAttribute('src');
+            if (!source) return;
+            frame.src = source; dialog.classList.add('is-open'); document.body.style.overflow = 'hidden';
+          });
+          preview.appendChild(expand);
+        }
+      } else existing?.remove();
+    });
+  });
+})();
