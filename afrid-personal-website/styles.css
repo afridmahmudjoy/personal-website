@@ -1427,6 +1427,86 @@ html[data-theme="light"] .journey-card { background:linear-gradient(145deg,rgba(
 @media(prefers-reduced-motion:reduce){#glass-dock .dock-item,#glass-dock .dock-icon{transition:none!important;animation:none!important}}
 
 
+/* V4 dock motion pass — restrained macOS-inspired micro-interactions */
+#glass-dock .dock-item{
+ transform:translateY(0) scale(1);
+ transform-origin:center bottom;
+ will-change:transform;
+}
+#glass-dock .dock-item::before{
+ transition:inset .32s cubic-bezier(.2,.8,.2,1),border-color .3s ease,background .3s ease,box-shadow .3s ease,opacity .3s ease!important;
+}
+#glass-dock .dock-icon{
+ transform:translateY(0) scale(1) rotate(0deg);
+ transform-origin:center;
+ will-change:transform,filter;
+}
+#glass-dock .dock-icon svg{
+ transition:transform .42s cubic-bezier(.2,.9,.25,1),stroke .25s ease;
+}
+#glass-dock .dock-item:hover{
+ transform:translateY(-6px) scale(1.045)!important;
+}
+#glass-dock .dock-item:hover .dock-icon{
+ transform:translateY(-2px) scale(1.12)!important;
+}
+#glass-dock .dock-item:hover .dock-icon svg{
+ transform:rotate(-4deg);
+}
+#glass-dock .dock-item:active{
+ transform:translateY(-1px) scale(.96)!important;
+ transition-duration:.09s!important;
+}
+#glass-dock .dock-item:active .dock-icon{
+ transform:scale(.92)!important;
+ transition-duration:.09s!important;
+}
+#glass-dock .dock-item.active::before{
+ animation:dock-active-sheen 4.6s ease-in-out infinite;
+}
+#glass-dock .dock-item.active .dock-icon{
+ animation:dock-active-float 3.8s ease-in-out infinite!important;
+}
+#glass-dock .dock-control[aria-pressed="true"] .dock-icon{
+ animation:dock-control-on 2.8s ease-in-out infinite;
+}
+#glass-dock .dock-control[aria-pressed="true"]:hover .dock-icon{
+ animation:dock-control-pop .55s cubic-bezier(.2,.8,.2,1);
+}
+#glass-dock .dock-control[aria-pressed="false"]:hover .dock-icon{
+ animation:dock-control-tap .5s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes dock-active-float{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-2.5px)}
+}
+@keyframes dock-active-sheen{
+ 0%,100%{box-shadow:0 0 8px rgba(67,234,209,.06)}
+ 50%{box-shadow:0 0 19px rgba(67,234,209,.17)}
+}
+@keyframes dock-control-on{
+ 0%,100%{transform:translateY(0) scale(1)}
+ 50%{transform:translateY(-1.5px) scale(1.045)}
+}
+@keyframes dock-control-pop{
+ 0%{transform:scale(.92) rotate(-8deg)}
+ 60%{transform:scale(1.17) rotate(5deg)}
+ 100%{transform:scale(1) rotate(0)}
+}
+@keyframes dock-control-tap{
+ 0%{transform:scale(1)}
+ 45%{transform:scale(1.12) rotate(4deg)}
+ 100%{transform:scale(1) rotate(0)}
+}
+#glass-dock .dock-item:focus-visible{
+ outline:2px solid rgba(67,234,209,.55)!important;outline-offset:2px!important;
+}
+@media(prefers-reduced-motion:reduce){
+ #glass-dock .dock-item,#glass-dock .dock-icon,#glass-dock .dock-icon svg,#glass-dock .dock-item::before{
+  transition:none!important;animation:none!important;transform:none!important
+ }
+}
+
 /* V4 macOS-style floating dock: persistent portfolio-wide controls */
 #glass-dock.glass-dock{
  top:auto!important;bottom:22px!important;left:50%!important;transform:translateX(-50%)!important;
