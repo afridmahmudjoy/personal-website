@@ -1760,3 +1760,8 @@ img, iframe, video { max-width: 100%; }
   .skill-certificate-card .document-card-footer>span{font-size:5.5px}
   .skill-certificate-card .document-view-link{justify-content:center;font-size:6px;padding:7px 5px}
 }
+
+/* Keep archive/document embeds as compact previews instead of full-page panels. */
+.recognition-preview { height:220px !important; max-height:220px; aspect-ratio:1.5 / 1 !important; }
+.recognition-preview iframe { height:100% !important; }
+@media(max-width:620px){.recognition-preview{height:150px!important;max-height:150px}}
