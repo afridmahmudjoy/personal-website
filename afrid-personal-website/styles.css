@@ -3472,3 +3472,96 @@ body { font-family: "Manrope", "DM Sans", sans-serif; font-weight: 400; letter-s
 .theme-symbol, .sound-symbol { display: inline-grid; place-items: center; font-size: 19px !important; width: 22px; height: 22px; }
 .theme-word, .sound-word { display: none !important; }
 .theme-toggle:hover, .sound-toggle:hover { border-color: var(--line-strong); color: var(--accent); transform: translateY(-1px); }
+
+
+/* V4 refinement: premium typography, clearer scale, and softer motion */
+:root {
+  --v4-motion-fast: 220ms;
+  --v4-motion: 420ms;
+  --v4-motion-slow: 680ms;
+  --v4-ease: cubic-bezier(.22, .68, .22, 1);
+}
+html { scroll-behavior: smooth; }
+body, button, input, textarea, select {
+  font-family: Manrope, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4, .opening h1, .section-heading h2, .about-grid h2,
+.nucb-copy h2, .turquoise-identity h2, .contact-section h2, .skill-dialog h2 {
+  font-family: Manrope, "Helvetica Neue", Arial, sans-serif !important;
+  font-weight: 600;
+  letter-spacing: -.045em !important;
+  line-height: 1.08;
+}
+.opening h1 { letter-spacing: -.065em !important; line-height: .98; }
+.section-heading h2, .about-grid h2, .leadership-grid h2 {
+  letter-spacing: -.055em !important;
+}
+.hero-intro, .about-text p, .section-aside, .leadership-list p,
+.item-main span, .nucb-copy>p:not(.nucb-overline), .credential-card p,
+.education-list p, .contact-grid p, .dialog-description {
+  line-height: 1.8;
+  font-size: clamp(13px, .95vw, 15px);
+}
+.about-text .lead { font-size: clamp(16px, 1.15vw, 18px); line-height: 1.75; }
+.item-main h3, .leadership-list h3, .credential-card h3, .education-list h3,
+.project-meta h3, .nucb-copy h3 { font-weight: 600; letter-spacing: -.035em; }
+.eyebrow, .section-kicker, .identity-tags, .hero-stats small, .opening-footer,
+.concept small, .portrait-caption, .visual-coordinate, .brand-sub, .nav a,
+.nav-cta, .theme-toggle, .sound-toggle, .item-index, .item-main p, .item-symbol,
+.skill-filters button, .skill-card-category, .skill-card-index, .skill-count,
+.skill-hint, .evidence-note, .nucb-overline, .nucb-coordinate, .nucb-side-label,
+.diploma-label, .diploma-facts small, .expand-subjects, .document-slot small,
+.private-note, .credential-no, .upload-label, .credential-note, .project-placeholder small,
+.project-placeholder strong, .project-meta span, .project-footnote, .education-list article>span,
+.education-list b, .founder-label, .turquoise-link, .showcase-heading, .brand-placeholder strong,
+.brand-showcase p, .contact-links a, .footer-bottom, .dialog-kicker, .dialog-evidence span,
+.dialog-certificate, .toast, .document-card-heading small, .document-card-footer>span {
+  letter-spacing: .075em;
+}
+.eyebrow, .section-kicker, .nav a, .nav-cta, .skill-card-category, .item-index,
+.item-main p, .hero-stats small, .footer-bottom, .contact-links a {
+  font-size: 10px;
+}
+.opening-copy .eyebrow { font-size: 10px; }
+.identity-copy strong, .identity-copy small, .brand-sub, .concept small,
+.portrait-caption, .visual-coordinate, .project-placeholder small,
+.project-placeholder strong, .showcase-heading, .showcase-heading small,
+.diploma-facts small, .education-list article>span, .education-list b {
+  font-size: 9px;
+}
+.stats-strip small, .hero-stats small, .skill-count, .skill-hint, .evidence-note {
+  font-size: 9px;
+}
+.skill-card p, .credential-card p, .education-list p, .item-main span,
+.leadership-list p, .project-meta span, .project-footnote, .dialog-evidence p {
+  font-size: 12px;
+}
+.interactive, a, button, .nav a, .nav-cta, .theme-toggle, .sound-toggle,
+.skill-filters button, .carousel-arrow, .skill-more, .document-card,
+.document-view-link, .journey-card, .journey-icon, .journey-link,
+.turquoise-feature, .turquoise-shop-link, .turquoise-page-link,
+.experience-item, .credential-card, .project-card, .brand-placeholder,
+.contact-links a, .skill-dialog, .document-reveal {
+  transition-duration: var(--v4-motion);
+  transition-timing-function: var(--v4-ease);
+}
+.reveal-section {
+  transition: opacity var(--v4-motion-slow) var(--v4-ease),
+              filter var(--v4-motion-slow) var(--v4-ease),
+              transform var(--v4-motion-slow) var(--v4-ease);
+}
+.interactive { transition-property: filter, box-shadow, color, border-color, transform, background; }
+a, button { -webkit-tap-highlight-color: transparent; }
+@media (max-width: 700px) {
+  .eyebrow, .section-kicker, .nav a, .nav-cta, .skill-card-category, .item-index,
+  .item-main p, .hero-stats small, .footer-bottom, .contact-links a { font-size: 9px; }
+  .hero-intro, .about-text p, .section-aside, .leadership-list p,
+  .item-main span, .nucb-copy>p:not(.nucb-overline), .credential-card p,
+  .education-list p, .contact-grid p, .dialog-description { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
