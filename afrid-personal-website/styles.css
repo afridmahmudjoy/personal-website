@@ -3687,3 +3687,15 @@ img, video, iframe { max-width:100%; }
 @media (prefers-reduced-motion: reduce) {
   .project-showcase-card,.contact-cta,.contact-cta-arrow { transition: none; }
 }
+
+/* V4 project details: accessible, restrained expand/collapse */
+.project-details { margin-top: 16px; border-top: 1px solid var(--line); }
+.project-details summary { padding: 12px 0 3px; cursor: pointer; color: var(--accent); font: 8px "DM Mono", monospace; letter-spacing: .1em; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+.project-details summary::-webkit-details-marker { display: none; }
+.project-details summary::after { content: "+"; font-size: 15px; transition: transform .2s ease; }
+.project-details[open] summary::after { transform: rotate(45deg); }
+.project-details > div { padding: 7px 0 2px; animation: project-detail-in .28s ease both; }
+.project-details > div p { margin: 8px 0; font-size: 11px; line-height: 1.7; color: var(--muted); }
+.project-details > div strong { color: var(--ink); font-weight: 600; }
+@keyframes project-detail-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .project-details > div { animation: none; } .project-details summary::after { transition: none; } }
