@@ -1094,10 +1094,45 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   });
 })();
 
-/* Cover skill words: sequential type-on / hold / fade cycle. */
+/* Cover skill words: true typewriter + delete loop, with accessible reduced-motion fallback. */
 (() => {
- const skills=[...document.querySelectorAll('.hero-skill-words > span')];
- if(!skills.length)return; const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches; let active=0; const show=(index)=>skills.forEach((el,i)=>{el.classList.remove('is-typing');el.style.removeProperty('opacity');el.style.removeProperty('transform');el.style.removeProperty('visibility');if(i===index){void el.offsetWidth;el.classList.add('is-typing');}});
- show(0);
- if(reduced)return; window.setInterval(()=>{active=(active+1)%skills.length;show(active);},3200);
+  const wordHost = document.querySelector('.hero-skill-words');
+  if (!wordHost) return;
+  const wordNodes = [...wordHost.querySelectorAll(':scope > span')];
+  const skillNames = wordNodes.map(el => el.textContent.trim()).filter(Boolean);
+  if (!skillNames.length) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  wordNodes.forEach((el, i) => {
+    el.classList.remove('is-typing');
+    el.style.display = i === 0 ? 'block' : 'none';
+  });
+  const activeNode = wordNodes[0];
+  activeNode.textContent = skillNames[0];
+  activeNode.classList.add('is-typing');
+  if (reduced) return;
+  let wordIndex = 0, charIndex = skillNames[0].length, deleting = true;
+  activeNode.textContent = skillNames[0];
+  const tick = () => {
+    const target = skillNames[wordIndex];
+    if (!deleting) {
+      charIndex++;
+      activeNode.textContent = target.slice(0, charIndex);
+      if (charIndex >= target.length) {
+        deleting = true;
+        window.setTimeout(tick, 1350);
+        return;
+      }
+    } else {
+      charIndex--;
+      activeNode.textContent = target.slice(0, Math.max(0, charIndex));
+      if (charIndex <= 0) {
+        deleting = false;
+        wordIndex = (wordIndex + 1) % skillNames.length;
+        window.setTimeout(tick, 260);
+        return;
+      }
+    }
+    window.setTimeout(tick, deleting ? 42 : 88);
+  };
+  window.setTimeout(tick, 1400);
 })();
