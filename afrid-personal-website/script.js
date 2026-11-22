@@ -750,8 +750,10 @@ const AUTO_ROTATE_DELAY = 3200;
     revealSections.forEach((section) => section.classList.add('is-visible'));
   }
 
-  // Desktop-only custom cursor. The native pointer remains on touch devices.
-  if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  // Desktop-only custom cursor: require an actual hover-capable, wide pointer.
+  // Some mobile browsers incorrectly report pointer:fine, so width and hover are also checked.
+  const cursorMedia = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 681px)');
+  if (cursorMedia.matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const dot = document.querySelector('.cursor-dot');
     const ring = document.querySelector('.cursor-ring');
     if (dot && ring) {
@@ -759,19 +761,24 @@ const AUTO_ROTATE_DELAY = 3200;
       let y = window.innerHeight / 2;
       let ringX = x;
       let ringY = y;
+      const hideCursor = () => { dot.style.opacity = '0'; ring.style.opacity = '0'; };
       document.addEventListener('mousemove', (event) => {
+        if (event.pointerType === 'touch') return;
         x = event.clientX;
         y = event.clientY;
         dot.style.opacity = '1';
         ring.style.opacity = '1';
-        dot.style.left = `${x}px`;
-        dot.style.top = `${y}px`;
+        dot.style.left = x + 'px';
+        dot.style.top = y + 'px';
       }, { passive: true });
+      window.addEventListener('blur', hideCursor);
+      document.addEventListener('mouseleave', hideCursor);
       const animateCursor = () => {
+        if (!cursorMedia.matches) { hideCursor(); return; }
         ringX += (x - ringX) * .19;
         ringY += (y - ringY) * .19;
-        ring.style.left = `${ringX}px`;
-        ring.style.top = `${ringY}px`;
+        ring.style.left = ringX + 'px';
+        ring.style.top = ringY + 'px';
         window.requestAnimationFrame(animateCursor);
       };
       animateCursor();
@@ -783,7 +790,6 @@ const AUTO_ROTATE_DELAY = 3200;
       });
     }
   }
-
   // Global turquoise click ripple — subtle visual feedback anywhere on the page.
   document.addEventListener('click', (event) => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
