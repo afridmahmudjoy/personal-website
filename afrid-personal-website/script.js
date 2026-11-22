@@ -1044,19 +1044,43 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   });
 })();
 
-/* Cover skills: premium focus-shift rotation. */
+/* Cover skills: robust premium Focus Shift animation with inline priority styling. */
 (() => {
   const host = document.querySelector('.hero-skill-words');
   if (!host) return;
-  const skills = [...host.querySelectorAll(':scope > span')];
+  const skills = Array.from(host.children).filter(el => el.tagName === 'SPAN');
   if (!skills.length) return;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let current = 0;
-  skills.forEach((node, i) => node.classList.toggle('focus-shift-active', i === 0));
+  const important = (el, prop, val) => el.style.setProperty(prop, val, 'important');
+  host.style.setProperty('position','relative','important');
+  host.style.setProperty('display','block','important');
+  host.style.setProperty('height','1.55rem','important');
+  host.style.setProperty('overflow','visible','important');
+  skills.forEach(el => {
+    important(el,'position','absolute');
+    important(el,'inset','0');
+    important(el,'display','block');
+    important(el,'visibility','visible');
+    important(el,'opacity','0');
+    important(el,'filter','blur(2px)');
+    important(el,'transform','scale(.985)');
+    important(el,'clip-path','none');
+    important(el,'animation','none');
+    important(el,'transition',reduced?'none':'opacity .75s ease, filter .75s ease, transform .75s ease');
+  });
+  let currentIndex = 0;
+  const setFocus = (idx, active) => {
+    const el = skills[idx];
+    important(el,'opacity',active?'1':'.12');
+    important(el,'filter',active?'blur(0)':'blur(2px)');
+    important(el,'transform',active?'scale(1)':'scale(.985)');
+    el.classList.toggle('focus-shift-active',active);
+  };
+  setFocus(0,true);
   if (reduced) return;
   window.setInterval(() => {
-    skills[current].classList.remove('focus-shift-active');
-    current = (current + 1) % skills.length;
-    skills[current].classList.add('focus-shift-active');
-  }, 2800);
+    setFocus(currentIndex,false);
+    currentIndex = (currentIndex+1)%skills.length;
+    setFocus(currentIndex,true);
+  },2800);
 })();
