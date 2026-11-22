@@ -818,13 +818,28 @@ const AUTO_ROTATE_DELAY = 3200;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (!gallery || !cards.length || !pointerFine.matches || reducedMotion.matches) return;
 
+  const cursor = document.createElement('div');
+  cursor.className = 'work-magnetic-cursor';
+  cursor.setAttribute('aria-hidden', 'true');
+  cursor.innerHTML = '<span>VIEW</span><b>↗</b>';
+  document.body.appendChild(cursor);
+
   let pointerX = 0;
   let pointerY = 0;
+  let cursorX = 0;
+  let cursorY = 0;
   let frame = 0;
-  const radius = 360;
+  let overCard = false;
+  const radius = 480;
 
   const updateAttraction = () => {
-    frame = 0;
+    const cursorDx = pointerX - cursorX;
+    const cursorDy = pointerY - cursorY;
+    cursorX += cursorDx * .2;
+    cursorY += cursorDy * .2;
+    cursor.style.left = `${cursorX}px`;
+    cursor.style.top = `${cursorY}px`;
+
     cards.forEach((card) => {
       const rect = card.getBoundingClientRect();
       const dx = pointerX - (rect.left + rect.width / 2);
@@ -836,22 +851,33 @@ const AUTO_ROTATE_DELAY = 3200;
         return;
       }
       const strength = 1 - distance / radius;
-      const pull = Math.min(14, distance * .09) * strength;
+      const pull = Math.min(22, distance * .14) * strength;
       card.style.setProperty('--magnetic-x', `${(dx / distance * pull).toFixed(2)}px`);
       card.style.setProperty('--magnetic-y', `${(dy / distance * pull).toFixed(2)}px`);
     });
+
+    if (Math.abs(cursorDx) > .15 || Math.abs(cursorDy) > .15) {
+      frame = window.requestAnimationFrame(updateAttraction);
+    } else {
+      frame = 0;
+    }
   };
 
   gallery.addEventListener('pointermove', (event) => {
     if (event.pointerType && event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
     pointerX = event.clientX;
     pointerY = event.clientY;
+    const target = event.target instanceof Element ? event.target : null;
+    overCard = Boolean(target?.closest('[data-magnetic-card]'));
+    cursor.classList.toggle('is-visible', overCard);
     if (!frame) frame = window.requestAnimationFrame(updateAttraction);
   }, { passive: true });
 
   const resetAttraction = () => {
     if (frame) window.cancelAnimationFrame(frame);
     frame = 0;
+    overCard = false;
+    cursor.classList.remove('is-visible');
     cards.forEach((card) => {
       card.style.setProperty('--magnetic-x', '0px');
       card.style.setProperty('--magnetic-y', '0px');

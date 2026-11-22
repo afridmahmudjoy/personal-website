@@ -3677,8 +3677,11 @@ body::after, .ambient-stars::before { content: none !important; display: none !i
 
 /* Real project gallery with a restrained magnetic pull toward the pointer. */
 .project-showcase-grid.work-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 22px); align-items: start; }
-.project-showcase-card.magnetic-card { min-width: 0; transition: border-color .28s ease, transform .28s ease, translate .42s cubic-bezier(.2,.75,.25,1), box-shadow .28s ease; will-change: translate; }
+.project-showcase-card.magnetic-card { min-width: 0; translate: var(--magnetic-x, 0px) var(--magnetic-y, 0px); transition: border-color .28s ease, transform .28s ease, translate .42s cubic-bezier(.2,.75,.25,1), box-shadow .28s ease; will-change: translate; }
 .project-showcase-card.magnetic-card:hover { transform: none; translate: var(--magnetic-x, 0px) calc(var(--magnetic-y, 0px) - 4px); }
+.work-magnetic-cursor { position: fixed; left: 0; top: 0; z-index: 9000; width: 78px; height: 78px; display: grid; place-content: center; gap: 2px; border-radius: 50%; background: var(--accent); color: #071817; box-shadow: 0 8px 30px rgba(0,0,0,.2); font: 700 10px "DM Mono", monospace; letter-spacing: .08em; pointer-events: none; opacity: 0; visibility: hidden; transform: translate(-50%,-50%) scale(.72); transition: opacity .22s ease, visibility .22s ease, transform .34s cubic-bezier(.2,.75,.25,1); }
+.work-magnetic-cursor b { justify-self: center; font: 500 15px "Manrope", sans-serif; line-height: 1; }
+.work-magnetic-cursor.is-visible { opacity: 1; visibility: visible; transform: translate(-50%,-50%) scale(1); }
 .work-preview { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; aspect-ratio: 4 / 3; padding: 12px; background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--accent) 13%, var(--panel-solid)), var(--panel-solid) 74%); border-bottom: 1px solid var(--line); }
 .work-preview img, .work-preview video, .work-preview iframe { display: block; width: 100%; height: 100%; border: 0; object-fit: contain; border-radius: 8px; }
 .work-preview iframe { pointer-events: none; background: #f7f7f4; }
