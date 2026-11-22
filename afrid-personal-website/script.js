@@ -25,7 +25,7 @@
     });
     if (themeMeta) themeMeta.content = isLight ? '#eaf7f7' : '#071312';
   };
-  applyTheme(storage.get('amj-v4-theme') === 'light' ? 'light' : 'dark');
+  applyTheme(storage.get('amj-v4-theme') === 'dark' ? 'dark' : 'light');
   themeButtons.forEach((button) => button.addEventListener('click', () => {
     const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
     applyTheme(next);
@@ -808,148 +808,8 @@ const AUTO_ROTATE_DELAY = 3200;
   });
 
 
-/* =========================================
-   GLASS DOCK ACTIVE SECTION NAVIGATION
-========================================= */
-
-const glassDock = document.querySelector('#glass-dock');
-
-if (glassDock) {
-  const dockLinks = [...glassDock.querySelectorAll('.dock-item')];
-
-  const dockSections = dockLinks
-    .map(link => document.querySelector(link.getAttribute('href')))
-    .filter(Boolean);
-
-  // Smooth navigation
-  dockLinks.forEach(link => {
-    link.addEventListener('click', event => {
-      const href = link.getAttribute('href');
-      const target = document.querySelector(href);
-
-      if (!target) return;
-
-      event.preventDefault();
-
-      // Home button: close portfolio and return to opening screen
-      if (href === '#home') {
-        portfolio.hidden = true;
-        portfolioOpened = false;
-
-        exploreButton?.setAttribute('aria-expanded', 'false');
-
-        const exploreTitle = exploreButton?.querySelector('strong');
-        const exploreSubtitle = exploreButton?.querySelector('small');
-
-        if (exploreTitle) exploreTitle.textContent = 'EXPLORE PORTFOLIO';
-        if (exploreSubtitle) exploreSubtitle.textContent = 'DISCOVER MY JOURNEY';
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        history.replaceState(null, '', '#home');
-
-        return;
-      }
-
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-
-      history.replaceState(null, '', href);
-    });
-  });
-
-  // Icon-specific micro-motion on click.
-  dockLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (link.classList.contains('dock-control')) return;
-      link.classList.remove('dock-animate');
-      void link.offsetWidth;
-      link.classList.add('dock-animate');
-      window.setTimeout(() => link.classList.remove('dock-animate'), 720);
-    });
-  });
-
-  // Desktop Mac-Dock proximity magnification: react as the pointer approaches,
-  // even before it enters the dock. Reduced-motion and touch users are excluded.
-  if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const magnifyIcons = dockLinks.map(link => link.querySelector('.dock-icon')).filter(Boolean);
-    let raf = 0, pointerX = null, pointerY = null;
-    const resetMagnification = () => magnifyIcons.forEach(icon => {
-      icon.style.setProperty('--dock-magnify', '1');
-      icon.closest('.dock-item')?.style.setProperty('--dock-lift', '0px');
-    });
-    const updateMagnification = () => {
-      raf = 0;
-      if (pointerX === null || pointerY === null) return;
-      magnifyIcons.forEach(icon => {
-        const item = icon.closest('.dock-item');
-        const rect = item.getBoundingClientRect();
-        if (!rect.width || !rect.height) {
-          icon.style.setProperty('--dock-magnify', '1');
-          item.style.setProperty('--dock-lift', '0px');
-          return;
-        }
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const distance = Math.hypot(pointerX - centerX, pointerY - centerY);
-        const influence = Math.max(0, 1 - distance / 165);
-        const eased = influence * influence * (3 - 2 * influence);
-        icon.style.setProperty('--dock-magnify', (1 + eased * .48).toFixed(3));
-        item.style.setProperty('--dock-lift', (eased * 9).toFixed(1) + 'px');
-      });
-    };
-    window.addEventListener('pointermove', event => {
-      if (event.pointerType === 'touch') return;
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-      if (!raf) raf = window.requestAnimationFrame(updateMagnification);
-    }, { passive: true });
-    window.addEventListener('pointerleave', () => {
-      pointerX = null;
-      pointerY = null;
-      resetMagnification();
-    });
-    window.addEventListener('blur', () => {
-      pointerX = null;
-      resetMagnification();
-    });
-  }
-
-  // Highlight the current section
-  const dockObserver = new IntersectionObserver(entries => {
-    const visibleSections = entries
-      .filter(entry => entry.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-    if (!visibleSections.length) return;
-
-    const currentId = visibleSections[0].target.id;
-
-    dockLinks.forEach(link => {
-      const isActive = link.getAttribute('href') === `#${currentId}`;
-
-      link.classList.toggle('active', isActive);
-
-      if (isActive) {
-        link.setAttribute('aria-current', 'location');
-        link.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'nearest'
-        });
-      } else {
-        link.removeAttribute('aria-current');
-      }
-    });
-  }, {
-    rootMargin: '-20% 0px -55% 0px',
-    threshold: [0, 0.1, 0.25, 0.5]
-  });
-
-  dockSections.forEach(section => dockObserver.observe(section));
-}
 })();
+;
 
 // V4 diploma preview privacy blur: click/tap to reveal or conceal.
 document.querySelectorAll('.document-reveal').forEach(button => {
