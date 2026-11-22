@@ -25,7 +25,7 @@
     });
     if (themeMeta) themeMeta.content = isLight ? '#eaf7f7' : '#071312';
   };
-  applyTheme(storage.get('amj-v4-theme') === 'dark' ? 'dark' : 'light');
+  applyTheme(storage.get('amj-v4-theme') === 'light' ? 'light' : 'dark');
   themeButtons.forEach((button) => button.addEventListener('click', () => {
     const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
     applyTheme(next);
@@ -886,6 +886,28 @@ const AUTO_ROTATE_DELAY = 3200;
   gallery.addEventListener('pointerleave', resetAttraction);
   gallery.addEventListener('pointercancel', resetAttraction);
 })();
+
+// The magnetic VIEW cursor replaces the repeated per-card open label on every device.
+(() => {
+  document.querySelectorAll('.work-gallery [data-magnetic-card]').forEach((card) => {
+    const link = card.querySelector('.work-open-link');
+    if (!link) return;
+    const openWork = () => window.open(link.href, '_blank', 'noopener,noreferrer');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'link');
+    card.setAttribute('aria-label', `Open ${card.querySelector('h3')?.textContent.trim() || 'project'}`);
+    card.addEventListener('click', (event) => {
+      if (event.target.closest('a, button, video, summary, details')) return;
+      openWork();
+    });
+    card.addEventListener('keydown', (event) => {
+      if (event.target !== card || !['Enter', ' '].includes(event.key)) return;
+      event.preventDefault();
+      openWork();
+    });
+  });
+})();
+
 ;
 
 // V4 diploma preview privacy blur: click/tap to reveal or conceal.
