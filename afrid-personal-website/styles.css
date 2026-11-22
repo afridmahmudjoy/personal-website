@@ -3664,3 +3664,8 @@ a, button { -webkit-tap-highlight-color: transparent; }
   .about-grid, .leadership-grid, .nucb-layout, .turquoise-layout { gap:28px!important; }
   .section-heading h2, .about-grid h2, .leadership-grid h2 { font-size:clamp(38px,5.6vw,58px)!important; }
 }
+
+/* MOBILE CURSOR FIX: prevent the desktop custom cursor from rendering as a floating orb on touch devices. */
+@media (max-width: 680px), (hover: none), (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none !important; opacity: 0 !important; visibility: hidden !important; animation: none !important; }
+}
