@@ -1044,34 +1044,15 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   });
 })();
 
-/* Cover skills: resilient typewriter cycle, explicit visibility styling. */
+/* Cover skills: type/delete animation below the profile name */
 (() => {
-  const host = document.querySelector('.hero-skill-words');
-  if (!host) return;
-  const sourceSkills = Array.from(host.children).filter(el => el.tagName === 'SPAN');
-  if (!sourceSkills.length) return;
-  const words = sourceSkills.map(el => el.textContent.trim()).filter(Boolean);
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const output = document.createElement('span');
-  output.className = 'hero-skill-typewriter';
-  output.setAttribute('aria-hidden','true');
-  host.replaceChildren(output);
-  const force = (el,prop,val)=>el.style.setProperty(prop,val,'important');
-  force(host,'display','block'); force(host,'position','relative'); force(host,'overflow','visible'); force(host,'height','1.45em');
-  force(output,'display','inline-block'); force(output,'position','relative'); force(output,'visibility','visible'); force(output,'opacity','1'); force(output,'white-space','nowrap'); force(output,'clip-path','none'); force(output,'animation','none');
-  force(output,'font-size','clamp(12px,3.6vw,16px)'); force(output,'font-weight','800'); force(output,'letter-spacing','.035em'); force(output,'line-height','1.25');
-  force(output,'background','linear-gradient(90deg,#42e0c5,#8bd7ff,#bba0ff,#e7c98b,#42e0c5)');
-  force(output,'background-size','220% 100%'); force(output,'-webkit-background-clip','text'); force(output,'background-clip','text'); force(output,'-webkit-text-fill-color','transparent');
-  force(output,'text-shadow','0 0 12px rgba(68,225,202,.2)');
-  if (reduced) { output.textContent=words[0]; return; }
-  let i=0,n=0,del=false;
-  const step=()=>{
-    const full=words[i];
-    output.textContent=full.slice(0,n);
-    if(!del&&n<full.length){n++;setTimeout(step,90);}
-    else if(!del){del=true;setTimeout(step,1400);}
-    else if(n>0){n--;setTimeout(step,45);}
-    else{del=false;i=(i+1)%words.length;setTimeout(step,300);}
-  };
-  step();
+ const host=document.querySelector('.hero-skill-words');
+ if(!host)return;
+ const words=Array.from(host.children).filter(el=>el.tagName==='SPAN').map(el=>el.textContent.trim()).filter(Boolean);
+ if(!words.length)return;
+ const out=document.createElement('span');out.className='hero-skill-typewriter';out.setAttribute('aria-hidden','true');host.replaceChildren(out);
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){out.textContent=words[0];return;}
+ let wi=0,ci=0,del=false;
+ const tick=()=>{const w=words[wi];out.textContent=w.slice(0,ci);if(!del&&ci<w.length){ci++;setTimeout(tick,78);}else if(!del){del=true;setTimeout(tick,1250);}else if(ci>0){ci--;setTimeout(tick,38);}else{del=false;wi=(wi+1)%words.length;setTimeout(tick,220);}};
+ tick();
 })();
