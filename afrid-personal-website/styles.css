@@ -2998,3 +2998,73 @@ img, video, iframe { max-width:100%; }
   .hero-skill-words>span{animation:none!important;clip-path:none!important;filter:none!important}
   .hero-skill-words>span.is-typing{opacity:1!important;visibility:visible!important}
 }
+
+/* V4 HERO — clean true type/delete skill ticker */
+.hero-skill-rotator{
+  bottom:-3.45rem!important;
+  width:min(100%,340px)!important;
+  min-height:2.6rem!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:.24rem!important;
+}
+.hero-skill-prefix{
+  display:block!important;
+  font-size:9px!important;
+  letter-spacing:.2em!important;
+  line-height:1.2!important;
+}
+.hero-skill-words{
+  width:min(100%,320px)!important;
+  min-width:0!important;
+  height:1.65rem!important;
+  display:block!important;
+  position:relative!important;
+  overflow:visible!important;
+  text-align:center!important;
+}
+.hero-skill-words>span{
+  display:none!important;
+  position:absolute!important;
+  left:0!important;right:0!important;top:0!important;
+  width:100%!important;
+  min-height:1.55rem!important;
+  font-size:clamp(15px,1.7vw,18px)!important;
+  font-weight:800!important;
+  line-height:1.5!important;
+  letter-spacing:.1em!important;
+  white-space:nowrap!important;
+  text-align:center!important;
+  visibility:visible!important;
+  opacity:1!important;
+  clip-path:none!important;
+  filter:none!important;
+  transform:none!important;
+  animation:none!important;
+  color:var(--accent)!important;
+  text-shadow:0 0 6px var(--accent-soft),0 0 13px var(--accent-soft)!important;
+}
+.hero-skill-words>span:first-child{display:block!important}
+.hero-skill-words>span.is-typing::after{
+  content:""!important;
+  display:inline-block!important;
+  width:2px!important;
+  height:1em!important;
+  margin-left:4px!important;
+  vertical-align:-.12em!important;
+  background:var(--accent)!important;
+  box-shadow:0 0 9px var(--accent)!important;
+  animation:v4-type-cursor .75s steps(1,end) infinite!important;
+}
+@keyframes v4-type-cursor{50%{opacity:0}}
+@media(max-width:620px){
+ .hero-skill-rotator{bottom:-3.4rem!important;min-height:2.5rem!important}
+ .hero-skill-prefix{font-size:8px!important}
+ .hero-skill-words{height:1.5rem!important;width:min(100%,250px)!important}
+ .hero-skill-words>span{font-size:clamp(13px,4vw,16px)!important;letter-spacing:.07em!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-skill-words>span.is-typing::after{animation:none!important;opacity:1!important}
+}
