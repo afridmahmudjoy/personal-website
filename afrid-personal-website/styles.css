@@ -3442,7 +3442,7 @@ html[data-theme="dark"] .ambient-stars { background-image:
   radial-gradient(2px 2px at 89% 66%, rgba(67,234,209,.95) 55%, transparent 100%),
   radial-gradient(1.5px 1.5px at 45% 38%, rgba(245,255,255,.9) 55%, transparent 100%),
   radial-gradient(2px 2px at 61% 86%, rgba(67,234,209,.9) 55%, transparent 100%); }
-.ambient { z-index: 0; }
+.ambient { z-index: -1; }
 body { position: relative; }
 body::before { content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.45;
   background: radial-gradient(ellipse at 16% 28%, rgba(80,130,255,.13), transparent 34%), radial-gradient(ellipse at 82% 72%, rgba(125,65,220,.11), transparent 35%); animation: nebula-drift 38s ease-in-out infinite alternate; }
