@@ -3068,3 +3068,60 @@ img, video, iframe { max-width:100%; }
 @media(prefers-reduced-motion:reduce){
  .hero-skill-words>span.is-typing::after{animation:none!important;opacity:1!important}
 }
+
+/* Premium opening hero identity hierarchy */
+.hero-name{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:2px!important;
+  width:fit-content!important;
+  max-width:100%!important;
+  margin:20px 0 18px!important;
+  position:relative!important;
+  isolation:isolate!important;
+}
+.hero-name::before{
+  content:""!important;
+  position:absolute!important;
+  left:-13px!important;
+  top:5px!important;
+  bottom:5px!important;
+  width:2px!important;
+  border-radius:2px!important;
+  background:linear-gradient(180,var(--accent),#b6a0ff)!important;
+  box-shadow:0 0 18px color-mix(in srgb,var(--accent) 40%,transparent)!important;
+}
+.hero-name span{
+  display:block!important;
+  padding-left:1px!important;
+  color:var(--muted)!important;
+  font:700 clamp(13px,1.6vw,17px)/1.25 "DM Mono",monospace!important;
+  letter-spacing:.21em!important;
+}
+.hero-name strong{
+  display:block!important;
+  font:800 clamp(30px,4.1vw,54px)/1.02 "Space Grotesk",sans-serif!important;
+  letter-spacing:-.065em!important;
+  color:var(--ink)!important;
+  text-wrap:balance!important;
+}
+.hero-name em{
+  font-style:normal!important;
+  background:linear-gradient(105deg,#f0d58c 0%,var(--accent) 55%,#b8a6ff 100%)!important;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  color:transparent!important;
+  filter:drop-shadow(0 0 12px color-mix(in srgb,var(--accent) 22%,transparent))!important;
+}
+.opening h1{margin-top:20px!important;margin-bottom:20px!important}
+.hero-intro{max-width:510px!important}
+@media(max-width:620px){
+ .hero-name{margin:16px 0 15px!important}
+ .hero-name span{font-size:12px!important;letter-spacing:.17em!important}
+ .hero-name strong{font-size:clamp(29px,8vw,40px)!important;letter-spacing:-.06em!important}
+ .opening h1{margin-top:16px!important;margin-bottom:17px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-name em{filter:none!important}
+}
