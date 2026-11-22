@@ -2933,3 +2933,11 @@ img, video, iframe { max-width:100%; }
 .hero-skill-words>span{visibility:hidden!important;opacity:0!important;clip-path:none!important;animation:none!important;transform:none!important;filter:none!important}
 .hero-skill-words>span.is-typing{visibility:visible!important;opacity:1!important;clip-path:none!important;animation:v4-skill-glow 1.2s ease-in-out infinite alternate!important;transform:none!important;color:var(--accent)!important}
 @keyframes v4-skill-glow{from{text-shadow:0 0 5px var(--accent-soft)}to{text-shadow:0 0 14px var(--accent),0 0 24px var(--accent-soft)} }
+
+/* V4 audit fixes: keep the cover skill rotator readable on all viewport sizes */
+.hero-skill-rotator{bottom:-3.05rem;gap:.6rem;font-size:clamp(.72rem,1.25vw,.88rem);font-weight:700;letter-spacing:.09em;text-shadow:0 2px 14px rgba(0,0,0,.55);}
+.hero-skill-prefix{flex:0 0 auto;}
+.hero-skill-words{width:clamp(150px,52vw,230px);min-height:1.55em;display:inline-grid;align-items:center;overflow:visible;}
+.hero-skill-words>span{white-space:nowrap;text-align:center;line-height:1.35;}
+@media(max-width:600px){.hero-skill-rotator{bottom:-2.9rem;font-size:.68rem;gap:.45rem;}.hero-skill-words{width:min(56vw,210px);}}
+@media(prefers-reduced-motion:reduce){.hero-skill-words>span{animation:none!important;opacity:1!important;transform:none!important;filter:none!important}.hero-skill-words>span:not(:first-child){display:none!important;}}
