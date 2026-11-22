@@ -1044,43 +1044,42 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   });
 })();
 
-/* Cover skills: robust premium Focus Shift animation with inline priority styling. */
+/* Cover skills: premium soft fade + morph carousel. */
 (() => {
   const host = document.querySelector('.hero-skill-words');
   if (!host) return;
   const skills = Array.from(host.children).filter(el => el.tagName === 'SPAN');
   if (!skills.length) return;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const important = (el, prop, val) => el.style.setProperty(prop, val, 'important');
   host.style.setProperty('position','relative','important');
   host.style.setProperty('display','block','important');
   host.style.setProperty('height','1.55rem','important');
   host.style.setProperty('overflow','visible','important');
-  skills.forEach(el => {
-    important(el,'position','absolute');
-    important(el,'inset','0');
-    important(el,'display','block');
-    important(el,'visibility','visible');
-    important(el,'opacity','0');
-    important(el,'filter','blur(2px)');
-    important(el,'transform','scale(.985)');
-    important(el,'clip-path','none');
-    important(el,'animation','none');
-    important(el,'transition',reduced?'none':'opacity .75s ease, filter .75s ease, transform .75s ease');
+  skills.forEach((el, i) => {
+    el.style.setProperty('position','absolute','important');
+    el.style.setProperty('inset','0','important');
+    el.style.setProperty('display','block','important');
+    el.style.setProperty('visibility','visible','important');
+    el.style.setProperty('opacity', i===0?'1':'0','important');
+    el.style.setProperty('filter', i===0?'blur(0)':'blur(5px)','important');
+    el.style.setProperty('transform', i===0?'translateY(0)':'translateY(5px)','important');
+    el.style.setProperty('clip-path','none','important');
+    el.style.setProperty('animation','none','important');
+    el.style.setProperty('transition',reduced?'none':'opacity .8s ease, filter .8s ease, transform .8s cubic-bezier(.2,.65,.25,1)','important');
+    el.classList.toggle('soft-fade-active',i===0);
   });
-  let currentIndex = 0;
-  const setFocus = (idx, active) => {
-    const el = skills[idx];
-    important(el,'opacity',active?'1':'.12');
-    important(el,'filter',active?'blur(0)':'blur(2px)');
-    important(el,'transform',active?'scale(1)':'scale(.985)');
-    el.classList.toggle('focus-shift-active',active);
-  };
-  setFocus(0,true);
+  let active = 0;
   if (reduced) return;
   window.setInterval(() => {
-    setFocus(currentIndex,false);
-    currentIndex = (currentIndex+1)%skills.length;
-    setFocus(currentIndex,true);
-  },2800);
+    const next = (active+1)%skills.length;
+    skills[active].style.setProperty('opacity','0','important');
+    skills[active].style.setProperty('filter','blur(5px)','important');
+    skills[active].style.setProperty('transform','translateY(-4px)','important');
+    skills[active].classList.remove('soft-fade-active');
+    skills[next].style.setProperty('opacity','1','important');
+    skills[next].style.setProperty('filter','blur(0)','important');
+    skills[next].style.setProperty('transform','translateY(0)','important');
+    skills[next].classList.add('soft-fade-active');
+    active = next;
+  },3000);
 })();
