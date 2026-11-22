@@ -1044,37 +1044,34 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   });
 })();
 
-/* Cover skills: typewriter cycle with natural typing and deletion. */
+/* Cover skills: resilient typewriter cycle, explicit visibility styling. */
 (() => {
   const host = document.querySelector('.hero-skill-words');
   if (!host) return;
-  const skills = Array.from(host.children).filter(el => el.tagName === 'SPAN');
-  if (!skills.length) return;
+  const sourceSkills = Array.from(host.children).filter(el => el.tagName === 'SPAN');
+  if (!sourceSkills.length) return;
+  const words = sourceSkills.map(el => el.textContent.trim()).filter(Boolean);
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const word = document.createElement('span');
-  word.className = 'hero-skill-typewriter';
-  word.setAttribute('aria-hidden','true');
-  host.replaceChildren(word);
-  if (reduced) { word.textContent = skills[0].textContent; return; }
-  const words = skills.map(el => el.textContent.trim());
-  let index = 0, char = 0, deleting = false;
-  const tick = () => {
-    const full = words[index];
-    word.textContent = full.slice(0,char);
-    if (!deleting && char < full.length) {
-      char++;
-      window.setTimeout(tick,82);
-    } else if (!deleting) {
-      deleting = true;
-      window.setTimeout(tick,1350);
-    } else if (char > 0) {
-      char--;
-      window.setTimeout(tick,42);
-    } else {
-      deleting = false;
-      index = (index+1)%words.length;
-      window.setTimeout(tick,260);
-    }
+  const output = document.createElement('span');
+  output.className = 'hero-skill-typewriter';
+  output.setAttribute('aria-hidden','true');
+  host.replaceChildren(output);
+  const force = (el,prop,val)=>el.style.setProperty(prop,val,'important');
+  force(host,'display','block'); force(host,'position','relative'); force(host,'overflow','visible'); force(host,'height','1.45em');
+  force(output,'display','inline-block'); force(output,'position','relative'); force(output,'visibility','visible'); force(output,'opacity','1'); force(output,'white-space','nowrap'); force(output,'clip-path','none'); force(output,'animation','none');
+  force(output,'font-size','clamp(12px,3.6vw,16px)'); force(output,'font-weight','800'); force(output,'letter-spacing','.035em'); force(output,'line-height','1.25');
+  force(output,'background','linear-gradient(90deg,#42e0c5,#8bd7ff,#bba0ff,#e7c98b,#42e0c5)');
+  force(output,'background-size','220% 100%'); force(output,'-webkit-background-clip','text'); force(output,'background-clip','text'); force(output,'-webkit-text-fill-color','transparent');
+  force(output,'text-shadow','0 0 12px rgba(68,225,202,.2)');
+  if (reduced) { output.textContent=words[0]; return; }
+  let i=0,n=0,del=false;
+  const step=()=>{
+    const full=words[i];
+    output.textContent=full.slice(0,n);
+    if(!del&&n<full.length){n++;setTimeout(step,90);}
+    else if(!del){del=true;setTimeout(step,1400);}
+    else if(n>0){n--;setTimeout(step,45);}
+    else{del=false;i=(i+1)%words.length;setTimeout(step,300);}
   };
-  tick();
+  step();
 })();
