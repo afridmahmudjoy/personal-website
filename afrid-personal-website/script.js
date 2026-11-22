@@ -984,7 +984,7 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   const greeting = document.getElementById('joy-loader-greeting');
   if (!loader || !greeting) return;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const greetings = ['Hello', 'Bonjour', 'স্বাগতম', 'こんにちは', 'أهلًا', 'नमस्ते', 'Hola', 'Ciao', 'Hallo'];
+  const greetings = ['Hello', 'স্বাগতম', 'こんにちは', 'أهلًا', 'नमस्ते', 'Hola', 'Ciao'];
   const interval = reduced ? 0 : 210;
   let index = 0;
 
