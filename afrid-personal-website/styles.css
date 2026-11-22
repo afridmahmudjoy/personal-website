@@ -3740,3 +3740,31 @@ body::after, .ambient-stars::before { content: none !important; display: none !i
 @media (prefers-reduced-motion: reduce) {
   .joy-loader-greeting { transition: none !important; }
 }
+
+
+/* V4 typography system: one family, calmer tracking, consistent hierarchy. */
+body,
+body * {
+  font-family: "Manrope", "Noto Sans Bengali", "Noto Sans Arabic", Arial, sans-serif !important;
+}
+h1, h2, h3, h4,
+.opening h1, .about-grid h2, .section-heading h2, .leadership-grid h2,
+.contact-section h2, .nucb-copy h2, .turquoise-identity h2, .skill-dialog h2,
+.hero-name strong, .project-meta h3, .experience-item h3,
+.leadership-list h3, .credential-card h3, .education-list h3 {
+  font-family: inherit !important;
+  font-weight: 650 !important;
+  letter-spacing: -.045em !important;
+  line-height: 1.12;
+}
+body :is(.eyebrow, .section-kicker, .identity-tags, .opening-footer, .concept small,
+  .brand-sub, .nav a, .nav-cta, .item-index, .skill-card-category,
+  .skill-card-index, .skill-count, .skill-hint, .project-meta span,
+  .project-footnote, .education-list article>span, .education-list b,
+  .founder-label, .showcase-heading, .footer-bottom, .dialog-kicker,
+  .dialog-evidence span, .work-open-link, .work-preview-kind) {
+  font-family: inherit !important;
+  font-weight: 650 !important;
+  letter-spacing: .045em !important;
+  line-height: 1.45;
+}
