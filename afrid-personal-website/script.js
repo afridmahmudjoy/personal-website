@@ -1044,15 +1044,25 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   });
 })();
 
-/* Cover skills: type/delete animation below the profile name */
+/* Cover identity labels: Focus Shift transition beneath the portrait. */
 (() => {
- const host=document.querySelector('.hero-skill-words');
- if(!host)return;
- const words=Array.from(host.children).filter(el=>el.tagName==='SPAN').map(el=>el.textContent.trim()).filter(Boolean);
- if(!words.length)return;
- const out=document.createElement('span');out.className='hero-skill-typewriter';out.setAttribute('aria-hidden','true');host.replaceChildren(out);
- if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){out.textContent=words[0];return;}
- let wi=0,ci=0,del=false;
- const tick=()=>{const w=words[wi];out.textContent=w.slice(0,ci);if(!del&&ci<w.length){ci++;setTimeout(tick,78);}else if(!del){del=true;setTimeout(tick,1250);}else if(ci>0){ci--;setTimeout(tick,38);}else{del=false;wi=(wi+1)%words.length;setTimeout(tick,220);}};
- tick();
+ const host = document.querySelector('.hero-skill-words');
+ if (!host) return;
+ const items = Array.from(host.children).filter(el => el.tagName === 'SPAN').map(el => el.textContent.trim()).filter(Boolean);
+ if (!items.length) return;
+ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const activate = index => items.forEach((_, i) => {
+   const el = host.children[i];
+   el.classList.toggle('focus-shift-active', i === index);
+ });
+ if (reduced) { activate(0); return; }
+ let index = 0;
+ activate(index);
+ const cycle = () => {
+   host.children[index]?.classList.remove('focus-shift-active');
+   index = (index + 1) % items.length;
+   host.children[index]?.classList.add('focus-shift-active');
+   window.setTimeout(cycle, 2600);
+ };
+ window.setTimeout(cycle, 2600);
 })();
