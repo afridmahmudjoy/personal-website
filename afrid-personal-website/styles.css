@@ -3502,3 +3502,9 @@ img, video, iframe { max-width:100%; }
  .hero-skill-words>span{transition:none!important;opacity:0!important;filter:none!important;transform:none!important;}
  .hero-skill-words>span.focus-shift-active{opacity:1!important;}
 }
+
+/* Emergency visibility fix: Focus Shift skills must always render, active word is crisp. */
+.hero-skill-words{display:block!important;position:relative!important;height:1.55rem!important;overflow:visible!important;}
+.hero-skill-words>span{display:block!important;visibility:visible!important;position:absolute!important;inset:0!important;opacity:0!important;filter:blur(2.2px)!important;transform:scale(.985)!important;clip-path:none!important;animation:none!important;transition:opacity .72s ease,filter .72s ease,transform .72s cubic-bezier(.2,.65,.25,1)!important;}
+.hero-skill-words>span.focus-shift-active{display:block!important;visibility:visible!important;opacity:1!important;filter:blur(0)!important;transform:scale(1)!important;}
+@media(prefers-reduced-motion:reduce){.hero-skill-words>span{transition:none!important}.hero-skill-words>span.focus-shift-active{opacity:1!important;}}
