@@ -3462,3 +3462,13 @@ body::after { content:""; position:fixed; pointer-events:none; z-index:0; width:
 .project-meta h3, .education-list h3, .leadership-list h3 { line-height: 1.28; letter-spacing: -.025em; }
 .project-meta p, .education-list p, .leadership-list p { line-height: 1.75; }
 @media (prefers-reduced-motion: reduce) { body::before, body::after, .ambient-stars::before, .ambient-stars::after, .ambient-stars { animation-duration: 1ms !important; animation-iteration-count: 1 !important; } }
+
+/* Premium typography refinement: editorial headlines, clean sans body, minimal mono accents */
+body { font-family: "Manrope", "DM Sans", sans-serif; font-weight: 400; letter-spacing: -.006em; }
+.opening h1, .about-grid h2, .section-heading h2, .leadership-grid h2, .contact-section h2, .nucb-copy h2, .turquoise-identity h2, .skill-dialog h2 { font-family: "Manrope", sans-serif !important; font-weight: 750 !important; letter-spacing: -.065em !important; }
+.eyebrow, .section-kicker, .identity-tags, .opening-footer, .concept small, .visual-coordinate, .brand-sub, .nav a, .nav-cta, .item-index, .skill-card-category, .skill-card-index, .skill-count, .skill-hint, .project-meta span, .project-footnote, .education-list article>span, .education-list b, .founder-label, .showcase-heading, .footer-bottom, .dialog-kicker, .dialog-evidence span { font-family: "Manrope", sans-serif !important; font-weight: 600 !important; letter-spacing: .075em !important; }
+.hero-intro, .about-text p, .section-aside, .leadership-list p, .diploma-card>p, .private-note, .turquoise-description, .turquoise-showcase>p, .contact-grid p, .project-meta p, .education-list p { font-family: "Manrope", sans-serif; letter-spacing: 0; }
+.theme-toggle, .sound-toggle { gap: 0 !important; min-width: 40px !important; width: 40px !important; padding: 8px !important; }
+.theme-symbol, .sound-symbol { display: inline-grid; place-items: center; font-size: 19px !important; width: 22px; height: 22px; }
+.theme-word, .sound-word { display: none !important; }
+.theme-toggle:hover, .sound-toggle:hover { border-color: var(--line-strong); color: var(--accent); transform: translateY(-1px); }
