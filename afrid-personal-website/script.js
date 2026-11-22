@@ -1044,7 +1044,7 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   });
 })();
 
-/* Cover skills: premium soft fade + subtle upward morph. */
+/* Cover skills: premium focus-shift rotation. */
 (() => {
   const host = document.querySelector('.hero-skill-words');
   if (!host) return;
@@ -1052,18 +1052,11 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   if (!skills.length) return;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let current = 0;
-  const show = (index) => skills.forEach((node, i) => {
-    node.classList.remove('skill-soft-active');
-    node.style.display = i === index ? 'block' : 'none';
-  });
-  show(0);
-  skills[0].classList.add('skill-soft-active');
+  skills.forEach((node, i) => node.classList.toggle('focus-shift-active', i === 0));
   if (reduced) return;
   window.setInterval(() => {
-    skills[current].classList.remove('skill-soft-active');
+    skills[current].classList.remove('focus-shift-active');
     current = (current + 1) % skills.length;
-    show(current);
-    void skills[current].offsetWidth;
-    skills[current].classList.add('skill-soft-active');
-  }, 2450);
+    skills[current].classList.add('focus-shift-active');
+  }, 2800);
 })();
