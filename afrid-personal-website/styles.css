@@ -3714,3 +3714,29 @@ body::after, .ambient-stars::before { content: none !important; display: none !i
   .recognition-archive-link { align-items: flex-start; flex-direction: column; gap: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { .recognition-row, .recognition-row-action span, .recognition-archive-link a span { transition: none; } }
+
+
+/* V4 greeting-only intro: a quiet, language-led entrance. */
+.joy-loader {
+  background: #070707 !important;
+  color: #f6f4ef !important;
+  transition: opacity .5s ease, visibility .5s ease !important;
+}
+.joy-loader::before,
+.joy-loader::after { content: none !important; display: none !important; }
+.joy-loader.is-exiting { opacity: 0 !important; visibility: hidden !important; }
+.joy-loader-greeting {
+  display: block;
+  padding: .15em .3em .25em;
+  font: 500 clamp(38px, 7vw, 88px)/1.1 "Space Grotesk", "Noto Sans Bengali", "Noto Sans Arabic", sans-serif;
+  letter-spacing: -.065em;
+  text-align: center;
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition: opacity .16s ease, transform .22s cubic-bezier(.2,.7,.2,1), filter .22s ease;
+}
+.joy-loader-greeting.is-changing { opacity: 0; transform: translateY(12px); filter: blur(5px); }
+@media (prefers-reduced-motion: reduce) {
+  .joy-loader-greeting { transition: none !important; }
+}

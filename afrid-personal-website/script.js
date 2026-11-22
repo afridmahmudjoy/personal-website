@@ -956,32 +956,36 @@ document.querySelectorAll('.document-reveal').forEach(button => {
 })();
 
 
-/* V4 entry loader: ~2s progress then fade into the portfolio */
+/* V4 multilingual greeting intro */
 (() => {
   const loader = document.getElementById('joy-loader');
-  if (!loader) return;
-  const bar = document.getElementById('joy-loader-bar');
-  const percent = document.getElementById('joy-loader-percent');
-  const status = document.getElementById('joy-loader-status');
+  const greeting = document.getElementById('joy-loader-greeting');
+  if (!loader || !greeting) return;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const duration = reduced ? 650 : 2050;
-  const labels = ['INITIALIZING','SYNCING CREATIVE SYSTEM','PREPARING EXPERIENCE'];
-  let start = 0, lastStage = -1;
-  const tick = now => {
-    if (!start) start = now;
-    const progress = Math.min(1,(now-start)/duration);
-    const value = Math.round(progress*100);
-    if(bar) bar.style.width=value+'%';
-    if(percent) percent.textContent=String(value).padStart(2,'0')+'%';
-    const stage=Math.min(2,Math.floor(progress*3));
-    if(stage!==lastStage && status){status.textContent=labels[stage];lastStage=stage;}
-    if(progress<1) requestAnimationFrame(tick);
-    else {
-      window.setTimeout(()=>{loader.classList.add('is-exiting');window.setTimeout(()=>loader.remove(),reduced?220:600);},160);
+  const greetings = ['Hello', 'Bonjour', 'স্বাগতম', 'こんにちは', 'أهلًا', 'नमस्ते', 'Hola', 'Ciao', 'Hallo'];
+  const interval = reduced ? 0 : 210;
+  let index = 0;
+
+  const showNext = () => {
+    index += 1;
+    if (index >= greetings.length) {
+      window.setTimeout(() => {
+        loader.classList.add('is-exiting');
+        window.setTimeout(() => loader.remove(), reduced ? 220 : 520);
+      }, reduced ? 420 : 180);
+      return;
     }
+    greeting.classList.add('is-changing');
+    window.setTimeout(() => {
+      greeting.textContent = greetings[index];
+      greeting.classList.remove('is-changing');
+    }, reduced ? 0 : 100);
+    window.setTimeout(showNext, interval || 700);
   };
-  requestAnimationFrame(tick);
+
+  window.setTimeout(showNext, interval || 700);
 })();
+
 
 
 /* V4 certificate cards: gentle cursor-driven 3D tilt, reset smoothly on exit */
