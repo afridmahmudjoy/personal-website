@@ -1044,42 +1044,37 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   });
 })();
 
-/* Cover skills: premium soft fade + morph carousel. */
+/* Cover skills: typewriter cycle with natural typing and deletion. */
 (() => {
   const host = document.querySelector('.hero-skill-words');
   if (!host) return;
   const skills = Array.from(host.children).filter(el => el.tagName === 'SPAN');
   if (!skills.length) return;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  host.style.setProperty('position','relative','important');
-  host.style.setProperty('display','block','important');
-  host.style.setProperty('height','1.55rem','important');
-  host.style.setProperty('overflow','visible','important');
-  skills.forEach((el, i) => {
-    el.style.setProperty('position','absolute','important');
-    el.style.setProperty('inset','0','important');
-    el.style.setProperty('display','block','important');
-    el.style.setProperty('visibility','visible','important');
-    el.style.setProperty('opacity', i===0?'1':'0','important');
-    el.style.setProperty('filter', i===0?'blur(0)':'blur(5px)','important');
-    el.style.setProperty('transform', i===0?'translateY(0)':'translateY(5px)','important');
-    el.style.setProperty('clip-path','none','important');
-    el.style.setProperty('animation','none','important');
-    el.style.setProperty('transition',reduced?'none':'opacity .8s ease, filter .8s ease, transform .8s cubic-bezier(.2,.65,.25,1)','important');
-    el.classList.toggle('soft-fade-active',i===0);
-  });
-  let active = 0;
-  if (reduced) return;
-  window.setInterval(() => {
-    const next = (active+1)%skills.length;
-    skills[active].style.setProperty('opacity','0','important');
-    skills[active].style.setProperty('filter','blur(5px)','important');
-    skills[active].style.setProperty('transform','translateY(-4px)','important');
-    skills[active].classList.remove('soft-fade-active');
-    skills[next].style.setProperty('opacity','1','important');
-    skills[next].style.setProperty('filter','blur(0)','important');
-    skills[next].style.setProperty('transform','translateY(0)','important');
-    skills[next].classList.add('soft-fade-active');
-    active = next;
-  },3000);
+  const word = document.createElement('span');
+  word.className = 'hero-skill-typewriter';
+  word.setAttribute('aria-hidden','true');
+  host.replaceChildren(word);
+  if (reduced) { word.textContent = skills[0].textContent; return; }
+  const words = skills.map(el => el.textContent.trim());
+  let index = 0, char = 0, deleting = false;
+  const tick = () => {
+    const full = words[index];
+    word.textContent = full.slice(0,char);
+    if (!deleting && char < full.length) {
+      char++;
+      window.setTimeout(tick,82);
+    } else if (!deleting) {
+      deleting = true;
+      window.setTimeout(tick,1350);
+    } else if (char > 0) {
+      char--;
+      window.setTimeout(tick,42);
+    } else {
+      deleting = false;
+      index = (index+1)%words.length;
+      window.setTimeout(tick,260);
+    }
+  };
+  tick();
 })();
