@@ -1,3 +1,4 @@
+Warning: fs was declared with const; use let for reassignable variables.
 (() => {
   'use strict';
 
@@ -812,11 +813,11 @@ const AUTO_ROTATE_DELAY = 3200;
 
 /* V4 work gallery: nearby cards drift a few pixels toward the pointer. */
 (() => {
-  const gallery = document.querySelector('.work-gallery');
-  const cards = [...(gallery?.querySelectorAll('[data-magnetic-card]') || [])];
+  const galleries = [...document.querySelectorAll('.work-gallery')];
+  const cards = [...document.querySelectorAll('.work-gallery [data-magnetic-card]')];
   const pointerFine = window.matchMedia('(hover: hover) and (pointer: fine)');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (!gallery || !cards.length || !pointerFine.matches || reducedMotion.matches) return;
+  if (!galleries.length || !cards.length || !pointerFine.matches || reducedMotion.matches) return;
 
   const cursor = document.createElement('div');
   cursor.className = 'work-magnetic-cursor';
@@ -863,7 +864,7 @@ const AUTO_ROTATE_DELAY = 3200;
     }
   };
 
-  gallery.addEventListener('pointermove', (event) => {
+  galleries.forEach((gallery) => gallery.addEventListener('pointermove', (event) => {
     if (event.pointerType && event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
     pointerX = event.clientX;
     pointerY = event.clientY;
@@ -871,7 +872,7 @@ const AUTO_ROTATE_DELAY = 3200;
     overCard = Boolean(target?.closest('[data-magnetic-card]'));
     cursor.classList.toggle('is-visible', overCard);
     if (!frame) frame = window.requestAnimationFrame(updateAttraction);
-  }, { passive: true });
+  }, { passive: true }));
 
   const resetAttraction = () => {
     if (frame) window.cancelAnimationFrame(frame);
@@ -883,9 +884,13 @@ const AUTO_ROTATE_DELAY = 3200;
       card.style.setProperty('--magnetic-y', '0px');
     });
   };
-  gallery.addEventListener('pointerleave', resetAttraction);
-  gallery.addEventListener('pointercancel', resetAttraction);
+  galleries.forEach((gallery) => {
+    gallery.addEventListener('pointerleave', resetAttraction);
+    gallery.addEventListener('pointercancel', resetAttraction);
+  });
+
 })();
+;
 
 // The magnetic VIEW cursor replaces the repeated per-card open label on every device.
 (() => {
@@ -907,7 +912,6 @@ const AUTO_ROTATE_DELAY = 3200;
     });
   });
 })();
-
 ;
 
 // V4 diploma preview privacy blur: click/tap to reveal or conceal.
@@ -1009,7 +1013,6 @@ document.querySelectorAll('.document-reveal').forEach(button => {
 })();
 
 
-
 /* V4 certificate cards: gentle cursor-driven 3D tilt, reset smoothly on exit */
 (() => {
   if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -1049,4 +1052,27 @@ document.querySelectorAll('.document-reveal').forEach(button => {
    window.setTimeout(cycle, 2600);
  };
  window.setTimeout(cycle, 2600);
+})();
+
+
+/* Five-part mental health campaign carousel. */
+(() => {
+  document.querySelectorAll('[data-project-carousel]').forEach((carousel) => {
+    const images = (carousel.dataset.images || '').split('|').filter(Boolean);
+    const image = carousel.querySelector('.awareness-carousel-image');
+    const count = carousel.querySelector('[data-carousel-count]');
+    const card = carousel.closest('[data-magnetic-card]');
+    const openLink = card?.querySelector('.work-open-link');
+    if (images.length < 2 || !image || !count || !card || !openLink) return;
+    let index = 0;
+    const show = (next) => {
+      index = (next + images.length) % images.length;
+      image.src = images[index];
+      image.alt = `Mental health awareness social graphic ${index + 1} of ${images.length}`;
+      count.textContent = `${String(index + 1).padStart(2, '0')} / ${String(images.length).padStart(2, '0')}`;
+      openLink.href = images[index];
+    };
+    carousel.querySelector('[data-carousel-prev]')?.addEventListener('click', () => show(index - 1));
+    carousel.querySelector('[data-carousel-next]')?.addEventListener('click', () => show(index + 1));
+  });
 })();
