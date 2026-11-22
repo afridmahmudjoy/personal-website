@@ -74,7 +74,9 @@
 
     const startRect = openingPortrait.getBoundingClientRect();
     if (!startRect.width || !startRect.height) {
-      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const aboutSection = document.getElementById('about');
+      aboutSection?.classList.remove('profile-summary-pending');
+      aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
 
