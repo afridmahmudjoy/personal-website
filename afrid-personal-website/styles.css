@@ -3464,3 +3464,25 @@ img, video, iframe { max-width:100%; }
 @media(min-width:681px){
  .hero-window{transform:perspective(1400px) rotateX(.6deg)!important}
 }
+
+/* Skill rotation: gentle opacity fade + small vertical drift, no terminal cursor */
+.hero-skill-words>span{
+  opacity:0!important;
+  transform:translateY(7px)!important;
+  filter:blur(2px)!important;
+  transition:opacity .62s ease,transform .62s cubic-bezier(.2,.65,.25,1),filter .62s ease!important;
+  display:none!important;
+}
+.hero-skill-words>span.skill-soft-active{
+  display:block!important;
+  opacity:1!important;
+  transform:translateY(0)!important;
+  filter:blur(0)!important;
+}
+.hero-skill-words>span.skill-soft-active::after{
+  content:none!important;
+  display:none!important;
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-skill-words>span{transition:none!important;filter:none!important;transform:none!important}
+}
