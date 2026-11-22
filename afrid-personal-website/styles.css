@@ -3999,24 +3999,24 @@ html[data-theme="light"] .hero-window::before { content: none !important; displa
 .hero-name strong {
   position: relative;
   z-index: 1;
-  background: linear-gradient(110deg, #46ead4 0%, #fff 38%, #aeb8bb 58%, #46ead4 78%, #fff 100%) !important;
-  background-size: 240% 100% !important;
-  background-clip: text !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  animation: hero-name-glow-flow 6s ease-in-out infinite alternate !important;
+  color: #eafffb !important;
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+  animation: hero-name-glow-flow 5s ease-in-out infinite alternate !important;
   filter: none !important;
-  text-shadow: 0 0 6px rgba(70,234,212,.42), 0 0 18px rgba(70,234,212,.2) !important;
+  text-shadow: 0 0 5px rgba(70,234,212,.38), 0 0 15px rgba(70,234,212,.16) !important;
 }
 @keyframes hero-name-glow-flow {
-  from { background-position: 0% 50%; }
-  to { background-position: 100% 50%; }
+  0% { text-shadow: -3px 0 7px rgba(70,234,212,.46), 0 0 17px rgba(70,234,212,.18); }
+  50% { text-shadow: 2px 0 9px rgba(255,255,255,.36), 0 0 23px rgba(70,234,212,.24); }
+  100% { text-shadow: 4px 0 8px rgba(70,234,212,.5), 0 0 19px rgba(70,234,212,.2); }
 }
 html[data-theme="light"] .hero-name::after {
   background: radial-gradient(ellipse, rgba(8,127,116,.17), rgba(8,127,116,.06) 42%, transparent 72%);
 }
 html[data-theme="light"] .hero-name strong {
-  background-image: linear-gradient(110deg, #087b70 0%, #111 38%, #777 58%, #087b70 78%, #111 100%) !important;
+  color: #087b70 !important;
+  -webkit-text-fill-color: currentColor !important;
   text-shadow: 0 0 6px rgba(8,127,116,.22), 0 0 18px rgba(8,127,116,.1) !important;
 }
 html[data-theme="light"] .availability-badge {
@@ -4028,7 +4028,7 @@ html[data-theme="light"] .availability-badge {
   .hero-name::after { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-name strong { animation: none !important; background-position: 50% 50% !important; }
+  .hero-name strong { animation: none !important; }
   .hero-name::after { transition: none; }
 }
 .availability-badge {
