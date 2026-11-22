@@ -709,6 +709,27 @@ const AUTO_ROTATE_DELAY = 3200;
     });
   }, { passive: true });
 
+  // Floating circular scroll progress button. Clicking it returns to the page opening.
+  const scrollTopButton = document.getElementById('scroll-progress-top');
+  const scrollProgressValue = document.getElementById('scroll-progress-value');
+  if (scrollTopButton && scrollProgressValue) {
+    const circumference = 2 * Math.PI * 18;
+    scrollProgressValue.style.strokeDasharray = String(circumference);
+    const updateScrollProgress = () => {
+      const maxScroll = Math.max(1, root.scrollHeight - window.innerHeight);
+      const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+      scrollProgressValue.style.strokeDashoffset = String(circumference * (1 - progress));
+      scrollTopButton.classList.toggle('is-visible', window.scrollY > 240);
+      scrollTopButton.hidden = false;
+    };
+    updateScrollProgress();
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress, { passive: true });
+    scrollTopButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      history.replaceState(null, '', '#home');
+    });
+  }
 
   // Scroll reveals for portfolio sections, without hiding content when observers are unavailable.
   const revealSections = [...document.querySelectorAll('.portfolio-content main > section, .contact-section')];
