@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title">
+  <title id="title">Alberta Special Offer video cover</title>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#183c31"/><stop offset="1" stop-color="#071411"/></linearGradient><radialGradient id="glow"><stop stop-color="#43ead1" stop-opacity=".28"/><stop offset="1" stop-color="#43ead1" stop-opacity="0"/></radialGradient></defs>
+  <rect width="960" height="540" fill="url(#bg)"/><circle cx="735" cy="260" r="290" fill="url(#glow)"/><g fill="none" stroke="#8ff8e6" stroke-opacity=".2"><circle cx="735" cy="260" r="200"/><circle cx="735" cy="260" r="150"/><path d="M0 440H960M0 470H960M0 500H960M0 530H960"/></g>
+  <text x="70" y="104" fill="#91aaa5" font-family="Arial,sans-serif" font-size="20" letter-spacing="7">RETAIL PROMOTION · ALBERTA</text><text x="66" y="270" fill="#ecfffb" font-family="Arial,sans-serif" font-size="74" font-weight="700">SPECIAL</text><text x="66" y="355" fill="#43ead1" font-family="Arial,sans-serif" font-size="84" font-weight="700">OFFER</text><text x="72" y="414" fill="#b8ceca" font-family="Arial,sans-serif" font-size="21" letter-spacing="5">A SHORT-FORM CAMPAIGN</text>
+  <circle cx="735" cy="260" r="54" fill="#43ead1"/><path d="m721 229 0 62 51-31z" fill="#06110f"/><text x="70" y="500" fill="#91aaa5" font-family="Arial,sans-serif" font-size="17" letter-spacing="5">MD. AFRID MAHMUD JOY</text>
+</svg>

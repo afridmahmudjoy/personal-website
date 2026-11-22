@@ -3945,6 +3945,158 @@ html[data-theme="light"] .ambient-clouds {
     radial-gradient(ellipse at 46% 110%, rgba(60,60,60,.04), transparent 32%);
   filter: blur(50px);
 }
+
+/* Keep the light theme crisp: the decorative nebula was tinting the entire page. */
+html[data-theme="light"] body::before { content: none !important; display: none !important; }
+html[data-theme="light"] :is(html, body) { background: #fff !important; color: #111 !important; }
+html[data-theme="light"] {
+  --bg: #fff;
+  --bg-deep: #f5f5f5;
+  --panel: rgba(255,255,255,.96);
+  --panel-solid: #fff;
+  --panel-soft: #f7f7f7;
+  --ink: #111;
+  --muted: #505050;
+  --dim: #707070;
+  --line: rgba(0,0,0,.13);
+  --line-strong: rgba(0,0,0,.25);
+  --accent: #087f74;
+  --accent-strong: #066b62;
+  --accent-soft: rgba(8,127,116,.08);
+  --shadow: rgba(0,0,0,.09);
+  --star-opacity: 0;
+  --cloud-opacity: .26;
+}
+html[data-theme="light"] .hero-window {
+  border-color: rgba(0,0,0,.12) !important;
+  background: rgba(255,255,255,.96) !important;
+  box-shadow: 0 22px 55px rgba(0,0,0,.09) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html[data-theme="light"] .hero-window::before { content: none !important; display: none !important; }
+
+/* The name glow moves gently, with a soft hotspot that tracks a desktop pointer. */
+.hero-name { position: relative !important; isolation: isolate; overflow: visible; }
+.hero-name::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: var(--hero-glow-x, 50%);
+  top: var(--hero-glow-y, 50%);
+  width: 210px;
+  height: 100px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(67,234,209,.24), rgba(67,234,209,.08) 42%, transparent 72%);
+  filter: blur(12px);
+  opacity: .28;
+  transition: left .12s ease-out, top .12s ease-out, opacity .25s ease;
+}
+.hero-name.is-pointer-lit::after { opacity: .96; }
+.hero-name strong {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(110deg, #46ead4 0%, #fff 38%, #aeb8bb 58%, #46ead4 78%, #fff 100%) !important;
+  background-size: 240% 100% !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: hero-name-glow-flow 6s ease-in-out infinite alternate !important;
+  filter: none !important;
+  text-shadow: 0 0 6px rgba(70,234,212,.42), 0 0 18px rgba(70,234,212,.2) !important;
+}
+@keyframes hero-name-glow-flow {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+html[data-theme="light"] .hero-name::after {
+  background: radial-gradient(ellipse, rgba(8,127,116,.17), rgba(8,127,116,.06) 42%, transparent 72%);
+}
+html[data-theme="light"] .hero-name strong {
+  background-image: linear-gradient(110deg, #087b70 0%, #111 38%, #777 58%, #087b70 78%, #111 100%) !important;
+  text-shadow: 0 0 6px rgba(8,127,116,.22), 0 0 18px rgba(8,127,116,.1) !important;
+}
+html[data-theme="light"] .availability-badge {
+  border-color: rgba(0,0,0,.16);
+  background: rgba(255,255,255,.94);
+  color: #111;
+}
+@media (hover: none), (pointer: coarse) {
+  .hero-name::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-name strong { animation: none !important; background-position: 50% 50% !important; }
+  .hero-name::after { transition: none; }
+}
+.availability-badge {
+  position: absolute;
+  z-index: 5;
+  top: 8%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(67,234,209,.35);
+  border-radius: 999px;
+  background: rgba(5,17,15,.82);
+  color: #d9fff8;
+  box-shadow: 0 0 22px rgba(67,234,209,.13), inset 0 0 14px rgba(67,234,209,.05);
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+  font: 650 9px/1.2 "Manrope", sans-serif;
+  letter-spacing: .08em;
+  animation: availability-glow 3.8s ease-in-out infinite;
+}
+.availability-dot {
+  position: relative;
+  display: block;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: #4fe487;
+  box-shadow: 0 0 9px rgba(79,228,135,.9), 0 0 18px rgba(79,228,135,.5);
+}
+.availability-dot::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid rgba(79,228,135,.65);
+  border-radius: 50%;
+  animation: availability-pulse 2s ease-out infinite;
+}
+@keyframes availability-glow {
+  0%, 100% { box-shadow: 0 0 16px rgba(67,234,209,.1), inset 0 0 10px rgba(67,234,209,.035); }
+  50% { box-shadow: 0 0 29px rgba(67,234,209,.25), inset 0 0 16px rgba(67,234,209,.08); }
+}
+@keyframes availability-pulse {
+  0% { opacity: .9; transform: scale(.65); }
+  100% { opacity: 0; transform: scale(1.65); }
+}
+.contact-links .social-icon.linkedin-icon { fill: currentColor; stroke: none; }
+.contact-links .social-icon.linkedin-icon path { fill: #fff; stroke: none; }
+.text-link, .text-link:hover, .text-link:focus-visible {
+  display: inline-flex !important;
+  align-items: center;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+.brand-avatar { width: 44px; height: 44px; flex-basis: 44px; image-rendering: auto; object-position: center 40%; }
+@media (max-width: 680px) {
+  .availability-badge { top: 4%; padding: 8px 11px; gap: 7px; font-size: 8px; }
+  .brand-avatar { width: 40px; height: 40px; flex-basis: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .availability-badge, .availability-dot::after { animation: none !important; }
+}
 .category-heading { margin: clamp(34px, 5vw, 64px) 0 20px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
 .category-heading > span { display: block; margin-bottom: 8px; color: var(--accent); font: 600 10px/1.4 "DM Mono", monospace; letter-spacing: .14em; }
 .category-heading h3 { margin: 0; color: var(--ink); font: 600 clamp(22px, 3vw, 32px)/1.15 "Space Grotesk", sans-serif; letter-spacing: -.035em; }
