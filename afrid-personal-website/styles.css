@@ -3937,3 +3937,11 @@ html[data-theme="light"] .explore-button:hover {
   color: #fff !important;
   filter: none !important;
 }
+html[data-theme="light"] .ambient-clouds {
+  opacity: .24 !important;
+  background:
+    radial-gradient(ellipse at 18% 98%, rgba(70,70,70,.055), transparent 27%),
+    radial-gradient(ellipse at 72% 88%, rgba(90,90,90,.045), transparent 23%),
+    radial-gradient(ellipse at 46% 110%, rgba(60,60,60,.04), transparent 32%);
+  filter: blur(50px);
+}
