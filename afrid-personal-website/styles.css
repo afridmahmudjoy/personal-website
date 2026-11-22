@@ -3947,7 +3947,8 @@ html[data-theme="light"] .ambient-clouds {
 }
 
 /* Keep the light theme crisp: the decorative nebula was tinting the entire page. */
-html[data-theme="light"] body::before { content: none !important; display: none !important; }
+html[data-theme="light"] body::before,
+html[data-theme="light"] .opening::before { content: none !important; display: none !important; }
 html[data-theme="light"] :is(html, body) { background: #fff !important; color: #111 !important; }
 html[data-theme="light"] {
   --bg: #fff;
