@@ -3508,3 +3508,9 @@ img, video, iframe { max-width:100%; }
 .hero-skill-words>span{display:block!important;visibility:visible!important;position:absolute!important;inset:0!important;opacity:0!important;filter:blur(2.2px)!important;transform:scale(.985)!important;clip-path:none!important;animation:none!important;transition:opacity .72s ease,filter .72s ease,transform .72s cubic-bezier(.2,.65,.25,1)!important;}
 .hero-skill-words>span.focus-shift-active{display:block!important;visibility:visible!important;opacity:1!important;filter:blur(0)!important;transform:scale(1)!important;}
 @media(prefers-reduced-motion:reduce){.hero-skill-words>span{transition:none!important}.hero-skill-words>span.focus-shift-active{opacity:1!important;}}
+
+/* Final cover skill animation override: Soft Fade + Morph */
+.hero-skill-words{position:relative!important;display:block!important;height:1.55rem!important;overflow:visible!important}
+.hero-skill-words>span{display:block!important;position:absolute!important;inset:0!important;visibility:visible!important;opacity:0!important;filter:blur(5px)!important;transform:translateY(5px)!important;clip-path:none!important;animation:none!important;transition:opacity .8s ease,filter .8s ease,transform .8s cubic-bezier(.2,.65,.25,1)!important;text-shadow:0 0 9px var(--accent-soft)!important}
+.hero-skill-words>span.soft-fade-active{opacity:1!important;filter:blur(0)!important;transform:translateY(0)!important}
+@media(prefers-reduced-motion:reduce){.hero-skill-words>span{transition:none!important;filter:none!important;transform:none!important}}
