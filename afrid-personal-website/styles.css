@@ -3890,3 +3890,50 @@ a.work-open-link { display: none !important; }
   .recognition-row-title { font-size: 13px !important; }
   .footer-bottom { gap: 8px !important; flex-wrap: wrap !important; justify-content: space-between !important; }
 }
+
+
+/* Calm the light theme's competing color effects; keep the smoke grayscale. */
+.hero-name strong {
+  background: linear-gradient(100deg, #46ead4 0%, #fff 42%, #aeb8bb 72%, #46ead4 100%) !important;
+  background-size: 100% 100% !important;
+  background-position: center !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: #46ead4 !important;
+  text-shadow: 0 0 5px rgba(70,234,212,.58), 0 0 16px rgba(70,234,212,.3), 0 0 30px rgba(70,234,212,.14) !important;
+  animation: none !important;
+  filter: none !important;
+}
+html[data-theme="light"] .hero-name strong {
+  background: linear-gradient(100deg, #087b70 0%, #161616 42%, #858585 73%, #087b70 100%) !important;
+  background-size: 100% 100% !important;
+  text-shadow: 0 0 5px rgba(10,143,130,.45), 0 0 14px rgba(10,143,130,.2) !important;
+}
+html[data-theme="light"] {
+  --star-opacity: 0 !important;
+}
+html[data-theme="light"] .ambient-stars,
+html[data-theme="light"] .ambient-stars::before,
+html[data-theme="light"] .ambient-stars::after,
+html[data-theme="light"] .ambient-glow {
+  opacity: 0 !important;
+  animation: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] :is(.hero-skill-typewriter, .portrait-frame .hero-skill-words > span) {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #111 !important;
+  color: #111 !important;
+  text-shadow: none !important;
+  animation: none !important;
+}
+html[data-theme="light"] .explore-button,
+html[data-theme="light"] .explore-button:hover {
+  background: #111 !important;
+  color: #fff !important;
+  filter: none !important;
+}
