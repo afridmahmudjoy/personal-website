@@ -19,18 +19,15 @@ IMPORTANT: Do not delete cv.pdf or any existing files you still need. When you a
 replace only index.html, styles.css and script.js in your existing website folder. Keep the
 same Vercel root directory (afrid-personal-website).
 
-MANUAL ASSET SLOTS
-The new V4 intentionally uses empty placeholders instead of sample images or fake documents.
-When ready, create an assets folder next to index.html and add:
-- assets/profile.png          (your transparent portrait PNG)
-- assets/turquoise-logo.png   (your TURQUOISE logo)
-- assets/projects/            (your real project preview images)
-- assets/certificates/        (your verified certificates and supporting documents)
+PROJECT GALLERY
+- The Selected Work gallery uses the real image, PDF and video files in assets/projects/.
+- Add future work in that folder, then add a matching card in the #work section of index.html.
+- The gallery's gentle pointer attraction is in script.js and respects reduced-motion settings.
 
-The portrait placeholder in index.html contains a comment showing where to insert the image.
-The remaining logo, project and document areas are visual placeholders and do not open broken links.
-Certificate links in the Skills popup should only be added after the matching real certificate file
-is present. The skill data is in script.js; each skill currently has certificate: null.
+PROFILE AND CERTIFICATE ASSETS
+- The portrait image is profile.jpg; turquoise-logo.svg is the existing logo asset.
+- Certificate links in the Skills popup should only be added after the matching real certificate file
+  is present. The skill data is in script.js; each skill currently has certificate: null.
 
 NOTES
 - Theme preference is saved locally in the visitor's browser.

@@ -750,10 +750,8 @@ const AUTO_ROTATE_DELAY = 3200;
     revealSections.forEach((section) => section.classList.add('is-visible'));
   }
 
-  // Desktop-only custom cursor: require an actual hover-capable, wide pointer.
-  // Some mobile browsers incorrectly report pointer:fine, so width and hover are also checked.
-  const cursorMedia = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 681px)');
-  if (cursorMedia.matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  // Desktop-only custom cursor. The native pointer remains on touch devices.
+  if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const dot = document.querySelector('.cursor-dot');
     const ring = document.querySelector('.cursor-ring');
     if (dot && ring) {
@@ -761,24 +759,19 @@ const AUTO_ROTATE_DELAY = 3200;
       let y = window.innerHeight / 2;
       let ringX = x;
       let ringY = y;
-      const hideCursor = () => { dot.style.opacity = '0'; ring.style.opacity = '0'; };
       document.addEventListener('mousemove', (event) => {
-        if (event.pointerType === 'touch') return;
         x = event.clientX;
         y = event.clientY;
         dot.style.opacity = '1';
         ring.style.opacity = '1';
-        dot.style.left = x + 'px';
-        dot.style.top = y + 'px';
+        dot.style.left = `${x}px`;
+        dot.style.top = `${y}px`;
       }, { passive: true });
-      window.addEventListener('blur', hideCursor);
-      document.addEventListener('mouseleave', hideCursor);
       const animateCursor = () => {
-        if (!cursorMedia.matches) { hideCursor(); return; }
         ringX += (x - ringX) * .19;
         ringY += (y - ringY) * .19;
-        ring.style.left = ringX + 'px';
-        ring.style.top = ringY + 'px';
+        ring.style.left = `${ringX}px`;
+        ring.style.top = `${ringY}px`;
         window.requestAnimationFrame(animateCursor);
       };
       animateCursor();
@@ -790,6 +783,7 @@ const AUTO_ROTATE_DELAY = 3200;
       });
     }
   }
+
   // Global turquoise click ripple — subtle visual feedback anywhere on the page.
   document.addEventListener('click', (event) => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -814,6 +808,57 @@ const AUTO_ROTATE_DELAY = 3200;
   });
 
 
+})();
+
+/* V4 work gallery: nearby cards drift a few pixels toward the pointer. */
+(() => {
+  const gallery = document.querySelector('.work-gallery');
+  const cards = [...(gallery?.querySelectorAll('[data-magnetic-card]') || [])];
+  const pointerFine = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!gallery || !cards.length || !pointerFine.matches || reducedMotion.matches) return;
+
+  let pointerX = 0;
+  let pointerY = 0;
+  let frame = 0;
+  const radius = 360;
+
+  const updateAttraction = () => {
+    frame = 0;
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const dx = pointerX - (rect.left + rect.width / 2);
+      const dy = pointerY - (rect.top + rect.height / 2);
+      const distance = Math.hypot(dx, dy);
+      if (!distance || distance >= radius) {
+        card.style.setProperty('--magnetic-x', '0px');
+        card.style.setProperty('--magnetic-y', '0px');
+        return;
+      }
+      const strength = 1 - distance / radius;
+      const pull = Math.min(14, distance * .09) * strength;
+      card.style.setProperty('--magnetic-x', `${(dx / distance * pull).toFixed(2)}px`);
+      card.style.setProperty('--magnetic-y', `${(dy / distance * pull).toFixed(2)}px`);
+    });
+  };
+
+  gallery.addEventListener('pointermove', (event) => {
+    if (event.pointerType && event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    if (!frame) frame = window.requestAnimationFrame(updateAttraction);
+  }, { passive: true });
+
+  const resetAttraction = () => {
+    if (frame) window.cancelAnimationFrame(frame);
+    frame = 0;
+    cards.forEach((card) => {
+      card.style.setProperty('--magnetic-x', '0px');
+      card.style.setProperty('--magnetic-y', '0px');
+    });
+  };
+  gallery.addEventListener('pointerleave', resetAttraction);
+  gallery.addEventListener('pointercancel', resetAttraction);
 })();
 ;
 
