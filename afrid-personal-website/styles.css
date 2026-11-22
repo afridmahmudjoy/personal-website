@@ -3768,3 +3768,36 @@ body :is(.eyebrow, .section-kicker, .identity-tags, .opening-footer, .concept sm
   letter-spacing: .045em !important;
   line-height: 1.45;
 }
+
+
+/* Keep identity and utility details quiet so the main message leads. */
+.hero-name {
+  margin: 18px 0 12px !important;
+}
+.hero-name strong {
+  font-size: clamp(22px, 2.8vw, 34px) !important;
+  line-height: 1.16 !important;
+  font-weight: 550 !important;
+  letter-spacing: -.045em !important;
+  color: var(--ink) !important;
+}
+body :is(.footer-bottom, .opening-footer, .project-footnote, .concept small,
+  .visual-coordinate, .identity-copy small, .brand-sub, .item-index,
+  .project-meta > span, .education-list article > span, .education-list b,
+  .founder-label, .dialog-kicker, .dialog-evidence span, .skill-count,
+  .skill-hint, .evidence-note) {
+  font-size: 9px !important;
+  font-weight: 450 !important;
+  letter-spacing: .04em !important;
+}
+.footer-bottom { color: var(--muted); }
+.footer-bottom > span { font-weight: 400 !important; }
+@media (max-width: 680px) {
+  .hero-name { margin: 14px 0 9px !important; }
+  .hero-name strong { font-size: clamp(22px, 6vw, 29px) !important; }
+  body :is(.footer-bottom, .opening-footer, .project-footnote, .concept small,
+    .visual-coordinate, .identity-copy small, .brand-sub, .item-index,
+    .project-meta > span, .education-list article > span, .education-list b,
+    .founder-label, .dialog-kicker, .dialog-evidence span, .skill-count,
+    .skill-hint, .evidence-note) { font-size: 8px !important; }
+}
