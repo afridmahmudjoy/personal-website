@@ -3486,3 +3486,19 @@ img, video, iframe { max-width:100%; }
 @media(prefers-reduced-motion:reduce){
  .hero-skill-words>span{transition:none!important;filter:none!important;transform:none!important}
 }
+
+/* Cover skill Focus Shift, clean cross-fade between soft focus and crisp text. */
+.hero-skill-words>span{
+ display:block!important; position:absolute!important; inset:0!important; width:100%!important;
+ visibility:visible!important; opacity:.16!important; filter:blur(2.2px)!important;
+ transform:scale(.985)!important; clip-path:none!important; animation:none!important;
+ transition:opacity .72s ease,filter .72s ease,transform .72s cubic-bezier(.2,.65,.25,1)!important;
+ color:var(--accent)!important; text-shadow:0 0 8px var(--accent-soft)!important;
+}
+.hero-skill-words>span.focus-shift-active{
+ opacity:1!important; filter:blur(0)!important; transform:scale(1)!important; visibility:visible!important;
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-skill-words>span{transition:none!important;opacity:0!important;filter:none!important;transform:none!important;}
+ .hero-skill-words>span.focus-shift-active{opacity:1!important;}
+}
