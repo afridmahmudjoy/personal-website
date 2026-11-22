@@ -3669,3 +3669,6 @@ a, button { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 680px), (hover: none), (pointer: coarse) {
   .cursor-dot, .cursor-ring { display: none !important; opacity: 0 !important; visibility: hidden !important; animation: none !important; }
 }
+
+/* FIX: remove the decorative floating planets (blue body orb + orange ambient planet). Keep nebula, stars and comet effects. */
+body::after, .ambient-stars::before { content: none !important; display: none !important; }
