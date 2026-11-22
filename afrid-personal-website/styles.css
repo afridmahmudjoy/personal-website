@@ -2572,7 +2572,7 @@ img, video, iframe { max-width:100%; }
 .hero-skill-words{position:relative!important;display:block!important;width:100%!important;height:1.35rem!important;min-width:0!important;overflow:hidden!important;text-align:center!important}
 .hero-skill-words>span{position:absolute!important;inset:0!important;display:block!important;width:100%!important;white-space:nowrap!important;text-align:center!important;opacity:0!important;visibility:visible!important;animation:none!important;transform:translateY(8px)!important;transition:opacity .65s ease,transform .65s ease!important;filter:none!important;text-shadow:0 0 12px var(--accent-soft)!important;font-size:clamp(9px,1.15vw,12px)!important;letter-spacing:.11em!important;line-height:1.35!important;color:var(--accent)!important}
 
-6%,15%{opacity:1;transform:translateY(0)}18%,22%{opacity:0;transform:translateY(-8px)}100%{opacity:0;transform:translateY(-8px)}}
+@keyframes cover-skill-fade{0%,4%{opacity:0;transform:translateY(8px)}6%,15%{opacity:1;transform:translateY(0)}18%,22%,100%{opacity:0;transform:translateY(-8px)}}
 .hero-skill-particles{display:none!important}
 .hero-skill-words>span.is-burning{animation:cover-skill-fade 18s ease-in-out infinite!important}
 @media(max-width:620px){.hero-skill-rotator{bottom:-3.15rem!important;min-height:2rem!important}.hero-skill-prefix{font-size:7px!important}.hero-skill-words{height:1.3rem!important}.hero-skill-words>span{font-size:9px!important;letter-spacing:.07em!important}}
