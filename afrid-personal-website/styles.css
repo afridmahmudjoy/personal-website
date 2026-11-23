@@ -2173,7 +2173,7 @@ img, video, iframe { max-width:100%; }
   .skill-certificates-grid, .credential-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
   .document-card-heading, .document-card-footer, .credential-card { min-width:0; }
   .document-card-heading strong, .document-card-heading small, .document-card-footer>span { overflow-wrap:anywhere; }
-  .document-view-link, .skill-more, .carousel-arrow, .expand-subjects { min-height:38px; }
+  .document-view-link, .skill-more, .expand-subjects { min-height:38px; }
   .document-lightbox { padding:8px !important; }
   .document-lightbox-panel { width:100% !important; max-width:100%; height:min(90dvh,900px) !important; padding:42px 6px 6px !important; }
 }
