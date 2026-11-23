@@ -2,6 +2,12 @@
   'use strict';
 
   const root = document.documentElement;
+  const ICONS = {
+    sun: '<svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>',
+    moon: '<svg viewBox="0 0 24 24" focusable="false"><path d="M20.2 15.3A8.5 8.5 0 0 1 8.7 3.8 8.5 8.5 0 1 0 20.2 15.3Z"/></svg>',
+    soundOn: '<svg viewBox="0 0 24 24" focusable="false"><path d="M4 10v4h3l4 3V7l-4 3H4Z"/><path d="M15.5 9.5a4 4 0 0 1 0 5m2.5-7.5a8 8 0 0 1 0 11"/></svg>',
+    soundOff: '<svg viewBox="0 0 24 24" focusable="false"><path d="M4 10v4h3l4 3V7l-4 3H4Z"/><path d="m16 9 5 6m0-6-5 6"/></svg>'
+  };
   // 
   
   const storage = {
@@ -18,7 +24,7 @@
     themeButtons.forEach((button) => {
       const symbol = button.querySelector('.theme-symbol');
       const word = button.querySelector('.theme-word');
-      if (symbol) symbol.textContent = isLight ? '☾' : '☼';
+      if (symbol) symbol.innerHTML = isLight ? ICONS.moon : ICONS.sun;
       if (word) word.textContent = isLight ? 'DARK' : 'LIGHT';
       button.setAttribute('aria-pressed', String(isLight));
       button.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
@@ -30,7 +36,7 @@
     const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
     applyTheme(next);
     storage.set('amj-v4-theme', next);
-    playSound('toggle');
+    playSound(next === 'light' ? 'theme-light' : 'theme-dark');
   }));
 
   // The portfolio is available through normal scrolling; the hero action is a guided entry point.
@@ -70,7 +76,7 @@
     const word = button.querySelector('.sound-word');
     const symbol = button.querySelector('.sound-symbol');
     if (word) word.textContent = soundEnabled ? 'SOUND ON' : 'SOUND OFF';
-    if (symbol) symbol.textContent = soundEnabled ? '♫' : '♪';
+    if (symbol) symbol.innerHTML = soundEnabled ? ICONS.soundOn : ICONS.soundOff;
     button.setAttribute('aria-pressed', String(soundEnabled));
     button.setAttribute('aria-label', soundEnabled ? 'Turn sound effects off' : 'Turn sound effects on');
   });
@@ -99,8 +105,10 @@
   function playSound(kind = 'click') {
     if (!soundEnabled) return;
     const patterns = {
-      click: [[680, .075, 'sine', .018, 0]],
-      toggle: [[520, .09, 'sine', .018, 0], [760, .11, 'sine', .014, .07]],
+      click: [[740, .045, 'sine', .01, 0], [980, .06, 'sine', .006, .022]],
+      toggle: [[520, .07, 'sine', .012, 0], [760, .09, 'sine', .009, .05]],
+      'theme-light': [[520, .085, 'sine', .012, 0], [720, .11, 'sine', .009, .055], [960, .13, 'sine', .006, .11]],
+      'theme-dark': [[960, .085, 'sine', .009, 0], [720, .11, 'sine', .008, .055], [520, .13, 'sine', .006, .11]],
       navigate: [[420, .06, 'triangle', .014, 0]],
       swipe: [[330, .07, 'triangle', .016, 0], [510, .07, 'triangle', .012, .045]],
       popup: [[480, .08, 'sine', .014, 0], [620, .1, 'sine', .015, .06]],
@@ -639,6 +647,7 @@ const AUTO_ROTATE_DELAY = 3200;
     const dot = document.querySelector('.cursor-dot');
     const ring = document.querySelector('.cursor-ring');
     if (dot && ring) {
+      root.classList.add('has-custom-cursor');
       let x = window.innerWidth / 2;
       let y = window.innerHeight / 2;
       let ringX = x;
@@ -659,11 +668,21 @@ const AUTO_ROTATE_DELAY = 3200;
         window.requestAnimationFrame(animateCursor);
       };
       animateCursor();
+      const hoverTargets = 'a, button, [role="button"], .skill-card';
       document.addEventListener('mouseover', (event) => {
-        if (event.target.closest('a, button, .skill-card')) ring.classList.add('hovering');
+        if (event.target instanceof Element && event.target.closest(hoverTargets)) ring.classList.add('hovering');
       });
       document.addEventListener('mouseout', (event) => {
-        if (event.target.closest('a, button, .skill-card')) ring.classList.remove('hovering');
+        const nextTarget = event.relatedTarget instanceof Element ? event.relatedTarget : null;
+        if (!nextTarget?.closest(hoverTargets)) ring.classList.remove('hovering');
+      });
+      document.addEventListener('mouseleave', () => {
+        dot.style.opacity = '0';
+        ring.style.opacity = '0';
+      });
+      document.addEventListener('mouseenter', () => {
+        dot.style.opacity = '1';
+        ring.style.opacity = '1';
       });
     }
   }
