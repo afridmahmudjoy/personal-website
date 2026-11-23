@@ -5004,3 +5004,9 @@ html[data-theme="light"] .opening-grid.section-wrap {
   grid-template-columns: minmax(0, 1fr) !important;
 }
 .teaching-experience .teaching-mark { display: none !important; }
+
+/* Loader regression fix: consistent centering and greeting transitions. */
+.joy-loader { display: grid !important; place-items: center !important; min-height: 100dvh !important; }
+.joy-loader-greeting { opacity: 1 !important; transform: translateY(0) !important; filter: none !important; transition: opacity .18s ease, transform .18s ease, filter .18s ease !important; }
+.joy-loader-greeting.is-changing { opacity: 0 !important; transform: translateY(8px) !important; filter: blur(3px) !important; }
+@media (prefers-reduced-motion: reduce) { .joy-loader-greeting, .joy-loader-greeting.is-changing { transition: none !important; transform: none !important; filter: none !important; } }
