@@ -7,13 +7,21 @@
 
 Position Md. Afrid Mahmud Joy as a hybrid personal brand at the intersection of business, creativity, technology and entrepreneurship. Keep the existing turquoise signature and immersive character, but make the experience bolder, more cinematic and more intentional.
 
+## Joy-confirmed profile details
+
+- **TURQUOISE official Facebook page:** https://www.facebook.com/yourturquoise
+- **Creative experience:** 7+ years (confirmed by Joy)
+- **Freelance availability:** Available for freelance work (confirmed by Joy)
+- **Education:** Incoming Global BBA student at NUCB, Japan, April 2027
+
 ## Work plan
 
 ### Phase 1 — Trust and content accuracy
-- Replace the placeholder TURQUOISE Facebook destination with the verified official page URL once supplied.
-- Verify the “07+ years” and “100+ projects” claims; revise or remove any figure that cannot be substantiated.
+- Use the confirmed TURQUOISE Facebook page for all brand/shop links.
+- Publish the confirmed 7+ years of creative experience and current freelance availability.
+- Keep the 100+ completed-project figure under review until Joy confirms it.
 - Replace generic “Skill Certificate 01–06” labels with exact certificate names, issuers and dates.
-- Align homepage and CV facts, education dates, role descriptions and availability status.
+- Align homepage and CV facts, education dates and role descriptions.
 - Keep NUCB clearly labelled as incoming Global BBA, April 2027.
 
 ### Phase 2 — Bold visual system
@@ -44,7 +52,9 @@ Position Md. Afrid Mahmud Joy as a hybrid personal brand at the intersection of 
 - Verify page title, description, canonical URL, Open Graph image, favicon and sitemap.
 
 ## Acceptance checklist
-- No placeholder URLs or generic certificate labels remain.
+- Confirmed TURQUOISE page is used consistently.
+- Confirmed 7+ years and freelance availability are represented accurately.
+- No unverified project-count claim or generic certificate labels remain without review.
 - All public facts match Joy-approved details and the CV.
 - Gallery is curated, categorized and mobile-friendly.
 - Motion remains smooth without blocking content or accessibility.
@@ -52,8 +62,6 @@ Position Md. Afrid Mahmud Joy as a hybrid personal brand at the intersection of 
 - Production branch `main` remains unchanged until explicit approval.
 
 ## Items awaiting Joy's confirmation
-1. Official TURQUOISE Facebook / shop URL.
-2. Accurate years of design experience and approximate completed-project count.
-3. Exact certificate titles, issuing organizations and dates.
-4. Which 8–12 projects should be featured, or permission to select from the existing gallery.
-5. Whether freelance availability should remain public.
+1. Whether the 100+ completed-project count is accurate.
+2. Exact certificate titles, issuing organizations and dates.
+3. Which 8–12 projects should be featured, or permission to select from the existing gallery.
