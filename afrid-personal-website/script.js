@@ -887,37 +887,44 @@ document.querySelectorAll('.document-reveal').forEach(button => {
 })();
 
 
-/* V4 multilingual greeting intro */
+/* V4 loader: deterministic greeting cycle with a fail-safe dismissal. */
 (() => {
   const loader = document.getElementById('joy-loader');
   const greeting = document.getElementById('joy-loader-greeting');
   if (!loader || !greeting) return;
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const greetings = ['Hello', 'স্বাগতম', 'こんにちは', 'أهلًا', 'नमस्ते', 'Hola', 'Ciao'];
-  const interval = reduced ? 0 : 210;
   let index = 0;
-
-  const showNext = () => {
-    index += 1;
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    loader.classList.add('is-exiting');
+    window.setTimeout(() => loader.remove(), reducedMotion ? 80 : 550);
+  };
+  const watchdog = window.setTimeout(finish, 5000);
+  const step = () => {
+    if (finished || !loader.isConnected) { window.clearTimeout(watchdog); return; }
     if (index >= greetings.length) {
-      window.setTimeout(() => {
-        loader.classList.add('is-exiting');
-        window.setTimeout(() => loader.remove(), reduced ? 220 : 520);
-      }, reduced ? 420 : 180);
+      window.clearTimeout(watchdog);
+      window.setTimeout(finish, reducedMotion ? 120 : 260);
       return;
     }
-    greeting.classList.add('is-changing');
+    greeting.classList.remove('is-changing');
+    greeting.textContent = greetings[index];
+    const duration = index === 0 ? 700 : 380;
+    index += 1;
+    if (reducedMotion) { window.setTimeout(step, 100); return; }
     window.setTimeout(() => {
-      greeting.textContent = greetings[index];
-      greeting.classList.remove('is-changing');
-    }, reduced ? 0 : 100);
-    window.setTimeout(showNext, interval || 700);
+      greeting.classList.add('is-changing');
+      window.setTimeout(() => {
+        if (!finished && greeting.isConnected) greeting.classList.remove('is-changing');
+      }, 140);
+      window.setTimeout(step, 190);
+    }, duration);
   };
-
-  window.setTimeout(showNext, interval || 700);
+  step();
 })();
-
-
 /* V4 certificate cards: gentle cursor-driven 3D tilt, reset smoothly on exit */
 (() => {
   if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
