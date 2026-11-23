@@ -5010,3 +5010,33 @@ html[data-theme="light"] .opening-grid.section-wrap {
 .joy-loader-greeting { opacity: 1 !important; transform: translateY(0) !important; filter: none !important; transition: opacity .18s ease, transform .18s ease, filter .18s ease !important; }
 .joy-loader-greeting.is-changing { opacity: 0 !important; transform: translateY(8px) !important; filter: blur(3px) !important; }
 @media (prefers-reduced-motion: reduce) { .joy-loader-greeting, .joy-loader-greeting.is-changing { transition: none !important; transform: none !important; filter: none !important; } }
+
+
+/* Skills carousel motion refinement: smoother drag and settling */
+.skills-section .skill-card {
+  transition:
+    transform 460ms cubic-bezier(.2,.75,.25,1),
+    translate 360ms cubic-bezier(.2,.75,.25,1),
+    opacity 360ms ease,
+    filter 360ms ease,
+    border-color 360ms ease,
+    box-shadow 360ms ease;
+}
+.skills-section .skill-card[data-slot="active"] {
+  transition:
+    transform 460ms cubic-bezier(.2,.75,.25,1),
+    translate 360ms cubic-bezier(.2,.75,.25,1),
+    opacity 360ms ease,
+    filter 360ms ease,
+    border-color 360ms ease,
+    box-shadow 360ms ease;
+}
+.skills-section .skill-stage.is-dragging .skill-card {
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skills-section .skill-card,
+  .skills-section .skill-progress span {
+    transition-duration: .01ms !important;
+  }
+}
