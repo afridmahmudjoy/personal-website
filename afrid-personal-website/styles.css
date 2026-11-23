@@ -4916,3 +4916,19 @@ html[data-theme="light"] .footer-bottom {
     animation: none !important;
   }
 }
+
+/* Light-mode name treatment: static, crisp, and high contrast. */
+html[data-theme="light"] .hero-name strong {
+  color: #17211f !important;
+  background: none !important;
+  background-image: none !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: #17211f !important;
+  text-shadow: none !important;
+  animation: none !important;
+}
+html[data-theme="light"] .hero-name::after {
+  display: none !important;
+  opacity: 0 !important;
+}
