@@ -907,20 +907,20 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     if (finished || !loader.isConnected) { window.clearTimeout(watchdog); return; }
     if (index >= greetings.length) {
       window.clearTimeout(watchdog);
-      window.setTimeout(finish, reducedMotion ? 120 : 260);
+      window.setTimeout(finish, reducedMotion ? 80 : 120);
       return;
     }
     greeting.classList.remove('is-changing');
     greeting.textContent = greetings[index];
-    const duration = index === 0 ? 700 : 380;
+    const duration = index === 0 ? 620 : 330;
     index += 1;
     if (reducedMotion) { window.setTimeout(step, 100); return; }
     window.setTimeout(() => {
       greeting.classList.add('is-changing');
       window.setTimeout(() => {
-        if (!finished && greeting.isConnected) greeting.classList.remove('is-changing');
-      }, 140);
-      window.setTimeout(step, 190);
+        if (!finished && greeting.isConnected && index < greetings.length) greeting.classList.remove('is-changing');
+      }, 110);
+      window.setTimeout(step, 150);
     }, duration);
   };
   step();
