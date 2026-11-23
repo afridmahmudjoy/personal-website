@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#eaf7f7">
+  <meta name="theme-color" content="#071312">
+  <script>
+    try {
+      if (localStorage.getItem('amj-v4-theme') === 'light') {
+        document.documentElement.dataset.theme = 'light';
+        document.querySelector('meta[name="theme-color"]').content = '#ffffff';
+      }
+    } catch (_) {}
+  </script>
   <meta name="description" content="The personal portfolio of Md. Afrid Mahmud Joy — exploring the intersection of business, visual design and digital technology. Incoming Global BBA student at NUCB, Japan (April 2027).">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://afridmahmudjoy.vercel.app/">
@@ -15,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=review-fixes-20261123">
+  <link rel="stylesheet" href="styles.css?v=light-theme-fix-20261123">
   <script src="script.js?v=review-fixes-20261123" defer></script>
 </head>
 <body>
