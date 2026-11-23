@@ -4266,3 +4266,12 @@ body :is(.hero-intro, .about-text p, .section-aside, .leadership-intro, .leaders
   .detail-page-card { grid-template-columns: 1fr; padding: 19px; }
   .detail-page-card > span:last-child { grid-column: 1; }
 }
+
+
+/* Quality review: keep non-clickable experience entries free of link arrows and empty columns. */
+.experience-item { grid-template-columns: .9fr minmax(0, 2.3fr) !important; }
+.teaching-experience article { grid-template-columns: 42px minmax(0, 1fr) !important; }
+@media (max-width: 620px) {
+  .experience-item { grid-template-columns: minmax(0, 1fr) !important; }
+  .teaching-experience article { grid-template-columns: 34px minmax(0, 1fr) !important; }
+}
