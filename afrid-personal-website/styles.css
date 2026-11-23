@@ -4932,3 +4932,44 @@ html[data-theme="light"] .hero-name::after {
   display: none !important;
   opacity: 0 !important;
 }
+
+
+/* V4 light-theme width continuity: remove dark cover gutters and unify section backdrop */
+html[data-theme="light"] .opening {
+  background: var(--bg) !important;
+}
+html[data-theme="light"] .opening::before {
+  background:
+    radial-gradient(ellipse at 22% 18%, rgba(8,121,111,.045), transparent 38%),
+    radial-gradient(ellipse at 78% 80%, rgba(130,153,255,.035), transparent 42%),
+    linear-gradient(180deg, #fbfcfc, #f6f9f8) !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+html[data-theme="light"] .hero-window {
+  width: min(1180px, calc(100% - 48px)) !important;
+  max-width: 1240px !important;
+  margin-inline: auto !important;
+  background: transparent !important;
+}
+html[data-theme="light"] .opening-header,
+html[data-theme="light"] .opening-footer {
+  width: min(1240px, calc(100% - 72px)) !important;
+  margin-inline: auto !important;
+}
+html[data-theme="light"] .opening-grid.section-wrap {
+  width: min(1240px, calc(100% - 72px)) !important;
+  max-width: 1240px !important;
+  margin-inline: auto !important;
+  padding-inline: 0 !important;
+}
+@media (max-width: 680px) {
+  html[data-theme="light"] .hero-window {
+    width: calc(100% - 28px) !important;
+  }
+  html[data-theme="light"] .opening-header,
+  html[data-theme="light"] .opening-grid.section-wrap,
+  html[data-theme="light"] .opening-footer {
+    width: calc(100% - 28px) !important;
+  }
+}
