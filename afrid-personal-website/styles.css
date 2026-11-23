@@ -5043,26 +5043,35 @@ html[data-theme="light"] .opening-grid.section-wrap {
     inset: 14px 3% !important;
     padding: 17px 15px !important;
   }
-  /* Center card is deliberately narrower so the neighboring cards read as swipeable. */
+  /* Five-card mobile stack: two previews on each side of the active card. */
   .skills-section .skill-card[data-slot="active"] {
-    inset: 14px 11% !important;
-    z-index: 12;
+    inset: 14px 9% !important;
+    z-index: 12 !important;
   }
   .skills-section .skill-card[data-slot="prev"] {
-    transform: translate3d(-83%, 8px, -120px) rotateY(20deg) scale(.72) !important;
-    opacity: .56 !important;
+    transform: translate3d(-76%, 8px, -100px) rotateY(18deg) scale(.70) !important;
+    opacity: .55 !important;
     filter: blur(.35px) brightness(.82) !important;
-    z-index: 6;
+    z-index: 8 !important;
   }
   .skills-section .skill-card[data-slot="next"] {
-    transform: translate3d(83%, 8px, -120px) rotateY(-20deg) scale(.72) !important;
-    opacity: .56 !important;
+    transform: translate3d(76%, 8px, -100px) rotateY(-18deg) scale(.70) !important;
+    opacity: .55 !important;
     filter: blur(.35px) brightness(.82) !important;
-    z-index: 6;
+    z-index: 8 !important;
   }
-  .skills-section .skill-card[data-slot="far-prev"],
+  .skills-section .skill-card[data-slot="far-prev"] {
+    transform: translate3d(-128%, 12px, -190px) rotateY(24deg) scale(.56) !important;
+    opacity: .34 !important;
+    filter: blur(.6px) brightness(.72) !important;
+    z-index: 4 !important;
+    pointer-events: none !important;
+  }
   .skills-section .skill-card[data-slot="far-next"] {
-    opacity: 0 !important;
+    transform: translate3d(128%, 12px, -190px) rotateY(-24deg) scale(.56) !important;
+    opacity: .34 !important;
+    filter: blur(.6px) brightness(.72) !important;
+    z-index: 4 !important;
     pointer-events: none !important;
   }
   .skills-section .skill-card[data-slot="active"] h3 {
@@ -5076,7 +5085,6 @@ html[data-theme="light"] .opening-grid.section-wrap {
     max-width: 100% !important;
   }
   .skills-section .skill-card[data-slot="active"] .skill-card-footer {
-    margin-top: auto !important;
     gap: 8px !important;
     margin-top: 12px !important;
     padding-top: 10px !important;
