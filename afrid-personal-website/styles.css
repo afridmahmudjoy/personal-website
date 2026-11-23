@@ -4973,3 +4973,27 @@ html[data-theme="light"] .opening-grid.section-wrap {
     width: calc(100% - 28px) !important;
   }
 }
+
+
+/* V4 experience consistency: flatten the teaching entry to match the other experience rows. */
+.teaching-experience {
+  margin-top: 28px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.teaching-experience article {
+  grid-template-columns: 42px minmax(0, 1fr) !important;
+  gap: 14px !important;
+  align-items: center !important;
+  padding: 22px 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  transition: padding .28s ease, border-color .28s ease, background .28s ease !important;
+}
+.teaching-experience article:hover {
+  padding-inline: 14px !important;
+  border-color: var(--line-strong) !important;
+  background: linear-gradient(90deg, var(--accent-soft), transparent 78%) !important;
+}
