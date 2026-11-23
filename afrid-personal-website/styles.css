@@ -4275,3 +4275,170 @@ body :is(.hero-intro, .about-text p, .section-aside, .leadership-intro, .leaders
   .experience-item { grid-template-columns: minmax(0, 1fr) !important; }
   .teaching-experience article { grid-template-columns: 34px minmax(0, 1fr) !important; }
 }
+
+
+/* Premium topbar controls: one glass finish, with a clear CV action. */
+.topbar .nav-actions { gap: 9px; }
+.topbar .nav-actions .topbar-control {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding: 0 !important;
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, var(--line-strong)) !important;
+  border-radius: 15px !important;
+  background: linear-gradient(145deg,
+    color-mix(in srgb, var(--panel-solid) 86%, white 14%),
+    color-mix(in srgb, var(--panel-solid) 95%, var(--accent) 5%)) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 8px 22px rgba(0,0,0,.13),
+              inset 0 1px 0 rgba(255,255,255,.34),
+              0 0 0 1px color-mix(in srgb, var(--accent) 7%, transparent) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform .22s cubic-bezier(.2,.8,.2,1),
+              border-color .22s ease, box-shadow .22s ease,
+              background .3s ease !important;
+}
+.topbar .nav-actions .topbar-control:hover {
+  transform: translateY(-2px) !important;
+  border-color: color-mix(in srgb, var(--accent) 70%, white 8%) !important;
+  box-shadow: 0 11px 27px rgba(0,0,0,.18),
+              0 0 20px color-mix(in srgb, var(--accent) 19%, transparent),
+              inset 0 1px 0 rgba(255,255,255,.4) !important;
+}
+.topbar .nav-actions .topbar-control:active { transform: translateY(0) scale(.96) !important; }
+.topbar .nav-actions .topbar-control:focus-visible {
+  outline: 2px solid var(--accent) !important;
+  outline-offset: 3px;
+}
+.topbar .nav-actions .cv-toggle {
+  width: auto !important;
+  min-width: 76px !important;
+  padding: 0 14px !important;
+  gap: 9px !important;
+  border-color: color-mix(in srgb, var(--accent) 72%, white 10%) !important;
+  background: linear-gradient(135deg, #55e5cf, #a7f4e8) !important;
+  color: #06211e !important;
+  box-shadow: 0 8px 22px rgba(16,190,164,.2),
+              inset 0 1px 0 rgba(255,255,255,.62) !important;
+}
+.topbar .nav-actions .cv-toggle:hover {
+  background: linear-gradient(135deg, #71f0dc, #c2fff4) !important;
+  box-shadow: 0 11px 27px rgba(16,190,164,.27),
+              0 0 22px rgba(67,234,209,.2),
+              inset 0 1px 0 rgba(255,255,255,.72) !important;
+}
+.topbar .cv-toggle .cv-label { font: 700 10px/1 "DM Mono", monospace !important; letter-spacing: .09em; }
+.topbar .cv-toggle .cv-arrow { display: inline-flex; width: 13px; height: 13px; color: currentColor !important; }
+.topbar .cv-toggle .cv-arrow svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.topbar .nav-actions .sound-symbol,
+.topbar .nav-actions .theme-symbol {
+  display: grid !important;
+  width: 20px !important;
+  height: 20px !important;
+  place-items: center;
+  color: var(--accent) !important;
+}
+.topbar .nav-actions .sound-symbol svg,
+.topbar .nav-actions .theme-symbol svg {
+  display: block;
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.topbar .nav-actions .sound-toggle[aria-pressed="true"],
+.topbar .nav-actions .theme-toggle[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--line-strong)) !important;
+  background: linear-gradient(145deg,
+    color-mix(in srgb, var(--accent-soft) 78%, var(--panel-solid)),
+    color-mix(in srgb, var(--panel-solid) 82%, var(--accent) 18%)) !important;
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 14%, transparent),
+              inset 0 1px 0 rgba(255,255,255,.35) !important;
+}
+@media (max-width: 620px) {
+  .topbar .nav-actions { gap: 5px !important; }
+  .topbar .nav-actions .topbar-control {
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    border-radius: 12px !important;
+  }
+  .topbar .nav-actions .cv-toggle {
+    width: 56px !important;
+    min-width: 56px !important;
+    padding: 0 9px !important;
+    gap: 6px !important;
+  }
+  .topbar .cv-toggle .cv-label { font-size: 9px !important; }
+  .topbar .cv-toggle .cv-arrow { width: 11px; height: 11px; }
+  .topbar .nav-actions .sound-symbol,
+  .topbar .nav-actions .theme-symbol { width: 18px !important; height: 18px !important; }
+  .topbar .nav-actions .sound-symbol svg,
+  .topbar .nav-actions .theme-symbol svg { width: 17px; height: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .topbar .nav-actions .topbar-control { transition: none !important; }
+}
+
+/* A crisp, responsive pointer that turns into a focus halo over controls. */
+html.has-custom-cursor,
+html.has-custom-cursor * { cursor: none !important; }
+html.has-custom-cursor :is(input, textarea, [contenteditable="true"]) { cursor: text !important; }
+.cursor-dot {
+  width: 7px;
+  height: 7px;
+  background: #f4fffd;
+  border: 1px solid color-mix(in srgb, var(--accent) 82%, white);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent),
+              0 0 13px color-mix(in srgb, var(--accent) 80%, transparent);
+}
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border-color: color-mix(in srgb, var(--ink) 30%, var(--accent));
+  background: color-mix(in srgb, var(--panel-solid) 20%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 18%, transparent),
+              inset 0 0 10px color-mix(in srgb, var(--accent) 9%, transparent);
+}
+.cursor-ring::before {
+  inset: -5px;
+  border: 1px solid transparent;
+  border-top-color: var(--accent);
+  border-left-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  border-right-color: transparent;
+  animation-duration: 5s;
+}
+.cursor-ring::after {
+  inset: 7px;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+  border-radius: 50%;
+  opacity: .48;
+}
+.cursor-ring.hovering {
+  width: 44px;
+  height: 44px;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel-solid));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 8%, transparent),
+              0 0 26px color-mix(in srgb, var(--accent) 24%, transparent),
+              inset 0 0 12px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.cursor-ring.hovering::before { inset: -4px; border-top-color: var(--ink); animation-duration: 2.4s; }
+.cursor-ring.hovering::after { inset: 10px; border-color: color-mix(in srgb, var(--accent) 44%, transparent); }
+html.has-custom-cursor input,
+html.has-custom-cursor textarea,
+html.has-custom-cursor [contenteditable="true"] { cursor: text !important; }
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot, .cursor-ring, .cursor-ring::before { animation: none !important; transition: none !important; }
+  html.has-custom-cursor, html.has-custom-cursor * { cursor: auto !important; }
+}
