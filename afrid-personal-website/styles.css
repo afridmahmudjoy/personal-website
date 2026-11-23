@@ -5063,6 +5063,7 @@ html[data-theme="light"] .opening-grid.section-wrap {
     pointer-events: none !important;
   }
   .skills-section .skill-card[data-slot="active"] h3 {
+    margin: 14px 0 10px !important;
     font-size: clamp(24px, 7vw, 32px) !important;
     line-height: 1.12 !important;
   }
@@ -5072,6 +5073,7 @@ html[data-theme="light"] .opening-grid.section-wrap {
     max-width: 100% !important;
   }
   .skills-section .skill-card[data-slot="active"] .skill-card-footer {
+    margin-top: auto !important;
     gap: 8px !important;
     margin-top: 12px !important;
     padding-top: 10px !important;
