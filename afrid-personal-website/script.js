@@ -547,7 +547,7 @@ const AUTO_ROTATE_DELAY = 3200;
 
   // Subtle desktop magnetic response for primary controls.
   if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll('.explore-button, .nav-cta, .carousel-arrow, .skill-more, .turquoise-link').forEach((control) => {
+    document.querySelectorAll('.explore-button, .nav-cta, .skill-more, .turquoise-link').forEach((control) => {
       control.addEventListener('pointermove', (event) => {
         const rect = control.getBoundingClientRect();
         const dx = (event.clientX - (rect.left + rect.width / 2)) / Math.max(rect.width, 1);
@@ -705,7 +705,7 @@ const AUTO_ROTATE_DELAY = 3200;
       window.setTimeout(() => control.classList.remove('tap-pulse'), 380);
     }
     // These already trigger dedicated sounds in their own handlers.
-    if (control.matches('.theme-toggle, .sound-toggle, .menu-toggle, .carousel-arrow, .skill-more, .expand-subjects, #explore-button, .skill-card, .nav a')) return;
+    if (control.matches('.theme-toggle, .sound-toggle, .menu-toggle, .skill-more, .expand-subjects, #explore-button, .skill-card, .nav a')) return;
     playSound('click');
   });
 
