@@ -893,7 +893,7 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   const greeting = document.getElementById('joy-loader-greeting');
   if (!loader || !greeting) return;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const greetings = ['Hello', 'স্বাগতম', 'こんにちは', 'أهلًا', 'नमस्ते', 'Hola', '你好'];
+  const greetings = ['Hello', 'স্বাগতম', 'こんにちは', 'أهلًا', 'स्वागत है', 'Hola', '你好'];
   let index = 0;
   let finished = false;
   const finish = () => {
