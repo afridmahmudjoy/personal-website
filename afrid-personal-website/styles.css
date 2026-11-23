@@ -3448,11 +3448,9 @@ body::before { content:""; position:fixed; inset:0; pointer-events:none; z-index
   background: radial-gradient(ellipse at 16% 28%, rgba(80,130,255,.13), transparent 34%), radial-gradient(ellipse at 82% 72%, rgba(125,65,220,.11), transparent 35%); animation: nebula-drift 38s ease-in-out infinite alternate; }
 body::after { content:""; position:fixed; pointer-events:none; z-index:0; width:clamp(12px,1.3vw,20px); height:clamp(12px,1.3vw,20px); border-radius:50%; top:18%; left:9%; background:radial-gradient(circle at 30% 25%, #fff 0 7%, #8de9ff 18%, #4b8fff 55%, #142c75 80%); box-shadow:0 0 18px rgba(80,145,255,.55), 0 0 42px rgba(80,145,255,.18); animation: planet-drift 26s ease-in-out infinite alternate; }
 .ambient-stars::before { content:""; position:absolute; width:clamp(18px,2vw,30px); height:clamp(18px,2vw,30px); border-radius:50%; top:58%; right:14%; background:radial-gradient(circle at 32% 30%, #fff6d9 0 8%, #ffc66d 22%, #d76a38 65%, #6e2d23 100%); box-shadow:0 0 24px rgba(255,177,95,.42); animation: planet-float 19s ease-in-out infinite alternate; }
-.ambient-stars::after { content:""; position:absolute; top:32%; left:-18%; width:130px; height:2px; border-radius:50%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),rgba(150,230,255,.3),transparent); filter:drop-shadow(0 0 6px rgba(130,220,255,.7)); transform:rotate(-24deg); animation: comet-pass 16s ease-in-out infinite; }
 @keyframes nebula-drift { 0% { transform:translate3d(-2%,0,0) scale(1); } 100% { transform:translate3d(2%,1%,0) scale(1.04); } }
 @keyframes planet-drift { 0% { transform:translate(0,0); } 100% { transform:translate(8vw,5vh); } }
 @keyframes planet-float { 0% { transform:translate(0,0) rotate(0); } 100% { transform:translate(-5vw,-4vh) rotate(12deg); } }
-@keyframes comet-pass { 0%, 72%, 100% { transform:translate3d(0,0,0) rotate(-24deg); opacity:0; } 78% { opacity:1; } 92% { transform:translate3d(130vw,55vh,0) rotate(-24deg); opacity:0; } }
 /* Typography scale: restore hierarchy and avoid tiny mono labels */
 .eyebrow, .section-kicker, .identity-tags, .opening-footer, .concept small, .visual-coordinate, .brand-sub, .item-index, .skill-card-category, .skill-card-index, .skill-count, .skill-hint, .project-meta span, .project-footnote, .education-list article>span, .education-list b, .founder-label, .showcase-heading, .footer-bottom, .dialog-kicker, .dialog-evidence span { font-size: max(10px, .72rem) !important; letter-spacing: .075em !important; }
 .identity-copy strong { font-size: 12px; }
@@ -3670,7 +3668,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
   .cursor-dot, .cursor-ring { display: none !important; opacity: 0 !important; visibility: hidden !important; animation: none !important; }
 }
 
-/* FIX: remove the decorative floating planets (blue body orb + orange ambient planet). Keep nebula, stars and comet effects. */
+/* FIX: remove the decorative floating planets (blue body orb + orange ambient planet). Keep the nebula and stars. */
 body::after, .ambient-stars::before { content: none !important; display: none !important; }
 
 /* Real project gallery with a restrained magnetic pull toward the pointer. */
