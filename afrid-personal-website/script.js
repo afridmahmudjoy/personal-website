@@ -63,7 +63,7 @@
   }));
 
  // Interface sounds enabled by default; generated locally with Web Audio.
-  let soundEnabled = storage.get('amj-v4-sound') !== 'off';
+  let soundEnabled = storage.get('amj-v4-sound') === 'on';
   let audioContext = null;
   const soundButtons = [...document.querySelectorAll('.sound-toggle')];
   const syncSoundButtons = () => soundButtons.forEach((button) => {
