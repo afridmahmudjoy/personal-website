@@ -451,24 +451,6 @@ user-select: none;
   cursor: pointer;
 }
 
-/* Navigation */
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  z-index: 12;
-  width: 42px;
-  height: 42px;
-  transform: translateY(-50%);
-  border: 1px solid var(--line-strong);
-  color: var(--accent);
-  background: var(--panel-solid);
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.carousel-prev { left: 0; }
-.carousel-next { right: 0; }
 
 .skill-controls {
   width: min(680px, 78%);
@@ -564,7 +546,7 @@ html[data-theme="light"] .topbar { background: rgba(234,247,247,.84); }
   .section-wrap { width: min(100% - 44px, 680px); }
   .opening-header { width: calc(100% - 44px); }.opening-grid { grid-template-columns: 1fr .8fr; gap: 0; }.opening h1 { font-size: clamp(66px,10vw,94px); }.hero-visual { min-height: 440px; }.portrait-frame { width: 65%; }.concept { min-width: 74px; padding: 9px 10px; }
   .topbar { padding-inline: 22px; }.nav { display: none; position: absolute; top: 77px; left: 0; right: 0; padding: 20px 24px; background: var(--panel-solid); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; gap: 18px; }.nav.open { display: flex; }.nav a { font-size: 10px; }.menu-toggle { display: block; }
-  .about-grid, .leadership-grid { gap: 5%; }.experience-item { grid-template-columns: .75fr 2fr 20px; }.skill-stage, .skill-controls { width: 78%; }.skill-card[data-slot="far-prev"], .skill-card[data-slot="far-next"] { opacity: .08; }.turquoise-layout, .nucb-layout { gap: 4%; }
+  .about-grid, .leadership-grid { gap: 5%; }.experience-item { grid-template-columns: .75fr 2fr 20px; }.skill-stage, .skill-controls { width: 88%; }.skill-card[data-slot="far-prev"], .skill-card[data-slot="far-next"] { opacity: .08; }.turquoise-layout, .nucb-layout { gap: 4%; }
 }
 @media (max-width: 620px) {
   .section-wrap { width: calc(100% - 38px); }
@@ -580,7 +562,7 @@ html[data-theme="light"] .topbar { background: rgba(234,247,247,.84); }
 .skill-card[data-slot="next"] {
   transform: translate3d(58%, 12px, -110px) rotateY(-28deg) scale(.78);
   opacity: .48;
-}.skill-card[data-slot="far-prev"], .skill-card[data-slot="far-next"] { opacity: 0; }.carousel-arrow { width: 32px; height: 32px; font-size: 14px; }.carousel-prev { left: 0; }.carousel-next { right: 0; }.skill-controls { width: 83%; gap: 8px; }.skill-count, .skill-hint { font-size: 6px; }.evidence-note { font-size: 7px; }
+}.skill-card[data-slot="far-prev"], .skill-card[data-slot="far-next"] { opacity: 0; }.skill-controls { width: 83%; gap: 8px; }.skill-count, .skill-hint { font-size: 6px; }.evidence-note { font-size: 7px; }
   .nucb-section { padding-block: 78px; }.nucb-copy h2 { font-size: 65px; }.nucb-copy h3 { font-size: 16px; }.nucb-copy>p:not(.nucb-overline) { font-size: 12px; }.nucb-visual { min-height: 280px; }.nucb-orbit-a { width: 220px; height: 220px; }.nucb-orbit-b { width: 280px; height: 170px; }.nucb-monogram { width: 135px; height: 135px; font-size: 43px; }
   .experience-item { grid-template-columns: 1fr 20px; gap: 9px; padding: 21px 0; }.item-index { grid-column: 1 / -1; }.item-main h3 { font-size: 17px; }.item-main p { font-size: 8px; }.item-main span { font-size: 11px; }.item-symbol { grid-column: 2; grid-row: 2; }
   .diploma-card { padding: 22px 17px; }.diploma-card h3 { font-size: 27px; }.diploma-card .institution { font-size: 10px; }.diploma-facts { grid-template-columns: 1fr; gap: 14px; margin-top: 23px; }.diploma-facts strong { font-size: 12px; }.subject-list ol { columns: 1; }.document-slots, .credential-grid { grid-template-columns: 1fr; }.document-slot { min-height: 88px; }.credential-card { min-height: 130px; padding: 19px; }
@@ -3537,7 +3519,7 @@ h1, h2, h3, h4, .opening h1, .section-heading h2, .about-grid h2,
   font-size: 12px;
 }
 .interactive, a, button, .nav a, .nav-cta, .theme-toggle, .sound-toggle,
-.skill-filters button, .carousel-arrow, .skill-more, .document-card,
+.skill-filters button, .skill-more, .document-card,
 .document-view-link, .journey-card, .journey-icon, .journey-link,
 .turquoise-feature, .turquoise-shop-link, .turquoise-page-link,
 .experience-item, .credential-card, .project-card, .brand-placeholder,
@@ -3613,7 +3595,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
   .skill-filters { gap:7px!important; padding-bottom:12px!important; }
   .skill-filters button { font-size:10px!important; padding:9px 11px!important; }
   .skill-carousel { min-height:340px!important; }
-  .skill-stage { width:calc(100% - 54px)!important; height:300px!important; max-width:100%!important; }
+  .skill-stage { width:95%!important; height:300px!important; max-width:100%!important; }
   .skill-card { padding:20px 17px!important; }
   .skill-card h2, .skill-card h3, .skill-card-title, .skill-card-name { font-size:clamp(22px,6vw,30px)!important; line-height:1.15!important; }
   .skill-card p, .skill-card li { font-size:12px!important; line-height:1.65!important; }
@@ -3650,7 +3632,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
   .hero-intro { font-size:12px!important; }
   .hero-stats { gap:10px!important; }
   .hero-stats small { font-size:8px!important; max-width:86px!important; }
-  .skill-stage { width:calc(100% - 42px)!important; height:280px!important; }
+  .skill-stage { width:95%!important; height:280px!important; }
   .skill-card { padding:17px 14px!important; }
   .credential-grid, .skill-certificates-grid { gap:8px!important; }
   .document-card-heading strong { font-size:10px!important; }
@@ -4820,7 +4802,6 @@ html[data-theme="light"] :is(.skill-card p, .journey-card p, .turquoise-feature-
   color: #53615e !important;
 }
 html[data-theme="light"] .skill-filters button,
-html[data-theme="light"] .carousel-arrow,
 html[data-theme="light"] .skill-more {
   background: #fff !important;
   color: #53615e !important;
@@ -4831,11 +4812,6 @@ html[data-theme="light"] .skill-more {
   color: #08796f !important;
   border-color: rgba(8,121,111,.4) !important;
   background: #edf7f5 !important;
-}
-html[data-theme="light"] .carousel-arrow:hover,
-html[data-theme="light"] .carousel-arrow:focus-visible {
-  color: #08796f !important;
-  border-color: #08796f !important;
 }
 html[data-theme="light"] .skill-progress {
   background: #dfe7e4 !important;
