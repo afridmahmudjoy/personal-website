@@ -3402,7 +3402,7 @@ img, video, iframe { max-width:100%; }
 @media (prefers-reduced-motion: reduce) { .project-details > div { animation: none; } .project-details summary::after { transition: none; } }
 
 /* V4 scroll progress + quick return to top */
-.scroll-progress-top{position:fixed;right:clamp(16px,3vw,30px);bottom:calc(106px + env(safe-area-inset-bottom));z-index:1200;width:48px;height:48px;padding:0;border:1px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;background:var(--panel-solid);color:var(--accent);box-shadow:0 8px 26px rgba(0,0,0,.28),inset 0 0 14px var(--accent-soft);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px) scale(.92);transition:opacity .28s ease,visibility .28s ease,transform .28s cubic-bezier(.2,.75,.25,1),background .2s ease,border-color .2s ease}
+.scroll-progress-top{position:fixed;right:clamp(20px,3.5vw,36px);bottom:calc(116px + env(safe-area-inset-bottom));z-index:1200;width:56px;height:56px;padding:0;border:1px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;background:var(--panel-solid);color:var(--accent);box-shadow:0 10px 30px rgba(0,0,0,.3),inset 0 0 16px var(--accent-soft);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px) scale(.92);transition:opacity .28s ease,visibility .28s ease,transform .28s cubic-bezier(.2,.75,.25,1),background .2s ease,border-color .2s ease}
 .scroll-progress-top.is-visible{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
 .scroll-progress-top:hover{background:var(--accent-soft);border-color:var(--accent);transform:translateY(-2px) scale(1.04)}
 .scroll-progress-top:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
@@ -3412,7 +3412,7 @@ img, video, iframe { max-width:100%; }
 .scroll-progress-value{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:113.097;stroke-dashoffset:113.097;transition:stroke-dashoffset .16s linear}
 .scroll-progress-arrow{font:600 21px/1 "Space Grotesk",sans-serif;position:relative;z-index:1;transition:transform .22s ease}
 .scroll-progress-top:hover .scroll-progress-arrow{transform:translateY(-2px)}
-@media(max-width:700px){.scroll-progress-top{width:44px;height:44px;right:14px;bottom:calc(92px + env(safe-area-inset-bottom))}}
+@media(max-width:700px){.scroll-progress-top{width:52px;height:52px;right:18px;bottom:calc(102px + env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){.scroll-progress-top,.scroll-progress-arrow,.scroll-progress-value{transition:none}}
 
 
