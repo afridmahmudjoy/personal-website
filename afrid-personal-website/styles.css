@@ -4447,18 +4447,15 @@ html.has-custom-cursor [contenteditable="true"] { cursor: text !important; }
 /* Curated featured projects and a compact, accessible full-work archive. */
 .featured-case-heading { margin-top: 48px; }
 .featured-case-grid {
-  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: 18px !important;
   align-items: stretch;
 }
 .featured-case-card {
-  grid-column: span 2;
   display: flex;
   min-width: 0;
   flex-direction: column;
 }
-.featured-case-card:nth-child(4) { grid-column: 2 / span 2; }
-.featured-case-card:nth-child(5) { grid-column: 4 / span 2; }
 .featured-case-card .project-meta { display: flex; flex: 1; flex-direction: column; }
 .case-study-facts {
   margin: 17px 0 15px;
@@ -4530,16 +4527,12 @@ html.has-custom-cursor [contenteditable="true"] { cursor: text !important; }
 .project-archive-content > .category-heading:first-child { margin-top: 28px; }
 @media (max-width: 980px) {
   .featured-case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-  .featured-case-card,
-  .featured-case-card:nth-child(4),
-  .featured-case-card:nth-child(5) { grid-column: span 1; }
+  .featured-case-card { grid-column: span 1; }
 }
 @media (max-width: 620px) {
   .featured-case-heading { margin-top: 32px; }
   .featured-case-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 14px !important; }
-  .featured-case-card,
-  .featured-case-card:nth-child(4),
-  .featured-case-card:nth-child(5) { grid-column: 1; }
+  .featured-case-card { grid-column: 1; }
   .case-study-facts > div { grid-template-columns: 60px minmax(0, 1fr); }
   .project-archive { margin-top: 36px; border-radius: 15px; }
   .project-archive-summary { grid-template-columns: minmax(0, 1fr) 20px; gap: 7px 12px; padding: 16px; }
