@@ -989,3 +989,19 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   name.addEventListener('pointerleave', reset, { passive: true });
   name.addEventListener('pointercancel', reset, { passive: true });
 })();
+
+
+/* Render a built-in preview when a project artwork file cannot be loaded. */
+(() => {
+  document.querySelectorAll('img[data-preview-fallback]').forEach((image) => {
+    let fallbackUsed = false;
+    const showFallback = () => {
+      if (fallbackUsed) return;
+      fallbackUsed = true;
+      const fallback = image.getAttribute('data-preview-fallback');
+      if (fallback) image.src = fallback;
+    };
+    image.addEventListener('error', showFallback);
+    if (image.complete && !image.naturalWidth) showFallback();
+  });
+})();

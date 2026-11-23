@@ -4090,3 +4090,179 @@ html[data-theme="light"] .availability-badge {
 @media (prefers-reduced-motion:reduce) {
   .hero-contact-link { transition:none; }
 }
+
+
+
+/* Portfolio comment refinements: give the name a turquoise, white and lavender glow. */
+.hero-name::after {
+  background: radial-gradient(ellipse at 25% 50%, rgba(67,234,209,.27), transparent 45%),
+              radial-gradient(ellipse at 78% 48%, rgba(194,174,255,.22), transparent 52%);
+}
+.hero-name strong {
+  background-image: linear-gradient(105deg, #43ead1 0%, #ffffff 38%, #c7b5ff 68%, #43ead1 100%) !important;
+  background-size: 220% 100% !important;
+  background-position: 0% 50%;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: #43ead1 !important;
+  animation: hero-name-color-flow 8s ease-in-out infinite, hero-name-glow-flow 5s ease-in-out infinite alternate !important;
+  text-shadow: 0 0 8px rgba(67,234,209,.45), 0 0 18px rgba(199,181,255,.2) !important;
+}
+@keyframes hero-name-color-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes hero-name-glow-flow {
+  0% { text-shadow: -2px 0 7px rgba(67,234,209,.55), 0 0 17px rgba(67,234,209,.22), 2px 0 13px rgba(199,181,255,.18); }
+  50% { text-shadow: 0 0 9px rgba(255,255,255,.58), 0 0 24px rgba(199,181,255,.35), 0 0 31px rgba(67,234,209,.22); }
+  100% { text-shadow: 3px 0 8px rgba(199,181,255,.48), 0 0 18px rgba(67,234,209,.29), 0 0 29px rgba(255,255,255,.16); }
+}
+html[data-theme="light"] .hero-name strong {
+  background-image: linear-gradient(105deg, #087f74 0%, #272727 38%, #806cae 68%, #087f74 100%) !important;
+  -webkit-text-fill-color: transparent !important;
+  color: #087f74 !important;
+  text-shadow: 0 0 5px rgba(255,255,255,.9), 0 0 12px rgba(8,127,116,.2), 0 0 17px rgba(128,108,174,.15) !important;
+}
+html[data-theme="light"] .hero-name::after {
+  background: radial-gradient(ellipse at 25% 50%, rgba(8,127,116,.15), transparent 45%),
+              radial-gradient(ellipse at 78% 48%, rgba(128,108,174,.12), transparent 52%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-name strong { animation: none !important; background-position: 50% 50%; }
+  .hero-name::after { transition: none; }
+}
+
+/* Keep Manrope body copy light while preserving display and mono type weights. */
+body :is(.hero-intro, .about-text p, .section-aside, .leadership-intro, .leadership-list p,
+  .item-main span, .teaching-experience p, .teaching-experience article div > span,
+  .nucb-copy > p:not(.nucb-overline), .diploma-card > p, .private-note,
+  .turquoise-description, .turquoise-showcase > p, .contact-grid p,
+  .project-meta p, .education-list p, .dialog-description,
+  .recognition-choice-copy small, .detail-page-intro, .detail-page-card p) {
+  font-weight: 400 !important;
+}
+
+/* Keep the CV easy to find beside the theme and sound controls. */
+.topbar .cv-toggle { color: var(--ink); text-decoration: none; }
+.topbar .cv-toggle:hover, .topbar .cv-toggle:focus-visible { color: var(--accent); }
+.topbar .cv-toggle .cv-label { color: inherit; font: 700 9px/1 "DM Mono", monospace; letter-spacing: .06em; }
+.topbar .cv-toggle .cv-arrow { color: var(--accent); font: 700 10px/1 "Manrope", sans-serif; }
+@media (max-width: 620px) {
+  .topbar .cv-toggle .cv-label { font-size: 9px; }
+  .topbar .cv-toggle .cv-arrow { display: none; }
+}
+
+/* Separate teaching from the technical and creative experience entries. */
+.experience-category-label, .teaching-kicker {
+  color: var(--accent);
+  font: 600 9px/1.5 "DM Mono", monospace;
+  letter-spacing: .1em;
+}
+.experience-category-label { margin: 26px 0 10px; }
+.teaching-experience {
+  margin-top: 28px;
+  padding: 20px 22px;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--panel-solid) 72%, transparent);
+  box-shadow: 0 14px 40px var(--shadow);
+}
+.teaching-experience article {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding-top: 15px;
+}
+.teaching-mark {
+  width: 40px; height: 40px; display: grid; place-items: center;
+  border: 1px solid var(--line-strong); border-radius: 10px;
+  color: var(--accent); background: var(--accent-soft);
+  font: 700 10px/1 "DM Mono", monospace; letter-spacing: .05em;
+}
+.teaching-experience h3 { margin: 0 0 5px; font: 600 18px/1.2 "Manrope", sans-serif; }
+.teaching-experience p { margin: 0 0 5px; color: var(--accent); font-size: 12px; }
+.teaching-experience article div > span { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.teaching-experience .item-symbol { color: var(--accent); }
+.community-label { margin-top: 30px; }
+@media (max-width: 620px) {
+  .teaching-experience { padding: 16px; }
+  .teaching-experience article { grid-template-columns: 34px minmax(0,1fr); gap: 11px; }
+  .teaching-mark { width: 34px; height: 34px; font-size: 8px; }
+  .teaching-experience .item-symbol { display: none; }
+}
+
+/* Make the two recognition destinations obvious and tactile. */
+.recognition-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+.recognition-choice {
+  min-width: 0; display: flex; align-items: center; gap: 14px;
+  padding: 20px; border: 1px solid var(--line-strong); border-radius: 14px;
+  background: var(--panel); color: var(--ink); text-decoration: none;
+  box-shadow: 0 12px 35px var(--shadow);
+}
+.recognition-choice:hover, .recognition-choice:focus-visible {
+  border-color: var(--accent); background: var(--accent-soft);
+}
+.recognition-choice-index { color: var(--accent); font: 600 10px/1 "DM Mono", monospace; }
+.recognition-choice-copy { min-width: 0; display: grid; gap: 6px; }
+.recognition-choice-copy strong { font: 650 clamp(14px,1.2vw,18px)/1.2 "Manrope", sans-serif; }
+.recognition-choice-copy small { color: var(--muted); font: 400 11px/1.5 "Manrope", sans-serif; }
+.recognition-choice-action { margin-left: auto; color: var(--accent); font: 600 8px/1.2 "DM Mono", monospace; white-space: nowrap; }
+.recognition-choice-action span { font: 700 12px/1 "Manrope", sans-serif; }
+@media (max-width: 620px) {
+  .recognition-choices { grid-template-columns: 1fr; }
+  .recognition-choice { padding: 16px; gap: 11px; }
+  .recognition-choice-action { font-size: 7px; }
+}
+
+/* Make the LinkedIn mark an outlined icon instead of a solid block. */
+.contact-links .social-icon.linkedin-icon { fill: none; stroke: currentColor; stroke-width: 1.7; }
+.contact-links .social-icon.linkedin-icon path { fill: none; stroke: currentColor; }
+.contact-links .social-icon.linkedin-icon rect { fill: none; stroke: currentColor; }
+
+/* Standalone certification and awards pages. */
+.detail-page-shell { min-height: 100svh; padding: 26px 0 70px; }
+.detail-page-header {
+  width: min(1180px, calc(100% - 64px)); margin: 0 auto 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0 18px; border-bottom: 1px solid var(--line);
+}
+.detail-page-brand { color: var(--ink); text-decoration: none; font: 600 10px/1.4 "Manrope",sans-serif; letter-spacing: .09em; }
+.detail-page-brand small { display: block; margin-top: 4px; color: var(--muted); font: 8px/1.4 "DM Mono",monospace; }
+.detail-page-header a:last-child, .detail-page-back {
+  color: var(--accent); text-decoration: none; font: 600 9px/1.5 "DM Mono",monospace; letter-spacing: .08em;
+}
+.detail-page-content { padding-bottom: 40px; }
+.detail-page-content .section-kicker { margin-bottom: 18px; color: var(--accent); }
+.detail-page-content h1 {
+  max-width: 780px; margin: 0; color: var(--ink);
+  font: 700 clamp(42px,7vw,82px)/.98 "Manrope",sans-serif; letter-spacing: -.065em;
+}
+.detail-page-content h1 .muted { color: var(--muted); }
+.detail-page-intro { max-width: 680px; margin: 20px 0 34px; color: var(--muted); font: 400 15px/1.8 "Manrope",sans-serif; }
+.detail-page-content .recognition-list { margin-top: 28px; }
+.detail-page-card {
+  display: grid; grid-template-columns: 1fr auto; gap: 10px 20px;
+  margin-top: 15px; padding: 24px; border: 1px solid var(--line-strong);
+  border-radius: 14px; background: var(--panel); color: var(--ink); text-decoration: none;
+}
+.detail-page-card > span:first-child { grid-column: 1/-1; color: var(--accent); font: 600 9px/1.4 "DM Mono",monospace; letter-spacing: .1em; }
+.detail-page-card h2 { margin: 0; font: 600 20px/1.3 "Manrope",sans-serif; }
+.detail-page-card p { grid-column: 1/-1; max-width: 650px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
+.detail-page-card > span:last-child { color: var(--accent); align-self: end; font: 600 8px/1.3 "DM Mono",monospace; }
+.detail-page-note { margin-top: 26px; padding: 18px 20px; border-left: 2px solid var(--accent); background: var(--accent-soft); color: var(--muted); font-size: 12px; line-height: 1.8; }
+.detail-page-footer { margin-top: 58px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font: 8px/1.5 "DM Mono",monospace; }
+@media (max-width: 620px) {
+  .detail-page-shell { padding-top: 15px; }
+  .detail-page-header { width: calc(100% - 38px); margin-bottom: 36px; }
+  .detail-page-content h1 { font-size: clamp(40px,12vw,58px); }
+  .detail-page-intro { font-size: 13px; }
+  .detail-page-card { grid-template-columns: 1fr; padding: 19px; }
+  .detail-page-card > span:last-child { grid-column: 1; }
+}
