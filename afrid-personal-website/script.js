@@ -392,47 +392,64 @@ const renderSkills = () => {
     if (event.key === 'ArrowRight') moveSkill(1);
   });
 
-  // Unified mouse, pen and touch dragging.
+  // Unified, continuous pointer drag for mouse, pen and touch.
   let dragStartX = null;
+  let dragLastX = null;
+  let dragStartTime = 0;
   let dragPointerId = null;
   let dragMoved = false;
-let suppressCardClickUntil = 0;
-let carouselTouching = false;
-  
+  let suppressCardClickUntil = 0;
+  let carouselTouching = false;
+
   const resetCardDrag = () => {
     stage?.querySelectorAll('.skill-card').forEach((card) => {
-      card.style.translate = '';
+      card.style.translate = '0px 0px';
     });
+  };
+
+  const cancelPointerDrag = (event) => {
+    if (dragStartX === null) return;
+    if (event && event.pointerId !== dragPointerId) return;
+
+    dragStartX = null;
+    dragLastX = null;
+    dragPointerId = null;
+    dragMoved = false;
+    stage?.classList.remove('is-dragging');
+    resetCardDrag();
+    carouselTouching = false;
+    startAutoRotation();
   };
 
   stage?.addEventListener('pointerdown', (event) => {
     if (event.pointerType === 'mouse' && event.button !== 0) return;
     if (event.target.closest('.skill-more')) return;
+    if (dragStartX !== null) return;
 
     dragStartX = event.clientX;
+    dragLastX = event.clientX;
+    dragStartTime = performance.now();
     dragPointerId = event.pointerId;
     dragMoved = false;
-
     carouselTouching = true;
     stopAutoRotation();
-
     stage.classList.add('is-dragging');
 
-    try {
-      stage.setPointerCapture(event.pointerId);
-    } catch (_) {}
+    try { stage.setPointerCapture(event.pointerId); } catch (_) {}
   });
 
   stage?.addEventListener('pointermove', (event) => {
     if (dragStartX === null || event.pointerId !== dragPointerId) return;
-
     const dx = event.clientX - dragStartX;
-
-    if (Math.abs(dx) > 4) dragMoved = true;
+    dragLastX = event.clientX;
+    if (Math.abs(dx) > 5) dragMoved = true;
     if (!dragMoved) return;
 
+    // Live movement follows the pointer; side cards get a softer parallax response.
     stage.querySelectorAll('.skill-card').forEach((card) => {
-      card.style.translate = `${dx}px 0`;
+      const slot = card.dataset.slot;
+      const factor = slot === 'active' ? 1 : (slot === 'prev' || slot === 'next' ? 0.72 : 0.42);
+      card.style.translate = `${dx * factor}px 0px`;
     });
   });
 
@@ -440,52 +457,37 @@ let carouselTouching = false;
     if (dragStartX === null || event.pointerId !== dragPointerId) return;
 
     const dx = event.clientX - dragStartX;
-    const shouldMove = dragMoved && Math.abs(dx) > 48;
+    const elapsed = Math.max(1, performance.now() - dragStartTime);
+    const velocity = dx / elapsed; // px/ms
+    const threshold = Math.max(42, Math.min(78, stage.clientWidth * 0.12));
+    const shouldMove = dragMoved && (Math.abs(dx) > threshold || Math.abs(velocity) > 0.55);
 
-    if (dragMoved) {
-      suppressCardClickUntil = Date.now() + 420;
-    }
+    if (dragMoved) suppressCardClickUntil = Date.now() + 450;
 
+    // Change card positions while drag offsets still exist, then animate those
+    // offsets back to zero. This avoids the old reset-then-slide double motion.
     dragStartX = null;
+    dragLastX = null;
     dragPointerId = null;
-
     stage.classList.remove('is-dragging');
+
+    if (shouldMove) {
+      activeIndex = (activeIndex + (dx < 0 ? 1 : -1) + visibleSkills.length) % visibleSkills.length;
+      renderSkills();
+      playSound('swipe');
+    }
     resetCardDrag();
-
     carouselTouching = false;
-
-if (shouldMove) {
-  moveSkill(dx < 0 ? 1 : -1);
-} else {
-  startAutoRotation();
-}
+    startAutoRotation();
 
     try {
-      if (stage.hasPointerCapture(event.pointerId)) {
-        stage.releasePointerCapture(event.pointerId);
-      }
+      if (stage.hasPointerCapture(event.pointerId)) stage.releasePointerCapture(event.pointerId);
     } catch (_) {}
   };
 
   stage?.addEventListener('pointerup', finishPointerDrag);
-
-  const cancelPointerDrag = () => {
-    if (dragStartX === null) return;
-
-    dragStartX = null;
-    dragPointerId = null;
-    dragMoved = false;
-
-    resetCardDrag();
-    stage?.classList.remove('is-dragging');
-
-    carouselTouching = false;
-    startAutoRotation();
-  };
-
   stage?.addEventListener('pointercancel', cancelPointerDrag);
   stage?.addEventListener('lostpointercapture', cancelPointerDrag);
-
 
   stage?.addEventListener('click', (event) => {
     if (Date.now() < suppressCardClickUntil) {
