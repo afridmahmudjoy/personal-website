@@ -694,10 +694,13 @@ const AUTO_ROTATE_DELAY = 3200;
     window.setTimeout(() => ripple.remove(), 720);
   }, { passive: true });
 
-  // Universal click feedback for interactive elements, with bespoke sounds taking priority.
+  // Universal click feedback — includes blank areas, side margins and non-interactive surfaces.
   document.addEventListener('click', (event) => {
     const control = event.target.closest('a, button, [role="button"], [tabindex="0"], .document-reveal');
-    if (!control) return;
+    if (!control) {
+      playSound('click');
+      return;
+    }
     if (control.matches('a, button')) {
       control.classList.remove('tap-pulse');
       void control.offsetWidth;
