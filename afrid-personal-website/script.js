@@ -174,8 +174,6 @@ soundButtons.forEach((button) => {
   const filterHost = document.getElementById('skill-filters');
   const count = document.getElementById('skill-count');
   const progressFill = document.getElementById('skill-progress-fill');
-  const prevButton = document.querySelector('.carousel-prev');
-  const nextButton = document.querySelector('.carousel-next');
   const dialog = document.getElementById('skill-dialog');
   const toast = document.getElementById('toast');
   let toastTimer = 0;
@@ -368,8 +366,6 @@ const renderSkills = () => {
       `${((activeIndex + 1) / Math.max(total, 1)) * 100}%`;
   }
 
-  if (prevButton) prevButton.disabled = total < 2;
-  if (nextButton) nextButton.disabled = total < 2;
 };
 
       const moveSkill = (direction) => {
@@ -385,8 +381,6 @@ const renderSkills = () => {
       startAutoRotation();
     }
   };
-  prevButton?.addEventListener('click', () => moveSkill(-1));
-  nextButton?.addEventListener('click', () => moveSkill(1));
   stage?.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowLeft') moveSkill(-1);
     if (event.key === 'ArrowRight') moveSkill(1);
