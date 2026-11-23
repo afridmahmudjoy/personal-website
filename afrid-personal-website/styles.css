@@ -4473,6 +4473,7 @@ html.has-custom-cursor [contenteditable="true"] { cursor: text !important; }
   color: var(--accent);
   font: 600 8px/1.55 "DM Mono", monospace;
   letter-spacing: .1em;
+  white-space: nowrap;
 }
 .case-study-facts > div > p {
   margin: 0;
@@ -4533,7 +4534,7 @@ html.has-custom-cursor [contenteditable="true"] { cursor: text !important; }
   .featured-case-heading { margin-top: 32px; }
   .featured-case-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 14px !important; }
   .featured-case-card { grid-column: 1; }
-  .case-study-facts > div { grid-template-columns: 60px minmax(0, 1fr); }
+  .case-study-facts > div { grid-template-columns: 78px minmax(0, 1fr); }
   .project-archive { margin-top: 36px; border-radius: 15px; }
   .project-archive-summary { grid-template-columns: minmax(0, 1fr) 20px; gap: 7px 12px; padding: 16px; }
   .project-archive-title { font-size: 13px; }
