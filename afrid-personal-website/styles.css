@@ -4997,3 +4997,10 @@ html[data-theme="light"] .opening-grid.section-wrap {
   border-color: var(--line-strong) !important;
   background: linear-gradient(90deg, var(--accent-soft), transparent 78%) !important;
 }
+
+
+/* V4 teaching row: remove the ICT badge column so the title aligns with experience text. */
+.teaching-experience article {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+.teaching-experience .teaching-mark { display: none !important; }
