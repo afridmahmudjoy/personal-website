@@ -4607,3 +4607,312 @@ html.has-custom-cursor [contenteditable="true"] { cursor: text !important; }
     margin-top: 28px !important; overflow: hidden !important;
   }
 }
+
+
+/* V4 LIGHT THEME — cohesive white-mode polish */
+html[data-theme="light"] {
+  --bg: #fbfcfc;
+  --bg-deep: #f4f7f6;
+  --panel: rgba(255,255,255,.97);
+  --panel-solid: #ffffff;
+  --panel-soft: #f6f9f8;
+  --ink: #17211f;
+  --muted: #53615e;
+  --dim: #73817e;
+  --line: rgba(23,42,38,.12);
+  --line-strong: rgba(8,112,100,.28);
+  --accent: #08796f;
+  --accent-strong: #06665d;
+  --accent-soft: rgba(8,121,111,.08);
+  --shadow: rgba(17,37,32,.08);
+  color-scheme: light;
+  background: var(--bg);
+}
+html[data-theme="light"] body {
+  background: var(--bg) !important;
+  color: var(--ink) !important;
+}
+html[data-theme="light"] .topbar {
+  background: rgba(251,252,252,.88) !important;
+  border-bottom-color: var(--line) !important;
+  box-shadow: 0 8px 28px rgba(18,36,32,.035) !important;
+}
+html[data-theme="light"] .brand,
+html[data-theme="light"] .identity-copy strong,
+html[data-theme="light"] .nav a,
+html[data-theme="light"] .nav-cta,
+html[data-theme="light"] .topbar-control {
+  color: var(--ink) !important;
+}
+html[data-theme="light"] .nav a:hover,
+html[data-theme="light"] .nav a[aria-current="page"] {
+  color: var(--accent) !important;
+}
+html[data-theme="light"] .topbar-control,
+html[data-theme="light"] .theme-toggle,
+html[data-theme="light"] .sound-toggle {
+  background: #fff !important;
+  border-color: var(--line-strong) !important;
+}
+html[data-theme="light"] .theme-symbol,
+html[data-theme="light"] .sound-symbol {
+  color: var(--accent) !important;
+}
+html[data-theme="light"] .opening,
+html[data-theme="light"] .about-section,
+html[data-theme="light"] .turquoise-section,
+html[data-theme="light"] .contact-section {
+  background-color: var(--bg) !important;
+}
+html[data-theme="light"] .skills-section,
+html[data-theme="light"] .experience-section,
+html[data-theme="light"] .credentials-section,
+html[data-theme="light"] .projects-section,
+html[data-theme="light"] .education-section,
+html[data-theme="light"] .leadership-section,
+html[data-theme="light"] .diploma-section,
+html[data-theme="light"] .nucb-section,
+html[data-theme="light"] footer {
+  background-color: #f6f9f8 !important;
+}
+html[data-theme="light"] .section-kicker,
+html[data-theme="light"] .eyebrow,
+html[data-theme="light"] .hero-name > span,
+html[data-theme="light"] .category-heading > span {
+  color: var(--accent) !important;
+}
+html[data-theme="light"] .opening h1,
+html[data-theme="light"] .section-heading h2,
+html[data-theme="light"] .about-grid h2,
+html[data-theme="light"] .leadership-grid h2,
+html[data-theme="light"] .contact-section h2,
+html[data-theme="light"] .nucb-copy h2,
+html[data-theme="light"] .turquoise-identity h2,
+html[data-theme="light"] .category-heading h3 {
+  color: var(--ink) !important;
+}
+html[data-theme="light"] .gradient-word {
+  color: #08796f !important;
+  text-shadow: none !important;
+}
+html[data-theme="light"] .hero-intro,
+html[data-theme="light"] .about-text p,
+html[data-theme="light"] .section-aside,
+html[data-theme="light"] .leadership-list p,
+html[data-theme="light"] .project-meta p,
+html[data-theme="light"] .contact-grid p,
+html[data-theme="light"] .diploma-card > p,
+html[data-theme="light"] .private-note,
+html[data-theme="light"] .turquoise-description,
+html[data-theme="light"] .turquoise-showcase > p,
+html[data-theme="light"] .category-heading p {
+  color: #53615e !important;
+}
+html[data-theme="light"] .hero-intro strong,
+html[data-theme="light"] .about-text .lead {
+  color: #202c29 !important;
+}
+html[data-theme="light"] .hero-stats,
+html[data-theme="light"] .stats-strip {
+  border-color: #dfe7e4 !important;
+}
+html[data-theme="light"] .hero-stats strong,
+html[data-theme="light"] .stats-strip strong {
+  color: #17211f !important;
+}
+html[data-theme="light"] .hero-stats strong span,
+html[data-theme="light"] .stats-strip strong span {
+  color: var(--accent) !important;
+}
+html[data-theme="light"] .hero-stats small,
+html[data-theme="light"] .stats-strip small,
+html[data-theme="light"] .opening-footer,
+html[data-theme="light"] .visual-coordinate {
+  color: #64716e !important;
+}
+html[data-theme="light"] .hero-actions .explore-button {
+  background: #102421 !important;
+  color: #fff !important;
+  border: 1px solid #102421 !important;
+  box-shadow: 0 10px 24px rgba(16,36,33,.12) !important;
+}
+html[data-theme="light"] .explore-button strong,
+html[data-theme="light"] .explore-button small,
+html[data-theme="light"] .explore-arrow {
+  color: #fff !important;
+}
+html[data-theme="light"] .explore-icon {
+  background: #e1f2ee !important;
+  color: #08796f !important;
+}
+html[data-theme="light"] .hero-contact-link {
+  color: #53615e !important;
+  border-color: #cbd8d4 !important;
+}
+html[data-theme="light"] .hero-contact-link:hover,
+html[data-theme="light"] .hero-contact-link:focus-visible {
+  color: #08796f !important;
+  border-color: #08796f !important;
+}
+html[data-theme="light"] .hero-visual {
+  background: radial-gradient(ellipse at 50% 48%, rgba(8,121,111,.045), transparent 67%) !important;
+}
+html[data-theme="light"] .visual-grid {
+  opacity: .12 !important;
+}
+html[data-theme="light"] .orbit {
+  border-color: rgba(8,121,111,.15) !important;
+}
+html[data-theme="light"] .orbit-three {
+  border-color: rgba(8,121,111,.18) !important;
+}
+html[data-theme="light"] .portrait-frame {
+  background: #fff !important;
+  border-color: rgba(8,121,111,.22) !important;
+  box-shadow: 0 22px 52px rgba(22,42,38,.12) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html[data-theme="light"] .portrait-frame::before,
+html[data-theme="light"] .portrait-frame::after {
+  border-color: #08796f !important;
+}
+html[data-theme="light"] .portrait-caption {
+  background: rgba(22,33,31,.84) !important;
+  border-color: rgba(255,255,255,.22) !important;
+  color: #fff !important;
+}
+html[data-theme="light"] .concept {
+  background: rgba(255,255,255,.96) !important;
+  border-color: #dce6e2 !important;
+  box-shadow: 0 10px 26px rgba(22,42,38,.07) !important;
+  backdrop-filter: none !important;
+}
+html[data-theme="light"] .concept-icon {
+  color: #08796f !important;
+}
+html[data-theme="light"] .concept small {
+  color: #64716e !important;
+}
+html[data-theme="light"] .availability-badge {
+  background: #fff !important;
+  border-color: #d3e3df !important;
+  color: #334440 !important;
+  box-shadow: 0 5px 18px rgba(20,42,37,.08) !important;
+  animation: none !important;
+}
+html[data-theme="light"] .availability-dot {
+  box-shadow: 0 0 7px rgba(49,175,112,.35) !important;
+}
+html[data-theme="light"] :is(.skill-card, .journey-card, .diploma-card, .credential-card,
+  .document-card, .project-card, .nucb-visual, .turquoise-mini-card, .turquoise-feature,
+  .featured-case-card, .project-archive) {
+  background: #fff !important;
+  border-color: #dfe7e4 !important;
+  box-shadow: 0 8px 28px rgba(20,40,36,.045) !important;
+}
+html[data-theme="light"] :is(.skill-card h3, .journey-card h3, .project-meta h3,
+  .turquoise-feature-copy strong, .turquoise-mini-card strong) {
+  color: #17211f !important;
+}
+html[data-theme="light"] :is(.skill-card p, .journey-card p, .turquoise-feature-copy small,
+  .turquoise-mini-card small, .project-meta p) {
+  color: #53615e !important;
+}
+html[data-theme="light"] .skill-filters button,
+html[data-theme="light"] .carousel-arrow,
+html[data-theme="light"] .skill-more {
+  background: #fff !important;
+  color: #53615e !important;
+  border-color: #d5e0dc !important;
+}
+html[data-theme="light"] .skill-filters button[aria-pressed="true"],
+html[data-theme="light"] .skill-more {
+  color: #08796f !important;
+  border-color: rgba(8,121,111,.4) !important;
+  background: #edf7f5 !important;
+}
+html[data-theme="light"] .carousel-arrow:hover,
+html[data-theme="light"] .carousel-arrow:focus-visible {
+  color: #08796f !important;
+  border-color: #08796f !important;
+}
+html[data-theme="light"] .skill-progress {
+  background: #dfe7e4 !important;
+}
+html[data-theme="light"] .skill-progress span {
+  background: #08796f !important;
+}
+html[data-theme="light"] .text-link,
+html[data-theme="light"] .journey-link,
+html[data-theme="light"] .turquoise-page-link,
+html[data-theme="light"] .feature-arrow {
+  color: #08796f !important;
+}
+html[data-theme="light"] .project-tags span {
+  color: #52615e !important;
+  border-color: #d8e2de !important;
+  background: #f6f9f8 !important;
+}
+html[data-theme="light"] .project-showcase-card:focus-visible,
+html[data-theme="light"] a:focus-visible,
+html[data-theme="light"] button:focus-visible {
+  outline-color: #08796f !important;
+}
+html[data-theme="light"] #glass-dock.glass-dock {
+  background: rgba(255,255,255,.94) !important;
+  border-color: rgba(20,45,40,.12) !important;
+  box-shadow: 0 12px 34px rgba(18,38,34,.12), inset 0 1px 0 #fff !important;
+}
+html[data-theme="light"] #glass-dock .dock-item {
+  color: #53615e !important;
+}
+html[data-theme="light"] #glass-dock .dock-item.active {
+  color: #08796f !important;
+  background: #edf7f5 !important;
+  box-shadow: inset 0 0 0 1px rgba(8,121,111,.12) !important;
+}
+html[data-theme="light"] #glass-dock .dock-item:hover {
+  color: #17211f !important;
+  background: #f2f7f5 !important;
+}
+html[data-theme="light"] .turquoise-brandmark,
+html[data-theme="light"] .turquoise-feature-art {
+  background: #3fe0d0 !important;
+}
+html[data-theme="light"] .turquoise-feature-copy,
+html[data-theme="light"] .turquoise-mini-card {
+  color: #17211f !important;
+}
+html[data-theme="light"] footer,
+html[data-theme="light"] .footer-bottom {
+  color: #53615e !important;
+}
+@media (max-width: 680px) {
+  html[data-theme="light"] .hero-stats {
+    gap: 14px !important;
+  }
+  html[data-theme="light"] .hero-stats small {
+    font-size: 10px !important;
+    color: #596763 !important;
+    letter-spacing: .04em !important;
+  }
+  html[data-theme="light"] .concept {
+    padding: 10px 11px !important;
+    min-width: 78px !important;
+  }
+  html[data-theme="light"] .hero-visual {
+    min-height: 335px !important;
+    margin-top: 22px !important;
+  }
+  html[data-theme="light"] .opening-footer {
+    color: #596763 !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] .availability-badge,
+  html[data-theme="light"] .hero-name strong,
+  html[data-theme="light"] #glass-dock .dock-item.active .dock-icon {
+    animation: none !important;
+  }
+}
