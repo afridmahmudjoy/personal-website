@@ -33,135 +33,19 @@
     playSound('toggle');
   }));
 
-  // Move the opening portrait into the main-page identity as the portfolio opens.
+  // The portfolio is available through normal scrolling; the hero action is a guided entry point.
   const exploreButton = document.getElementById('explore-button');
-  const portfolio = document.getElementById('portfolio-content');
-  const openingPortrait = document.querySelector('.portrait-image');
-  const destinationAvatar = portfolio?.querySelector('.brand-avatar');
-  let portfolioOpened = false;
-
   exploreButton?.addEventListener('click', () => {
-    if (!portfolio || portfolioOpened) return;
-    portfolioOpened = true;
-
-    const exploreTitle = exploreButton.querySelector('strong');
-    const exploreSubtitle = exploreButton.querySelector('small');
-    if (exploreTitle) exploreTitle.textContent = 'PROFILE READY';
-    if (exploreSubtitle) exploreSubtitle.textContent = 'WELCOME TO MY PORTFOLIO';
-    exploreButton.setAttribute('aria-expanded', 'true');
-    portfolio.hidden = false;
     const aboutSection = document.getElementById('about');
-    aboutSection?.classList.add('profile-summary-pending');
+    if (!aboutSection) return;
     playSound('launch');
-
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!openingPortrait || !destinationAvatar || reducedMotion) {
-      const aboutSection = document.getElementById('about');
-      window.setTimeout(() => {
-        aboutSection?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
-        if (reducedMotion) {
-          aboutSection?.classList.remove('profile-summary-pending');
-          aboutSection?.classList.add('profile-summary-reveal');
-        } else {
-          window.setTimeout(() => {
-            aboutSection?.classList.remove('profile-summary-pending');
-            aboutSection?.classList.add('profile-summary-reveal');
-          }, 520);
-        }
-      }, 120);
-      return;
-    }
-
-    const startRect = openingPortrait.getBoundingClientRect();
-    if (!startRect.width || !startRect.height) {
-      const aboutSection = document.getElementById('about');
-      aboutSection?.classList.remove('profile-summary-pending');
-      aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
-    }
-
-    // The travelling clone stays fixed to the viewport while the page switches scenes.
-    const portraitFlight = openingPortrait.cloneNode(true);
-    portraitFlight.className = 'shared-portrait-flight';
-    portraitFlight.alt = '';
-    portraitFlight.setAttribute('aria-hidden', 'true');
-    Object.assign(portraitFlight.style, {
-      left: startRect.left + 'px',
-      top: startRect.top + 'px',
-      width: startRect.width + 'px',
-      height: startRect.height + 'px',
-      borderRadius: '2px'
+    aboutSection.scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      block: 'start'
     });
-    document.body.appendChild(portraitFlight);
-    destinationAvatar.classList.add('is-arriving');
-    openingPortrait.classList.add('portrait-in-flight');
-
-    // Reveal the portfolio at its own top so the avatar has a real destination.
-    const previousScrollBehavior = root.style.scrollBehavior;
-    root.style.scrollBehavior = 'auto';
-    window.scrollTo(0, window.scrollY + portfolio.getBoundingClientRect().top);
-    root.style.scrollBehavior = previousScrollBehavior;
-
-    let finished = false;
-    let finishTimer = 0;
-    const finishPortraitFlight = () => {
-      if (finished) return;
-      finished = true;
-      window.clearTimeout(finishTimer);
-      portraitFlight.remove();
-      openingPortrait.classList.remove('portrait-in-flight');
-      destinationAvatar.classList.remove('is-arriving');
-      const aboutSection = document.getElementById('about');
-      window.setTimeout(() => {
-        aboutSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        window.setTimeout(() => {
-          aboutSection?.classList.remove('profile-summary-pending');
-          aboutSection?.classList.add('profile-summary-reveal');
-        }, 520);
-      }, 180);
-    };
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const targetRect = destinationAvatar.getBoundingClientRect();
-        if (!targetRect.width || !targetRect.height) {
-          finishPortraitFlight();
-          return;
-        }
-        destinationAvatar.classList.add('is-arriving');
-        portraitFlight.style.left = targetRect.left + 'px';
-        portraitFlight.style.top = targetRect.top + 'px';
-        portraitFlight.style.width = targetRect.width + 'px';
-        portraitFlight.style.height = targetRect.height + 'px';
-        portraitFlight.style.borderRadius = '11px';
-        portraitFlight.style.boxShadow = '0 3px 18px rgba(0,0,0,.3), 0 0 18px rgba(67,234,209,.2)';
-      });
-    });
-
-    portraitFlight.addEventListener('transitionend', (event) => {
-      if (event.target === portraitFlight && event.propertyName === 'width') finishPortraitFlight();
-    });
-    finishTimer = window.setTimeout(finishPortraitFlight, 1350);
+    aboutSection.classList.remove('profile-summary-reveal');
+    requestAnimationFrame(() => aboutSection.classList.add('profile-summary-reveal'));
   });
-
-  // Deep links into the portfolio (e.g. /#diploma) must reveal the hidden portfolio first.
-  const revealPortfolioForHash = () => {
-    if (!portfolio || !window.location.hash || window.location.hash === '#home') return;
-    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-    if (!target || !portfolio.contains(target)) return;
-    portfolio.hidden = false;
-    portfolioOpened = true;
-    if (exploreButton) {
-      exploreButton.setAttribute('aria-expanded', 'true');
-      const title = exploreButton.querySelector('strong');
-      const subtitle = exploreButton.querySelector('small');
-      if (title) title.textContent = 'PROFILE READY';
-      if (subtitle) subtitle.textContent = 'WELCOME TO MY PORTFOLIO';
-    }
-    window.setTimeout(() => target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }), 80);
-  };
-  window.addEventListener('hashchange', revealPortfolioForHash);
-  revealPortfolioForHash();
 
   // Mobile navigation.
   const menuButton = document.querySelector('.menu-toggle');
@@ -179,7 +63,7 @@
   }));
 
  // Interface sounds enabled by default; generated locally with Web Audio.
-  let soundEnabled = storage.get('amj-v4-sound') !== 'off';
+  let soundEnabled = storage.get('amj-v4-sound') === 'on';
   let audioContext = null;
   const soundButtons = [...document.querySelectorAll('.sound-toggle')];
   const syncSoundButtons = () => soundButtons.forEach((button) => {

@@ -4115,3 +4115,39 @@ html[data-theme="light"] .availability-badge {
   .awareness-carousel-controls { inset: auto 9px 9px; }
   .awareness-carousel-controls button { width: 32px; height: 32px; }
 }
+
+
+/* Refinement layer: stronger hierarchy, clearer calls to action and visible navigation. */
+.hero-name > span {
+  color: var(--accent) !important;
+  font: 600 10px/1.4 "DM Mono", monospace !important;
+  letter-spacing: .16em !important;
+}
+.hero-actions { display:flex; align-items:center; flex-wrap:wrap; gap:18px; margin-top:30px; }
+.hero-actions .explore-button { margin-top:0; }
+.hero-contact-link {
+  display:inline-flex; align-items:center; gap:10px; padding:12px 2px;
+  color:var(--muted); font:600 9px/1.4 "DM Mono",monospace; letter-spacing:.12em;
+  text-decoration:none; border-bottom:1px solid var(--line-strong); transition:color .25s ease,border-color .25s ease;
+}
+.hero-contact-link:hover,.hero-contact-link:focus-visible { color:var(--accent); border-color:var(--accent); outline:none; }
+.nav { gap:clamp(7px,.9vw,13px); }
+.nav a { font-size:clamp(7px,.68vw,9px); white-space:nowrap; }
+.nav a:focus-visible,.topbar-control:focus-visible,.menu-toggle:focus-visible,.explore-button:focus-visible {
+  outline:2px solid var(--accent); outline-offset:4px;
+}
+.section-block { scroll-margin-top:88px; }
+@media (max-width:1100px) and (min-width:681px) {
+  .topbar { padding-inline:22px; }
+  .nav { gap:8px; }
+  .nav a { font-size:7px; }
+  .brand { font-size:8px; }
+}
+@media (max-width:680px) {
+  .hero-actions { align-items:stretch; flex-direction:column; gap:8px; margin-top:16px; }
+  .hero-actions .explore-button { margin-top:0 !important; }
+  .hero-contact-link { align-self:flex-start; padding:8px 2px; font-size:8px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .hero-contact-link { transition:none; }
+}
