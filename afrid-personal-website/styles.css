@@ -5016,3 +5016,72 @@ html[data-theme="light"] .opening-grid.section-wrap {
     transition-duration: .01ms !important;
   }
 }
+
+/* Skills carousel layout guard — keep every card's content intact and reveal the stack on touch screens. */
+.skills-section .skill-card {
+  min-width: 0;
+  box-sizing: border-box;
+}
+.skills-section .skill-card h3,
+.skills-section .skill-card p,
+.skills-section .skill-context {
+  overflow-wrap: anywhere;
+}
+.skills-section .skill-card-footer {
+  min-width: 0;
+}
+.skills-section .skill-context {
+  min-width: 0;
+}
+@media (max-width: 620px) {
+  .skills-section .skill-stage {
+    width: 100% !important;
+    height: 300px !important;
+  }
+  .skills-section .skill-card {
+    inset: 14px 6% !important;
+    padding: 17px 15px !important;
+  }
+  .skills-section .skill-card[data-slot="active"] {
+    z-index: 12;
+  }
+  .skills-section .skill-card[data-slot="prev"] {
+    transform: translate3d(-72%, 8px, -120px) rotateY(24deg) scale(.72) !important;
+    opacity: .42 !important;
+    filter: blur(.4px) brightness(.78) !important;
+    z-index: 6;
+  }
+  .skills-section .skill-card[data-slot="next"] {
+    transform: translate3d(72%, 8px, -120px) rotateY(-24deg) scale(.72) !important;
+    opacity: .42 !important;
+    filter: blur(.4px) brightness(.78) !important;
+    z-index: 6;
+  }
+  .skills-section .skill-card[data-slot="far-prev"],
+  .skills-section .skill-card[data-slot="far-next"] {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+  .skills-section .skill-card[data-slot="active"] h3 {
+    font-size: clamp(24px, 7vw, 32px) !important;
+    line-height: 1.12 !important;
+  }
+  .skills-section .skill-card[data-slot="active"] p {
+    font-size: 11px !important;
+    line-height: 1.6 !important;
+    max-width: 100% !important;
+  }
+  .skills-section .skill-card[data-slot="active"] .skill-card-footer {
+    gap: 8px !important;
+    margin-top: 12px !important;
+    padding-top: 10px !important;
+  }
+  .skills-section .skill-card[data-slot="active"] .skill-context {
+    font-size: 7px !important;
+  }
+  .skills-section .skill-card[data-slot="active"] .skill-more {
+    padding: 9px 10px !important;
+    min-height: 38px !important;
+    white-space: nowrap;
+  }
+}
