@@ -698,15 +698,18 @@ const AUTO_ROTATE_DELAY = 3200;
     window.setTimeout(() => ripple.remove(), 720);
   }, { passive: true });
 
-  // Small click cue for ordinary links and buttons; specific controls above play their own tone.
+  // Universal click feedback for interactive elements, with bespoke sounds taking priority.
   document.addEventListener('click', (event) => {
-    const control = event.target.closest('a, button');
+    const control = event.target.closest('a, button, [role="button"], [tabindex="0"], .document-reveal');
     if (!control) return;
-    control.classList.remove('tap-pulse');
-    void control.offsetWidth;
-    control.classList.add('tap-pulse');
-    window.setTimeout(() => control.classList.remove('tap-pulse'), 380);
-    if (control.matches('.theme-toggle, .sound-toggle, .menu-toggle, .carousel-arrow, .skill-more, .expand-subjects, #explore-button')) return;
+    if (control.matches('a, button')) {
+      control.classList.remove('tap-pulse');
+      void control.offsetWidth;
+      control.classList.add('tap-pulse');
+      window.setTimeout(() => control.classList.remove('tap-pulse'), 380);
+    }
+    // These already trigger dedicated sounds in their own handlers.
+    if (control.matches('.theme-toggle, .sound-toggle, .menu-toggle, .carousel-arrow, .skill-more, .expand-subjects, #explore-button, .skill-card, .nav a')) return;
     playSound('click');
   });
 
