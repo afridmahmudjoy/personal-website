@@ -5437,3 +5437,22 @@ html[data-theme="light"] .opening-grid.section-wrap {
   text-shadow:0 0 5px rgba(243,255,253,.78),0 0 14px rgba(53,230,214,.78),0 0 27px rgba(53,230,214,.42)!important;
 }
 @media(max-width:680px){.portrait-frame .hero-skill-words>span{font-size:clamp(15px,4.2vw,19px)!important;letter-spacing:-.02em!important}}
+
+/* Skills and experience destinations linked from the main navigation. */
+.skills-section,.experience-section { padding-block:clamp(62px,8vw,100px); }
+.skills-overview-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; }
+.skills-overview-card { min-width:0; padding:20px 21px 19px; border:1px solid var(--line); border-radius:13px; background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 5%,var(--panel-solid)),var(--panel-solid) 72%); }
+.skills-overview-card>span,.experience-overview-type { color:var(--accent); font:600 8px/1.5 "DM Mono",monospace; letter-spacing:.11em; }
+.skills-overview-card h3,.experience-overview-card h3 { margin:15px 0 8px; color:var(--ink); font:600 clamp(16px,1.8vw,20px)/1.25 "Space Grotesk",sans-serif; letter-spacing:-.025em; }
+.skills-overview-card p,.experience-overview-card p { margin:0; color:var(--muted); font-size:11px; line-height:1.75; }
+.skills-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:16px; }
+.skills-tags span { padding:6px 8px; border:1px solid var(--line); border-radius:999px; color:var(--ink); font:500 8px/1.2 Manrope,sans-serif; }
+.skills-cert-link { display:inline-flex; align-items:center; gap:10px; margin-top:22px; color:var(--accent); font:600 8px/1.4 "DM Mono",monospace; letter-spacing:.1em; text-decoration:none; }
+.skills-cert-link:hover,.skills-cert-link:focus-visible { color:var(--ink); outline:none; }
+.skills-cert-link span { font:16px/1 Manrope,sans-serif; }
+.experience-overview-list { border-top:1px solid var(--line); }
+.experience-overview-card { display:grid; grid-template-columns:145px minmax(0,1fr); gap:20px; padding:21px 0; border-bottom:1px solid var(--line); }
+.experience-overview-period { padding-top:3px; color:var(--accent); font:600 9px/1.5 "DM Mono",monospace; letter-spacing:.08em; }
+.experience-overview-card h3 { margin:6px 0 6px; font-size:17px; }
+@media(max-width:760px) { .skills-overview-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:540px) { .skills-overview-grid { grid-template-columns:1fr; } .experience-overview-card { grid-template-columns:1fr; gap:7px; padding:17px 0; } }
