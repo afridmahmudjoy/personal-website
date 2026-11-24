@@ -613,9 +613,78 @@ const AUTO_ROTATE_DELAY = 3200;
     updateScrollProgress();
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
     window.addEventListener('resize', updateScrollProgress, { passive: true });
-    scrollTopButton.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      history.replaceState(null, '', '#home');
+    // Draggable, elastic scroll-to-top control (touch + mouse).
+    const dragKey = 'joy-scroll-progress-position';
+    let dragPos = null;
+    try { dragPos = JSON.parse(localStorage.getItem(dragKey) || 'null'); } catch (_) {}
+    if (dragPos && Number.isFinite(dragPos.x) && Number.isFinite(dragPos.y)) {
+      scrollTopButton.style.left = dragPos.x + 'px';
+      scrollTopButton.style.top = dragPos.y + 'px';
+      scrollTopButton.style.right = 'auto';
+      scrollTopButton.style.bottom = 'auto';
+    }
+    let pointerStart = null, lastPoint = null, velocity = { x: 0, y: 0 };
+    let moved = false, dragging = false, raf = 0;
+    const clampPos = (x, y) => ({
+      x: Math.max(8, Math.min(window.innerWidth - scrollTopButton.offsetWidth - 8, x)),
+      y: Math.max(8, Math.min(window.innerHeight - scrollTopButton.offsetHeight - 8, y))
+    });
+    const place = (x, y, save = false) => {
+      const p = clampPos(x, y);
+      scrollTopButton.style.left = p.x + 'px'; scrollTopButton.style.top = p.y + 'px';
+      scrollTopButton.style.right = 'auto'; scrollTopButton.style.bottom = 'auto';
+      scrollTopButton.style.setProperty('--jelly-x', '0deg'); scrollTopButton.style.setProperty('--jelly-y', '0deg');
+      if (save) { try { localStorage.setItem(dragKey, JSON.stringify(p)); } catch (_) {} }
+      return p;
+    };
+    const animateThrow = (vx, vy) => {
+      cancelAnimationFrame(raf);
+      let x = scrollTopButton.offsetLeft, y = scrollTopButton.offsetTop;
+      const step = () => {
+        vx *= 0.92; vy *= 0.92; x += vx; y += vy;
+        const maxX = window.innerWidth - scrollTopButton.offsetWidth - 8, maxY = window.innerHeight - scrollTopButton.offsetHeight - 8;
+        if (x < 8 || x > maxX) { x = Math.max(8, Math.min(maxX, x)); vx *= -0.42; }
+        if (y < 8 || y > maxY) { y = Math.max(8, Math.min(maxY, y)); vy *= -0.42; }
+        place(x, y);
+        scrollTopButton.style.setProperty('--jelly-x', (vy * 0.7) + 'deg');
+        scrollTopButton.style.setProperty('--jelly-y', (-vx * 0.7) + 'deg');
+        if (Math.abs(vx) + Math.abs(vy) > 0.6) raf = requestAnimationFrame(step);
+        else { scrollTopButton.classList.remove('is-dragging','is-throwing'); place(x, y, true); }
+      };
+      scrollTopButton.classList.add('is-throwing'); raf = requestAnimationFrame(step);
+    };
+    scrollTopButton.addEventListener('pointerdown', (e) => {
+      if (e.button !== undefined && e.button !== 0) return;
+      pointerStart = { x: e.clientX, y: e.clientY, left: scrollTopButton.offsetLeft, top: scrollTopButton.offsetTop };
+      lastPoint = { x: e.clientX, y: e.clientY, t: performance.now() }; velocity = { x: 0, y: 0 };
+      moved = false; dragging = true; cancelAnimationFrame(raf);
+      scrollTopButton.classList.add('is-dragging'); scrollTopButton.classList.remove('is-throwing');
+      try { scrollTopButton.setPointerCapture(e.pointerId); } catch (_) {}
+    });
+    scrollTopButton.addEventListener('pointermove', (e) => {
+      if (!dragging || !pointerStart) return;
+      const dx = e.clientX - pointerStart.x, dy = e.clientY - pointerStart.y;
+      if (Math.abs(dx) + Math.abs(dy) > 5) moved = true;
+      if (!moved) return;
+      e.preventDefault();
+      const now = performance.now(), dt = Math.max(1, now - lastPoint.t);
+      velocity = { x: (e.clientX - lastPoint.x) / dt * 16, y: (e.clientY - lastPoint.y) / dt * 16 };
+      lastPoint = { x: e.clientX, y: e.clientY, t: now };
+      place(pointerStart.left + dx, pointerStart.top + dy);
+      scrollTopButton.style.setProperty('--jelly-x', (dy * 0.18) + 'deg');
+      scrollTopButton.style.setProperty('--jelly-y', (-dx * 0.18) + 'deg');
+    });
+    const finishDrag = (e) => {
+      if (!dragging) return;
+      dragging = false; scrollTopButton.classList.remove('is-dragging');
+      if (moved) { e.preventDefault(); animateThrow(velocity.x, velocity.y); }
+      else { scrollTopButton.classList.remove('is-throwing'); scrollTopButton.style.transform = ''; window.scrollTo({ top: 0, behavior: 'smooth' }); history.replaceState(null, '', '#home'); }
+      pointerStart = null;
+    };
+    scrollTopButton.addEventListener('pointerup', finishDrag);
+    scrollTopButton.addEventListener('pointercancel', finishDrag);
+    window.addEventListener('resize', () => {
+      if (scrollTopButton.style.left && scrollTopButton.style.top) place(scrollTopButton.offsetLeft, scrollTopButton.offsetTop, true);
     });
   }
 
