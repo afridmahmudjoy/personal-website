@@ -56,17 +56,44 @@
   // Mobile navigation.
   const menuButton = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav');
+  const moreButton = document.querySelector('.nav-more-toggle');
+  const moreMenu = document.getElementById('more-menu');
+  const closeMoreMenu = (returnFocus = false) => {
+    if (!moreButton || !moreMenu) return;
+    moreMenu.hidden = true;
+    moreButton.setAttribute('aria-expanded', 'false');
+    moreButton.closest('.nav-more')?.classList.remove('open');
+    if (returnFocus) moreButton.focus();
+  };
   menuButton?.addEventListener('click', () => {
     const isOpen = nav?.classList.toggle('open') ?? false;
     menuButton.setAttribute('aria-expanded', String(isOpen));
     menuButton.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+    if (!isOpen) closeMoreMenu();
+    playSound('navigate');
+  });
+  moreButton?.addEventListener('click', () => {
+    const isOpen = moreButton.getAttribute('aria-expanded') === 'true';
+    moreMenu.hidden = isOpen;
+    moreButton.setAttribute('aria-expanded', String(!isOpen));
+    moreButton.closest('.nav-more')?.classList.toggle('open', !isOpen);
     playSound('navigate');
   });
   nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
     nav.classList.remove('open');
     menuButton?.setAttribute('aria-expanded', 'false');
+    menuButton?.setAttribute('aria-label', 'Open navigation');
+    closeMoreMenu();
     playSound('navigate');
   }));
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.nav-more')) closeMoreMenu();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && moreButton?.getAttribute('aria-expanded') === 'true') {
+      closeMoreMenu(true);
+    }
+  });
 
  // Sound effects are opt-in and generated locally with Web Audio.
   let soundEnabled = storage.get('amj-v4-sound') === 'on';
