@@ -988,35 +988,7 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   });
 })();
 
-/* Pointer-tracked highlight for the animated name on the opening screen. */
-(() => {
-  const name = document.querySelector('.hero-name');
-  if (!name || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  let frame = 0;
-  let pending = null;
-  const move = (event) => {
-    if (event.pointerType && event.pointerType !== 'mouse') return;
-    pending = event;
-    if (frame) return;
-    frame = window.requestAnimationFrame(() => {
-      frame = 0;
-      if (!pending) return;
-      const rect = name.getBoundingClientRect();
-      name.style.setProperty('--hero-glow-x', `${pending.clientX - rect.left}px`);
-      name.style.setProperty('--hero-glow-y', `${pending.clientY - rect.top}px`);
-      name.classList.add('is-pointer-lit');
-      pending = null;
-    });
-  };
-  const reset = () => {
-    name.classList.remove('is-pointer-lit');
-    name.style.removeProperty('--hero-glow-x');
-    name.style.removeProperty('--hero-glow-y');
-  };
-  name.addEventListener('pointermove', move, { passive: true });
-  name.addEventListener('pointerleave', reset, { passive: true });
-  name.addEventListener('pointercancel', reset, { passive: true });
-})();
+/* Removed the pointer-tracked name glow; the name keeps a steady hover appearance. */
 
 
 /* Render a built-in preview when a project artwork file cannot be loaded. */

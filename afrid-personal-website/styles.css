@@ -5098,3 +5098,21 @@ html[data-theme="light"] .opening-grid.section-wrap {
     white-space: nowrap;
   }
 }
+
+
+/* Keep the teaching entry on the shared experience-row grid. */
+.teaching-experience { margin-top: 28px !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; }
+.teaching-experience article.experience-item { grid-template-columns: .9fr minmax(0, 2.3fr) !important; }
+@media (max-width: 620px) {
+  .teaching-experience article.experience-item { grid-template-columns: minmax(0, 1fr) !important; }
+}
+
+/* Keep the animated name stable while the pointer is over it. */
+@media (hover: hover) and (pointer: fine) {
+  .hero-name:hover::after { opacity: .28 !important; }
+  .hero-name:hover strong {
+    animation: none !important;
+    background-position: 50% 50% !important;
+    text-shadow: 0 0 8px rgba(67,234,209,.32) !important;
+  }
+}
