@@ -1074,3 +1074,149 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     if (image.complete && !image.naturalWidth) showFallback();
   });
 })();
+
+/* Four native horizontal rails for the full portfolio, with an in-page project viewer. */
+(() => {
+  const mount = document.getElementById('portfolio-collections');
+  const groups = window.portfolioProjectGroups;
+  const dialog = document.getElementById('portfolio-dialog');
+  if (!mount || !dialog || !Array.isArray(groups) || !groups.length) return;
+
+  const media = document.getElementById('portfolio-dialog-media');
+  const title = document.getElementById('portfolio-dialog-title');
+  const kicker = document.getElementById('portfolio-dialog-kicker');
+  const category = document.getElementById('portfolio-dialog-category');
+  const fileName = document.getElementById('portfolio-dialog-file');
+  const format = document.getElementById('portfolio-dialog-format');
+  const openOriginal = document.getElementById('portfolio-dialog-open');
+  const count = document.getElementById('portfolio-dialog-count');
+  const closeButton = dialog.querySelector('.portfolio-dialog-close');
+  const previousButton = document.getElementById('portfolio-dialog-previous');
+  const nextButton = document.getElementById('portfolio-dialog-next');
+  let activeGroup = 0;
+  let activeProject = 0;
+
+  const make = (tag, className, text) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  };
+
+  groups.forEach((group) => {
+    const section = make('section', 'portfolio-category');
+    section.id = `work-${group.id}`;
+    section.setAttribute('aria-labelledby', `portfolio-heading-${group.id}`);
+
+    const header = make('div', 'portfolio-category-heading');
+    const copy = make('div');
+    copy.append(make('span', 'portfolio-category-kicker', `${group.number} / COLLECTION`));
+    const heading = make('h3', '', group.title);
+    heading.id = `portfolio-heading-${group.id}`;
+    copy.append(heading, make('p', '', group.description));
+
+    const tools = make('div', 'portfolio-rail-tools');
+    tools.append(make('span', 'portfolio-rail-count', `${group.projects.length} PROJECTS`));
+    const previous = make('button', 'portfolio-rail-arrow', '←');
+    previous.type = 'button';
+    previous.setAttribute('aria-label', `Scroll ${group.title} left`);
+    const next = make('button', 'portfolio-rail-arrow', '→');
+    next.type = 'button';
+    next.setAttribute('aria-label', `Scroll ${group.title} right`);
+    tools.append(previous, next);
+    header.append(copy, tools);
+
+    const rail = make('div', 'portfolio-rail');
+    rail.setAttribute('role', 'group');
+    rail.setAttribute('aria-label', `${group.title} projects`);
+    group.projects.forEach((project, projectIndex) => {
+      const card = make('button', 'portfolio-card');
+      card.type = 'button';
+      card.setAttribute('aria-label', `Open ${project.title}, ${group.title}`);
+
+      const art = make('span', 'portfolio-card-art');
+      const image = make('img');
+      image.src = project.preview;
+      image.alt = '';
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      art.append(image, make('span', 'portfolio-card-kind', project.format));
+      if (project.type === 'video') art.append(make('span', 'portfolio-card-play', '▶'));
+
+      const cardCopy = make('span', 'portfolio-card-copy');
+      cardCopy.append(make('span', 'portfolio-card-index', `${String(projectIndex + 1).padStart(2, '0')} / ${group.title.toUpperCase()}`));
+      cardCopy.append(make('span', 'portfolio-card-title', project.title));
+      const action = make('span', 'portfolio-card-open');
+      action.append(make('span', '', 'VIEW PROJECT'), make('span', '', '↗'));
+      cardCopy.append(action);
+      card.append(art, cardCopy);
+      card.addEventListener('click', () => showProject(groups.indexOf(group), projectIndex, true));
+      rail.append(card);
+    });
+
+    const scrollRail = (direction) => {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      rail.scrollBy({ left: direction * rail.clientWidth * 0.82, behavior: reduced ? 'auto' : 'smooth' });
+    };
+    previous.addEventListener('click', () => scrollRail(-1));
+    next.addEventListener('click', () => scrollRail(1));
+    section.append(header, rail);
+    mount.append(section);
+  });
+
+  function showProject(groupIndex, projectIndex, openDialog = false) {
+    activeGroup = groupIndex;
+    activeProject = projectIndex;
+    const group = groups[activeGroup];
+    const project = group.projects[activeProject];
+    media.replaceChildren();
+
+    if (project.type === 'video') {
+      const video = make('video', '');
+      video.controls = true;
+      video.playsInline = true;
+      video.preload = 'metadata';
+      video.poster = project.preview;
+      video.src = project.asset;
+      video.setAttribute('aria-label', project.title);
+      media.append(video);
+    } else if (project.type === 'pdf') {
+      const frame = make('iframe', '');
+      frame.src = `${project.asset}#view=FitH`;
+      frame.title = `${project.title} PDF preview`;
+      media.append(frame);
+    } else {
+      const image = make('img', '');
+      image.src = project.asset;
+      image.alt = project.title;
+      image.decoding = 'async';
+      media.append(image);
+    }
+
+    title.textContent = project.title;
+    category.textContent = group.title.toUpperCase();
+    kicker.textContent = `${group.number} / PROJECT ${String(activeProject + 1).padStart(2, '0')}`;
+    fileName.textContent = project.fileName;
+    format.textContent = project.format;
+    openOriginal.href = project.asset;
+    openOriginal.textContent = project.type === 'image' ? 'VIEW FULL IMAGE ↗' : 'OPEN PROJECT FILE ↗';
+    count.textContent = `${String(activeProject + 1).padStart(2, '0')} / ${String(group.projects.length).padStart(2, '0')}`;
+    previousButton.disabled = group.projects.length < 2;
+    nextButton.disabled = group.projects.length < 2;
+    if (openDialog && !dialog.open) dialog.showModal();
+  }
+
+  previousButton.addEventListener('click', () => {
+    const length = groups[activeGroup].projects.length;
+    showProject(activeGroup, (activeProject + length - 1) % length);
+  });
+  nextButton.addEventListener('click', () => {
+    const length = groups[activeGroup].projects.length;
+    showProject(activeGroup, (activeProject + 1) % length);
+  });
+  closeButton.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  dialog.addEventListener('close', () => media.replaceChildren());
+})();
