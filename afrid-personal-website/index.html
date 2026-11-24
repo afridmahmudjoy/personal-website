@@ -230,7 +230,7 @@
   <dialog class="portfolio-dialog" id="portfolio-dialog" aria-labelledby="portfolio-dialog-title">
     <div class="portfolio-dialog-shell">
       <header class="portfolio-dialog-header">
-        <p class="portfolio-dialog-kicker" id="portfolio-dialog-kicker">PROJECT VIEW</p>
+        <p class="portfolio-dialog-kicker" id="portfolio-dialog-kicker">CASE STUDY / 01</p>
         <button class="portfolio-dialog-close" type="button" aria-label="Close project view">×</button>
       </header>
       <div class="portfolio-dialog-layout">
@@ -238,9 +238,13 @@
         <aside class="portfolio-dialog-details">
           <span class="portfolio-detail-label" id="portfolio-dialog-category">COLLECTION</span>
           <h2 id="portfolio-dialog-title">Project title</h2>
-          <p class="portfolio-dialog-copy">A project from the selected collection. Browse the complete work here without leaving the portfolio.</p>
-          <div class="portfolio-detail-row"><span>PROJECT FILE</span><strong id="portfolio-dialog-file"></strong></div>
-          <div class="portfolio-detail-row"><span>FORMAT</span><strong id="portfolio-dialog-format"></strong></div>
+          <p class="portfolio-dialog-copy" id="portfolio-dialog-copy"></p>
+          <div class="portfolio-case-facts" aria-label="Case study details">
+            <div class="portfolio-case-fact"><span>PROJECT FOCUS</span><strong id="portfolio-dialog-focus"></strong></div>
+            <div class="portfolio-case-fact"><span>DISCIPLINE</span><strong id="portfolio-dialog-discipline"></strong></div>
+            <div class="portfolio-case-fact"><span>DELIVERABLE</span><strong id="portfolio-dialog-format"></strong></div>
+            <div class="portfolio-case-fact"><span>PROJECT FILE</span><strong id="portfolio-dialog-file"></strong></div>
+          </div>
           <a class="portfolio-dialog-open" id="portfolio-dialog-open" href="#" target="_blank" rel="noopener noreferrer">OPEN ORIGINAL ↗</a>
         </aside>
       </div>

@@ -1088,11 +1088,15 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   const category = document.getElementById('portfolio-dialog-category');
   const fileName = document.getElementById('portfolio-dialog-file');
   const format = document.getElementById('portfolio-dialog-format');
+  const projectFocus = document.getElementById('portfolio-dialog-focus');
+  const discipline = document.getElementById('portfolio-dialog-discipline');
+  const caseCopy = document.getElementById('portfolio-dialog-copy');
   const openOriginal = document.getElementById('portfolio-dialog-open');
   const count = document.getElementById('portfolio-dialog-count');
   const closeButton = dialog.querySelector('.portfolio-dialog-close');
   const previousButton = document.getElementById('portfolio-dialog-previous');
   const nextButton = document.getElementById('portfolio-dialog-next');
+  const cursorNodes = [...document.querySelectorAll('.cursor-dot, .cursor-ring')];
   let activeGroup = 0;
   let activeProject = 0;
 
@@ -1195,15 +1199,27 @@ document.querySelectorAll('.document-reveal').forEach(button => {
 
     title.textContent = project.title;
     category.textContent = group.title.toUpperCase();
-    kicker.textContent = `${group.number} / PROJECT ${String(activeProject + 1).padStart(2, '0')}`;
+    kicker.textContent = `CASE STUDY / ${group.number}.${String(activeProject + 1).padStart(2, '0')}`;
+    projectFocus.textContent = project.title;
+    discipline.textContent = group.title;
     fileName.textContent = project.fileName;
     format.textContent = project.format;
+    const caseSummaries = {
+      posters: 'A campaign visual focused on the subject named in the title. Explore the artwork at full size, then move through the complete poster collection.',
+      logos: 'A standalone identity mark from the supplied logo collection. Explore the full-size artwork and compare it with other marks in this collection.',
+      presentations: 'A complete slide deck, available as a PDF. Browse it in its original format, then move through the other presentation projects.',
+      videos: 'A motion project available for playback. Play the supplied video here, then move through the rest of the motion collection.'
+    };
+    caseCopy.textContent = caseSummaries[group.id] || 'Explore the finished project and its deliverable.';
     openOriginal.href = project.asset;
     openOriginal.textContent = project.type === 'image' ? 'VIEW FULL IMAGE ↗' : 'OPEN PROJECT FILE ↗';
     count.textContent = `${String(activeProject + 1).padStart(2, '0')} / ${String(group.projects.length).padStart(2, '0')}`;
     previousButton.disabled = group.projects.length < 2;
     nextButton.disabled = group.projects.length < 2;
-    if (openDialog && !dialog.open) dialog.showModal();
+    if (openDialog && !dialog.open) {
+      cursorNodes.forEach((node) => dialog.append(node));
+      dialog.showModal();
+    }
   }
 
   previousButton.addEventListener('click', () => {
@@ -1218,5 +1234,8 @@ document.querySelectorAll('.document-reveal').forEach(button => {
   dialog.addEventListener('click', (event) => {
     if (event.target === dialog) dialog.close();
   });
-  dialog.addEventListener('close', () => media.replaceChildren());
+  dialog.addEventListener('close', () => {
+    media.replaceChildren();
+    cursorNodes.forEach((node) => document.body.append(node));
+  });
 })();
