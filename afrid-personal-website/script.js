@@ -1179,6 +1179,7 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     let settleTimer = 0;
     let railVisible = false;
     let drag = null;
+    let touchPointerId = null;
     let suppressClick = false;
     let loopPoint = 0;
     const motionAllowed = group.projects.length > 1 && !reduceMotion.matches;
@@ -1239,6 +1240,11 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     rail.addEventListener('pointerdown', (event) => {
       if (event.pointerType === 'mouse' && event.button !== 0) return;
       pauseAuto();
+      // Let the browser handle touch scrolling so phones keep native swipe momentum.
+      if (event.pointerType === 'touch') {
+        touchPointerId = event.pointerId;
+        return;
+      }
       drag = { id: event.pointerId, x: event.clientX, y: event.clientY, scroll: rail.scrollLeft, moved: false };
       rail.classList.add('is-dragging');
       rail.setPointerCapture(event.pointerId);
@@ -1254,6 +1260,11 @@ document.querySelectorAll('.document-reveal').forEach(button => {
       }
     }, { passive: false });
     const finishDrag = (event) => {
+      if (touchPointerId === event.pointerId) {
+        touchPointerId = null;
+        if (motionAllowed && !rail.matches(':hover')) startAuto(6500);
+        return;
+      }
       if (!drag || event.pointerId !== drag.id) return;
       if (drag.moved) {
         suppressClick = true;
