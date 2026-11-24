@@ -2539,7 +2539,6 @@ img, video, iframe { max-width:100%; }
   .email-link, .email-link::after { animation: none !important; transition: none !important; }
 }
 
-
 /* V4 HERO SKILLS — clean centered label + legible particle words */
 .hero-skill-rotator{left:50%!important;bottom:-4.15rem!important;transform:translateX(-50%)!important;width:min(100%,340px)!important;max-width:calc(100vw - 24px)!important;min-height:3.05rem!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:.35rem!important;white-space:normal!important;text-align:center!important;overflow:visible!important;}
 .hero-skill-prefix{display:block!important;color:var(--muted)!important;font-size:.62rem!important;letter-spacing:.22em!important;line-height:1.2!important;text-align:center!important;}
@@ -5366,3 +5365,20 @@ html[data-theme="light"] .opening-grid.section-wrap {
   .portfolio-rail { scroll-behavior:auto; }
   .portfolio-card:hover,.portfolio-card:focus-visible { transform:none; }
 }
+
+/* Final interaction polish */
+.portfolio-rail.is-auto-scrolling .portfolio-card:hover,
+.portfolio-rail.is-auto-scrolling .portfolio-card:focus-visible,
+.portfolio-rail.is-dragging .portfolio-card:hover,
+.portfolio-rail.is-dragging .portfolio-card:focus-visible { transform:none; }
+.scroll-progress-top.is-dragging,
+.scroll-progress-top.is-throwing { transform:translateY(0) scale(1)!important;transition:none!important; }
+.scroll-progress-top.is-dragging .scroll-progress-arrow,
+.scroll-progress-top.is-throwing .scroll-progress-arrow { transform:none!important; }
+.portrait-frame .hero-skill-words>span {
+  font-family:"Space Grotesk",Manrope,sans-serif!important;font-weight:700!important;letter-spacing:-.025em!important;
+  background:linear-gradient(90deg,#f3fffd 0%,#45e7d6 48%,#f3fffd 100%)!important;
+  -webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:#f3fffd!important;
+  text-shadow:0 0 5px rgba(243,255,253,.78),0 0 14px rgba(53,230,214,.78),0 0 27px rgba(53,230,214,.42)!important;
+}
+@media(max-width:680px){.portrait-frame .hero-skill-words>span{font-size:clamp(15px,4.2vw,19px)!important;letter-spacing:-.02em!important}}
