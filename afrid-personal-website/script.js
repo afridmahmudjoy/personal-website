@@ -1074,3 +1074,21 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     if (image.complete && !image.naturalWidth) showFallback();
   });
 })();
+
+
+/* Interactive project archive: filters, horizontal rails, video hover and accessible lightbox. */
+(() => {
+ const root=document.querySelector('.joy-work-archive'); if(!root)return;
+ const cards=[...root.querySelectorAll('.joy-work-card')], rows=[...root.querySelectorAll('.joy-work-row')], search=root.querySelector('#joy-work-search');
+ let filter='all', query='';
+ const apply=()=>{cards.forEach(card=>{const show=(filter==='all'||card.dataset.kind===filter)&&(!query||card.dataset.search.includes(query));card.classList.toggle('is-hidden',!show);});rows.forEach(row=>row.classList.toggle('is-empty',!row.querySelector('.joy-work-card:not(.is-hidden)')));};
+ root.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{filter=btn.dataset.filter;root.querySelectorAll('[data-filter]').forEach(b=>{const active=b===btn;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));});apply();}));
+ search?.addEventListener('input',()=>{query=search.value.trim().toLowerCase();apply();});
+ rows.forEach(row=>row.querySelectorAll('[data-scroll]').forEach(btn=>btn.addEventListener('click',()=>row.querySelector('.joy-work-track')?.scrollBy({left:Number(btn.dataset.scroll)*Math.max(260,row.querySelector('.joy-work-track').clientWidth*.75),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}))));
+ const lightbox=document.createElement('div');lightbox.className='joy-work-lightbox';lightbox.setAttribute('role','dialog');lightbox.setAttribute('aria-modal','true');lightbox.setAttribute('aria-label','Project preview');lightbox.innerHTML='<div class="joy-work-lightbox-panel"><button class="joy-work-lightbox-close" type="button" aria-label="Close preview">×</button><div class="joy-work-lightbox-content"></div><p class="joy-work-lightbox-caption"></p></div>';document.body.appendChild(lightbox);
+ const content=lightbox.querySelector('.joy-work-lightbox-content'),caption=lightbox.querySelector('.joy-work-lightbox-caption');let lastFocus=null;
+ const close=()=>{lightbox.classList.remove('is-open');content.replaceChildren();document.body.style.overflow='';lastFocus?.focus();};
+ lightbox.querySelector('.joy-work-lightbox-close').addEventListener('click',close);lightbox.addEventListener('click',e=>{if(e.target===lightbox)close();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&lightbox.classList.contains('is-open'))close();});
+ const open=card=>{lastFocus=card.querySelector('button');const video=card.querySelector('video');const source=video?.getAttribute('src');let media;if(video&&source){media=document.createElement('video');media.src=source;media.controls=true;media.autoplay=true;media.playsInline=true;}else{const img=card.querySelector('img');if(!img)return;media=document.createElement('img');media.src=img.src;media.alt=img.alt;}content.replaceChildren(media);caption.textContent=card.querySelector('.joy-work-card-meta strong')?.textContent||'';lightbox.classList.add('is-open');document.body.style.overflow='hidden';lightbox.querySelector('button').focus();};
+ cards.forEach(card=>{const btn=card.querySelector('.joy-work-open');btn?.addEventListener('click',()=>open(card));const video=card.querySelector('video');if(!video)return;video.muted=true;video.playsInline=true;const play=()=>{if(!matchMedia('(hover:hover) and (pointer:fine)').matches)return;video.play().then(()=>card.classList.add('is-playing')).catch(()=>{});};const pause=()=>{video.pause();try{video.currentTime=0;}catch(_){}card.classList.remove('is-playing');};card.addEventListener('pointerenter',play);card.addEventListener('pointerleave',pause);card.addEventListener('focusin',()=>{});card.addEventListener('focusout',pause);video.addEventListener('ended',()=>card.classList.remove('is-playing'));});
+})();
