@@ -24,7 +24,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=loader-fix-20261124">
+  <link rel="stylesheet" href="work-showcase.css?v=20261125">
   <script src="script.js?v=loader-exit-speed-20261124" defer></script>
+  <script src="work-showcase.js?v=20261125" defer></script>
 </head>
 <body>
   <div class="joy-loader" id="joy-loader" aria-hidden="true">
@@ -138,32 +140,34 @@
         </div>
       </section>
 
-      <section class="work-collections-section section-block" id="work">
+      <section class="case-showcase section-block" id="work" aria-labelledby="work-title">
         <div class="section-wrap">
           <div class="section-heading">
-            <div><div class="section-kicker">08 / SELECTED WORK</div><h2>Made with<br><span class="muted">intention.</span></h2></div>
-            <p class="section-aside">A considered selection across visual identity, campaign design, presentations and motion. Explore each collection to see the full body of work.</p>
+            <div><div class="section-kicker">08 / SELECTED WORK</div><h2 id="work-title">Made with<br><span class="muted">intention.</span></h2></div>
+            <p class="section-aside case-intro">A visual selection of the work itself, organized by craft. Browse each collection here, then open a piece for a larger preview and its original file.</p>
           </div>
-          <div class="work-collection-grid" aria-label="Work collections">
-            <a class="work-collection-card collection-posters" href="https://drive.google.com/drive/folders/1KgTopuIGGmXYpyuoCjbNyyTJpewW4Oyc?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Explore poster and campaign design collection">
-              <div class="collection-art" aria-hidden="true"><img class="collection-image-main" src="assets/projects/daraz-99-anniversary-sale.png" alt=""><img class="collection-image-secondary" src="assets/projects/tcps-event-poster.png" alt=""><span class="collection-art-label">CAMPAIGN / 01</span></div>
-              <div class="collection-copy"><div class="collection-eyebrow"><span>01 / VISUAL COMMUNICATION</span><span>36 WORKS</span></div><h3>Posters &amp; campaigns</h3><p>Social campaigns, retail promotions, event graphics, certificates and print pieces.</p><div class="collection-footer"><span>EXPLORE COLLECTION</span><span class="collection-arrow" aria-hidden="true">↗</span></div></div>
-            </a>
-            <a class="work-collection-card collection-identity" href="https://drive.google.com/drive/folders/1pWhuQ1UGb7_wy7vFw5Z86oM6HF8czVDX?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Explore logo and brand identity collection">
-              <div class="collection-art" aria-hidden="true"><img class="collection-logo-primary" src="assets/projects/iqra-logo.png" alt=""><img class="collection-logo-secondary" src="assets/projects/gladsome-logo.png" alt=""><span class="collection-art-label">IDENTITY / 02</span></div>
-              <div class="collection-copy"><div class="collection-eyebrow"><span>02 / BRAND IDENTITY</span><span>10 WORKS</span></div><h3>Logos &amp; identity</h3><p>Distinctive marks and visual identities developed for businesses, creators and brands.</p><div class="collection-footer"><span>EXPLORE COLLECTION</span><span class="collection-arrow" aria-hidden="true">↗</span></div></div>
-            </a>
-            <a class="work-collection-card collection-presentations" href="https://drive.google.com/drive/folders/1gV5WP6FK9X9g2_80NGZGR1qlgZVHNaQz?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Explore presentation design collection">
-              <div class="collection-art" aria-hidden="true"><img class="collection-slide-main" src="assets/projects/schizophrenia-awareness-presentation-preview.jpg" alt=""><img class="collection-slide-secondary" src="assets/projects/bd-mart-presentation-preview.jpg" alt=""><span class="collection-art-label">STORY / 03</span></div>
-              <div class="collection-copy"><div class="collection-eyebrow"><span>03 / PRESENTATION DESIGN</span><span>4 FILES</span></div><h3>Presentations</h3><p>Clear, visual storytelling for educational topics, business proposals and social media.</p><div class="collection-footer"><span>EXPLORE COLLECTION</span><span class="collection-arrow" aria-hidden="true">↗</span></div></div>
-            </a>
-            <a class="work-collection-card collection-motion" href="https://drive.google.com/drive/folders/1q2nTxOcCJB2B2-jh4dK_rUQQx4dWHPK8?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Explore video and motion design collection">
-              <div class="collection-art" aria-hidden="true"><img class="collection-video-main" src="assets/projects/alberta-promotion-video-cover.svg" alt=""><img class="collection-video-secondary" src="assets/projects/iqra-video-advertisement-cover.svg" alt=""><span class="collection-art-label">MOTION / 04</span></div>
-              <div class="collection-copy"><div class="collection-eyebrow"><span>04 / VIDEO &amp; MOTION</span><span>4 FILMS</span></div><h3>Video &amp; motion</h3><p>Short promotional edits and social-first video work, organized in one collection.</p><div class="collection-footer"><span>EXPLORE COLLECTION</span><span class="collection-arrow" aria-hidden="true">↗</span></div></div>
-            </a>
-          </div>
-          <p class="work-collections-note">COLLECTIONS ARE ORGANIZED IN GOOGLE DRIVE · OPEN A CATEGORY TO BROWSE</p>
+          <section class="work-category" data-showcase-category="posters" aria-labelledby="work-posters-title">
+            <div class="work-category-head"><div><div class="work-category-title"><span class="work-category-number">01 /</span><h3 id="work-posters-title">Posters &amp; campaigns</h3><span class="work-category-count">36 SELECTED PIECES</span></div><p class="work-category-subtitle">Campaigns, events &amp; print</p></div><div class="work-controls"><button type="button" data-slide="previous" aria-label="Scroll posters and campaigns left">←</button><button type="button" data-slide="next" aria-label="Scroll posters and campaigns right">→</button></div></div>
+            <div class="work-track" role="region" aria-label="Posters and campaigns. Scroll horizontally to browse projects" tabindex="0"></div>
+          </section>
+          <section class="work-category" data-showcase-category="logos" aria-labelledby="work-logos-title">
+            <div class="work-category-head"><div><div class="work-category-title"><span class="work-category-number">02 /</span><h3 id="work-logos-title">Logos &amp; identity</h3><span class="work-category-count">10 SELECTED IDENTITIES</span></div><p class="work-category-subtitle">Marks, brands &amp; visual systems</p></div><div class="work-controls"><button type="button" data-slide="previous" aria-label="Scroll logos and identity left">←</button><button type="button" data-slide="next" aria-label="Scroll logos and identity right">→</button></div></div>
+            <div class="work-track" role="region" aria-label="Logos and identity. Scroll horizontally to browse projects" tabindex="0"></div>
+          </section>
+          <section class="work-category" data-showcase-category="presentations" aria-labelledby="work-presentations-title">
+            <div class="work-category-head"><div><div class="work-category-title"><span class="work-category-number">03 /</span><h3 id="work-presentations-title">Presentations</h3><span class="work-category-count">4 PRESENTATIONS</span></div><p class="work-category-subtitle">Ideas made clear through story</p></div><div class="work-controls"><button type="button" data-slide="previous" aria-label="Scroll presentations left">←</button><button type="button" data-slide="next" aria-label="Scroll presentations right">→</button></div></div>
+            <div class="work-track" role="region" aria-label="Presentations. Scroll horizontally to browse projects" tabindex="0"></div>
+          </section>
+          <section class="work-category" data-showcase-category="videos" aria-labelledby="work-videos-title">
+            <div class="work-category-head"><div><div class="work-category-title"><span class="work-category-number">04 /</span><h3 id="work-videos-title">Video &amp; motion</h3><span class="work-category-count">4 FILMS</span></div><p class="work-category-subtitle">Short-form films &amp; promotion</p></div><div class="work-controls"><button type="button" data-slide="previous" aria-label="Scroll videos and motion left">←</button><button type="button" data-slide="next" aria-label="Scroll videos and motion right">→</button></div></div>
+            <div class="work-track" role="region" aria-label="Video and motion. Scroll horizontally to browse projects" tabindex="0"></div>
+          </section>
         </div>
+        <dialog id="work-preview-dialog" aria-labelledby="work-preview-title">
+          <div class="work-preview-head"><div class="work-preview-heading"><small id="work-preview-kicker">PROJECT PREVIEW</small><h2 id="work-preview-title"></h2></div><button class="work-preview-close" type="button" data-close-work-preview aria-label="Close project preview">×</button></div>
+          <div class="work-preview-content" id="work-preview-content"></div>
+          <div class="work-preview-foot"><span>Preview hosted from the original shared work file.</span><a id="work-preview-original" href="#" target="_blank" rel="noopener noreferrer">OPEN ORIGINAL ↗</a></div>
+        </dialog>
       </section>
       <section class="education-section section-block" id="education">
         <div class="section-wrap">
