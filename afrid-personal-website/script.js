@@ -1133,9 +1133,11 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     const rail = make('div', 'portfolio-rail');
     rail.setAttribute('role', 'group');
     rail.setAttribute('aria-label', `${group.title} projects`);
+    const projectCards = [];
     group.projects.forEach((project, projectIndex) => {
       const card = make('button', 'portfolio-card');
       card.type = 'button';
+      card.dataset.projectIndex = String(projectIndex);
       card.setAttribute('aria-label', `Open ${project.title}, ${group.title}`);
 
       const art = make('span', 'portfolio-card-art');
@@ -1156,14 +1158,119 @@ document.querySelectorAll('.document-reveal').forEach(button => {
       card.append(art, cardCopy);
       card.addEventListener('click', () => showProject(groups.indexOf(group), projectIndex, true));
       rail.append(card);
+      projectCards.push(card);
     });
+
+    // Duplicate the cards once so the slow rail can loop without a visible jump.
+    const loopCards = projectCards.map((card) => {
+      const clone = card.cloneNode(true);
+      clone.dataset.loopClone = 'true';
+      clone.setAttribute('aria-hidden', 'true');
+      clone.tabIndex = -1;
+      clone.addEventListener('click', () => showProject(groups.indexOf(group), Number(clone.dataset.projectIndex), true));
+      rail.append(clone);
+      return clone;
+    });
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let autoFrame = 0;
+    let previousFrameTime = 0;
+    let resumeTimer = 0;
+    let drag = null;
+    let suppressClick = false;
+    const loopPoint = loopCards[0]
+      ? loopCards[0].getBoundingClientRect().left - rail.getBoundingClientRect().left + rail.scrollLeft
+      : 0;
+    const motionAllowed = group.projects.length > 1 && !reduceMotion.matches;
+
+    const stopAuto = () => {
+      if (resumeTimer) window.clearTimeout(resumeTimer);
+      resumeTimer = 0;
+      if (autoFrame) window.cancelAnimationFrame(autoFrame);
+      autoFrame = 0;
+      rail.classList.remove('is-auto-scrolling');
+      previousFrameTime = 0;
+    };
+    const runAuto = (time) => {
+      if (!autoFrame) return;
+      rail.classList.add('is-auto-scrolling');
+      if (dialog.open || document.hidden || drag) {
+        previousFrameTime = time;
+        autoFrame = window.requestAnimationFrame(runAuto);
+        return;
+      }
+      if (previousFrameTime) {
+        const elapsed = Math.min(40, time - previousFrameTime);
+        rail.scrollLeft += elapsed * 0.018; // 18 pixels per second keeps the movement calm.
+        if (loopPoint > 0 && rail.scrollLeft >= loopPoint) rail.scrollLeft -= loopPoint;
+      }
+      previousFrameTime = time;
+      autoFrame = window.requestAnimationFrame(runAuto);
+    };
+    const startAuto = (delay = 1800) => {
+      if (!motionAllowed || autoFrame || drag || rail.matches(':hover') || rail.contains(document.activeElement)) return;
+      resumeTimer = window.setTimeout(() => {
+        resumeTimer = 0;
+        previousFrameTime = 0;
+        autoFrame = window.requestAnimationFrame(runAuto);
+      }, delay);
+    };
+    const pauseAuto = (resumeDelay = 0) => {
+      stopAuto();
+      if (resumeDelay) startAuto(resumeDelay);
+    };
+
+    if (motionAllowed) {
+      rail.addEventListener('pointerenter', () => pauseAuto());
+      rail.addEventListener('pointerleave', () => startAuto(1600));
+      rail.addEventListener('focusin', () => pauseAuto());
+      rail.addEventListener('focusout', (event) => {
+        if (!rail.contains(event.relatedTarget)) startAuto(1600);
+      });
+      startAuto(2200);
+    }
+
+    rail.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      pauseAuto();
+      drag = { id: event.pointerId, x: event.clientX, y: event.clientY, scroll: rail.scrollLeft, moved: false };
+      rail.classList.add('is-dragging');
+      rail.setPointerCapture(event.pointerId);
+    });
+    rail.addEventListener('pointermove', (event) => {
+      if (!drag || event.pointerId !== drag.id) return;
+      const dx = event.clientX - drag.x;
+      const dy = event.clientY - drag.y;
+      if (!drag.moved && Math.abs(dx) > 5 && Math.abs(dx) > Math.abs(dy)) drag.moved = true;
+      if (drag.moved) {
+        rail.scrollLeft = drag.scroll - dx;
+        event.preventDefault();
+      }
+    }, { passive: false });
+    const finishDrag = (event) => {
+      if (!drag || event.pointerId !== drag.id) return;
+      if (drag.moved) {
+        suppressClick = true;
+        window.setTimeout(() => { suppressClick = false; }, 0);
+      }
+      drag = null;
+      rail.classList.remove('is-dragging');
+      if (motionAllowed && !rail.matches(':hover')) startAuto(6500);
+    };
+    rail.addEventListener('pointerup', finishDrag);
+    rail.addEventListener('pointercancel', finishDrag);
+    rail.addEventListener('click', (event) => {
+      if (!suppressClick) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }, true);
 
     const scrollRail = (direction) => {
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       rail.scrollBy({ left: direction * rail.clientWidth * 0.82, behavior: reduced ? 'auto' : 'smooth' });
     };
-    previous.addEventListener('click', () => scrollRail(-1));
-    next.addEventListener('click', () => scrollRail(1));
+    previous.addEventListener('click', () => { pauseAuto(6500); scrollRail(-1); });
+    next.addEventListener('click', () => { pauseAuto(6500); scrollRail(1); });
     section.append(header, rail);
     mount.append(section);
   });
