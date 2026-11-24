@@ -5321,6 +5321,11 @@ html[data-theme="light"] .opening-grid.section-wrap {
 .portfolio-detail-row strong { overflow-wrap:anywhere; color:var(--ink); font-size:11px; font-weight:500; line-height:1.5; }
 .portfolio-dialog-open { display:inline-flex; align-items:center; justify-content:center; min-height:43px; margin-top:21px; padding:0 15px; border:1px solid var(--accent); border-radius:999px; color:var(--accent); text-decoration:none; font:600 8px/1 "DM Mono",monospace; letter-spacing:.1em; transition:background .2s ease,color .2s ease; }
 .portfolio-dialog-open:hover,.portfolio-dialog-open:focus-visible { background:var(--accent); color:#07100f; outline:none; }
+.portfolio-case-facts { display:grid; grid-template-columns:1fr 1fr; gap:0 18px; margin-top:25px; border-top:1px solid var(--line); }
+.portfolio-case-fact { display:grid; align-content:start; gap:7px; min-width:0; padding:13px 0; border-bottom:1px solid var(--line); }
+.portfolio-case-fact span { color:var(--accent); font:600 8px/1.5 "DM Mono",monospace; letter-spacing:.13em; }
+.portfolio-case-fact strong { overflow-wrap:anywhere; color:var(--ink); font-size:11px; font-weight:500; line-height:1.5; }
+.portfolio-dialog > .cursor-dot,.portfolio-dialog > .cursor-ring { z-index:10; }
 .portfolio-dialog-footer { display:flex; min-height:54px; align-items:center; justify-content:space-between; gap:12px; padding:9px 17px; border-top:1px solid var(--line); }
 .portfolio-dialog-step { display:flex; align-items:center; gap:8px; border:0; background:transparent; color:var(--ink); font:600 8px/1 "DM Mono",monospace; letter-spacing:.08em; cursor:pointer; }
 .portfolio-dialog-step:hover,.portfolio-dialog-step:focus-visible { color:var(--accent); outline:none; }
@@ -5341,6 +5346,7 @@ html[data-theme="light"] .opening-grid.section-wrap {
   .portfolio-dialog-media iframe { min-height:45dvh; }
   .portfolio-dialog-details { overflow:auto; padding:20px 22px; }
   .portfolio-dialog-copy { margin-bottom:14px; }
+  .portfolio-case-facts { margin-top:17px; }
   .portfolio-dialog-open { margin-top:14px; }
 }
 @media(max-width:540px) {
