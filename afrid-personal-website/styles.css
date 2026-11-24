@@ -5220,3 +5220,12 @@ html[data-theme="light"] .opening-grid.section-wrap {
   .projects-section.reveal-section.is-visible .featured-case-card:nth-child(5) { animation-delay: .42s; }
   .projects-section.reveal-section.is-visible .featured-case-card:nth-child(6) { animation-delay: .52s; }
 }
+
+/* Elastic draggable scroll-to-top */
+.scroll-progress-top{touch-action:none;user-select:none;-webkit-user-select:none;will-change:transform,left,top;transition:opacity .28s ease,visibility .28s ease,background .2s ease,border-color .2s ease,transform .24s cubic-bezier(.2,.75,.25,1);}
+.scroll-progress-top.is-visible{transform:translateY(0) scale(1);}
+.scroll-progress-top.is-dragging{cursor:grabbing;transition:none;transform:scale(1.13, .88) rotate(var(--jelly-x,0deg)) skewY(var(--jelly-y,0deg));}
+.scroll-progress-top.is-throwing{transition:none;transform:scale(1.04, .96) rotate(var(--jelly-x,0deg)) skewY(var(--jelly-y,0deg));}
+.scroll-progress-top.is-dragging .scroll-progress-arrow{transform:scale(.92);}
+.scroll-progress-top.is-throwing .scroll-progress-arrow{transform:translateY(-1px);}
+@media(max-width:700px){.scroll-progress-top.is-dragging,.scroll-progress-top.is-throwing{transform:scale(1.08,.92) rotate(var(--jelly-x,0deg)) skewY(var(--jelly-y,0deg));}}
