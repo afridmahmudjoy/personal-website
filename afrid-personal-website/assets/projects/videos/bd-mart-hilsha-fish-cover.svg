@@ -1,0 +1,8 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 840" role="img" aria-label="BD MART Hilsha Fish video preview">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#10231f"/><stop offset="1" stop-color="#17242a"/></linearGradient><radialGradient id="r"><stop stop-color="#67e8ca" stop-opacity=".28"/><stop offset="1" stop-color="#67e8ca" stop-opacity="0"/></radialGradient></defs>
+  <rect width="1200" height="840" fill="url(#g)"/><circle cx="880" cy="310" r="370" fill="url(#r)"/><circle cx="880" cy="310" r="230" fill="none" stroke="#67e8ca" stroke-opacity=".22"/><circle cx="880" cy="310" r="168" fill="none" stroke="#67e8ca" stroke-opacity=".35"/>
+  <text x="88" y="112" fill="#67e8ca" font-family="Arial,sans-serif" font-size="20" font-weight="700" letter-spacing="5">VIDEO / MOTION</text>
+  <text x="88" y="565" fill="#f3f8f5" font-family="Arial,sans-serif" font-size="48" font-weight="700">BD MART Hilsha Fish</text>
+  <text x="88" y="615" fill="#91a8a1" font-family="Arial,sans-serif" font-size="20" letter-spacing="3">PLAY PROJECT</text>
+  <circle cx="880" cy="310" r="70" fill="#67e8ca"/><path d="M856 271 L856 349 L920 310Z" fill="#0b211c"/>
+</svg>

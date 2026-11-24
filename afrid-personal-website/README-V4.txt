@@ -20,9 +20,11 @@ replace only index.html, styles.css and script.js in your existing website folde
 same Vercel root directory (afrid-personal-website).
 
 PROJECT GALLERY
-- The Selected Work gallery uses the real image, PDF and video files in assets/projects/.
-- Add future work in that folder, then add a matching card in the #work section of index.html.
-- The gallery's gentle pointer attraction is in script.js and respects reduced-motion settings.
+- The Selected Work section displays all 54 items from the four supplied Drive collections inside the site.
+- Category data lives in assets/portfolio-data.js; project media is organized in assets/projects/{posters,logos,presentations,videos}/.
+- Poster images are optimized for web display; PDF and video projects open in the in-page project viewer.
+- To add work, put the media in its category folder and add a matching entry to assets/portfolio-data.js.
+- Horizontal rails support touch swipes, trackpad scrolling and visible arrow controls.
 
 PROFILE AND CERTIFICATE ASSETS
 - The portrait image is profile.jpg; turquoise-logo.svg is the existing logo asset.

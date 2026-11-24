@@ -24,7 +24,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=loader-fix-20261124">
-  <script src="script.js?v=loader-exit-speed-20261124" defer></script>
+  <script src="assets/portfolio-data.js?v=20261125" defer></script>
+  <script src="script.js?v=portfolio-gallery-20261125" defer></script>
 </head>
 <body>
   <div class="joy-loader" id="joy-loader" aria-hidden="true">
@@ -142,27 +143,16 @@
         <div class="section-wrap">
           <div class="section-heading">
             <div><div class="section-kicker">08 / SELECTED WORK</div><h2>Made with<br><span class="muted">intention.</span></h2></div>
-            <p class="section-aside">A considered selection across visual identity, campaign design, presentations and motion. Explore each collection to see the full body of work.</p>
+            <p class="section-aside">A closer look at the work behind each collection. Browse every project here, then open any piece for a larger view.</p>
           </div>
-          <div class="work-collection-grid" aria-label="Work collections">
-            <a class="work-collection-card collection-posters" href="https://drive.google.com/drive/folders/1KgTopuIGGmXYpyuoCjbNyyTJpewW4Oyc?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Explore poster and campaign design collection">
-              <div class="collection-art" aria-hidden="true"><img class="collection-image-main" src="assets/projects/daraz-99-anniversary-sale.png" alt=""><img class="collection-image-secondary" src="assets/projects/tcps-event-poster.png" alt=""><span class="collection-art-label">CAMPAIGN / 01</span></div>
-              <div class="collection-copy"><div class="collection-eyebrow"><span>01 / VISUAL COMMUNICATION</span><span>36 WORKS</span></div><h3>Posters &amp; campaigns</h3><p>Social campaigns, retail promotions, event graphics, certificates and print pieces.</p><div class="collection-footer"><span>EXPLORE COLLECTION</span><span class="collection-arrow" aria-hidden="true">↗</span></div></div>
-            </a>
-            <a class="work-collection-card collection-identity" href="https://drive.google.com/drive/folders/1pWhuQ1UGb7_wy7vFw5Z86oM6HF8czVDX?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Explore logo and brand identity collection">
-              <div class="collection-art" aria-hidden="true"><img class="collection-logo-primary" src="assets/projects/iqra-logo.png" alt=""><img class="collection-logo-secondary" src="assets/projects/gladsome-logo.png" alt=""><span class="collection-art-label">IDENTITY / 02</span></div>
-              <div class="collection-copy"><div class="collection-eyebrow"><span>02 / BRAND IDENTITY</span><span>10 WORKS</span></div><h3>Logos &amp; identity</h3><p>Distinctive marks and visual identities developed for businesses, creators and brands.</p><div class="collection-footer"><span>EXPLORE COLLECTION</span><span class="collection-arrow" aria-hidden="true">↗</span></div></div>
-            </a>
-            <a class="work-collection-card collection-presentations" href="https://drive.google.com/drive/folders/1gV5WP6FK9X9g2_80NGZGR1qlgZVHNaQz?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Explore presentation design collection">
-              <div class="collection-art" aria-hidden="true"><img class="collection-slide-main" src="assets/projects/schizophrenia-awareness-presentation-preview.jpg" alt=""><img class="collection-slide-secondary" src="assets/projects/bd-mart-presentation-preview.jpg" alt=""><span class="collection-art-label">STORY / 03</span></div>
-              <div class="collection-copy"><div class="collection-eyebrow"><span>03 / PRESENTATION DESIGN</span><span>4 FILES</span></div><h3>Presentations</h3><p>Clear, visual storytelling for educational topics, business proposals and social media.</p><div class="collection-footer"><span>EXPLORE COLLECTION</span><span class="collection-arrow" aria-hidden="true">↗</span></div></div>
-            </a>
-            <a class="work-collection-card collection-motion" href="https://drive.google.com/drive/folders/1q2nTxOcCJB2B2-jh4dK_rUQQx4dWHPK8?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Explore video and motion design collection">
-              <div class="collection-art" aria-hidden="true"><img class="collection-video-main" src="assets/projects/alberta-promotion-video-cover.svg" alt=""><img class="collection-video-secondary" src="assets/projects/iqra-video-advertisement-cover.svg" alt=""><span class="collection-art-label">MOTION / 04</span></div>
-              <div class="collection-copy"><div class="collection-eyebrow"><span>04 / VIDEO &amp; MOTION</span><span>4 FILMS</span></div><h3>Video &amp; motion</h3><p>Short promotional edits and social-first video work, organized in one collection.</p><div class="collection-footer"><span>EXPLORE COLLECTION</span><span class="collection-arrow" aria-hidden="true">↗</span></div></div>
-            </a>
-          </div>
-          <p class="work-collections-note">COLLECTIONS ARE ORGANIZED IN GOOGLE DRIVE · OPEN A CATEGORY TO BROWSE</p>
+          <nav class="portfolio-category-nav" aria-label="Jump to a work collection">
+            <a href="#work-posters">01 <span>Posters</span></a>
+            <a href="#work-logos">02 <span>Logos</span></a>
+            <a href="#work-presentations">03 <span>Presentations</span></a>
+            <a href="#work-videos">04 <span>Video &amp; motion</span></a>
+          </nav>
+          <div class="portfolio-collections" id="portfolio-collections" aria-label="All portfolio projects"></div>
+          <p class="work-collections-note">SWIPE OR DRAG TO BROWSE · SELECT A PROJECT FOR THE FULL VIEW</p>
         </div>
       </section>
       <section class="education-section section-block" id="education">
@@ -236,6 +226,30 @@
     <p class="dialog-description" id="dialog-description"></p>
     <div class="dialog-evidence"><span>LEARNING / EXPERIENCE CONTEXT</span><p id="dialog-evidence"></p></div>
     <a class="dialog-certificate interactive" id="dialog-certificate" href="#" target="_blank" rel="noopener noreferrer" hidden>VIEW CERTIFICATE ↗</a>
+  </dialog>
+  <dialog class="portfolio-dialog" id="portfolio-dialog" aria-labelledby="portfolio-dialog-title">
+    <div class="portfolio-dialog-shell">
+      <header class="portfolio-dialog-header">
+        <p class="portfolio-dialog-kicker" id="portfolio-dialog-kicker">PROJECT VIEW</p>
+        <button class="portfolio-dialog-close" type="button" aria-label="Close project view">×</button>
+      </header>
+      <div class="portfolio-dialog-layout">
+        <div class="portfolio-dialog-media" id="portfolio-dialog-media"></div>
+        <aside class="portfolio-dialog-details">
+          <span class="portfolio-detail-label" id="portfolio-dialog-category">COLLECTION</span>
+          <h2 id="portfolio-dialog-title">Project title</h2>
+          <p class="portfolio-dialog-copy">A project from the selected collection. Browse the complete work here without leaving the portfolio.</p>
+          <div class="portfolio-detail-row"><span>PROJECT FILE</span><strong id="portfolio-dialog-file"></strong></div>
+          <div class="portfolio-detail-row"><span>FORMAT</span><strong id="portfolio-dialog-format"></strong></div>
+          <a class="portfolio-dialog-open" id="portfolio-dialog-open" href="#" target="_blank" rel="noopener noreferrer">OPEN ORIGINAL ↗</a>
+        </aside>
+      </div>
+      <footer class="portfolio-dialog-footer">
+        <button class="portfolio-dialog-step" id="portfolio-dialog-previous" type="button">← <span>PREVIOUS</span></button>
+        <span class="portfolio-dialog-count" id="portfolio-dialog-count">01 / 01</span>
+        <button class="portfolio-dialog-step" id="portfolio-dialog-next" type="button"><span>NEXT</span> →</button>
+      </footer>
+    </div>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
