@@ -5156,3 +5156,67 @@ html[data-theme="light"] .opening-grid.section-wrap {
    letter-spacing:.055em !important;
  }
 }
+
+
+/* Keep featured project detail labels separate from their descriptions. */
+.featured-case-card .case-study-facts > div {
+  grid-template-columns: 92px minmax(0, 1fr) !important;
+  column-gap: 12px !important;
+}
+.featured-case-card .case-study-facts > div > span {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+}
+.featured-case-card .case-study-facts > div > p {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 680px) {
+  .featured-case-card .case-study-facts > div {
+    grid-template-columns: 82px minmax(0, 1fr) !important;
+    column-gap: 10px !important;
+  }
+}
+@media (max-width: 360px) {
+  .featured-case-card .case-study-facts > div {
+    grid-template-columns: 1fr !important;
+    row-gap: 4px !important;
+  }
+}
+
+/* Bring skill filters into the site's compact, readable label style. */
+@media (max-width: 900px) {
+  .skill-filters button {
+    padding: 8px 11px !important;
+    font: 600 9px/1.45 "Manrope", sans-serif !important;
+    letter-spacing: .025em !important;
+    color: var(--muted) !important;
+    border-color: var(--line) !important;
+    border-radius: 999px !important;
+  }
+  .skill-filters button[aria-pressed="true"] {
+    color: var(--accent) !important;
+    border-color: var(--line-strong) !important;
+    background: var(--accent-soft) !important;
+  }
+}
+
+/* Give the selected work a deliberate, staggered entrance. */
+@keyframes featuredProjectEnter {
+  from { opacity: 0; transform: translateY(28px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .projects-section.reveal-section:not(.is-visible) .featured-case-card {
+    opacity: 0;
+    transform: translateY(28px) scale(.985);
+  }
+  .projects-section.reveal-section.is-visible .featured-case-card {
+    animation: featuredProjectEnter .7s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .projects-section.reveal-section.is-visible .featured-case-card:nth-child(2) { animation-delay: .12s; }
+  .projects-section.reveal-section.is-visible .featured-case-card:nth-child(3) { animation-delay: .22s; }
+  .projects-section.reveal-section.is-visible .featured-case-card:nth-child(4) { animation-delay: .32s; }
+  .projects-section.reveal-section.is-visible .featured-case-card:nth-child(5) { animation-delay: .42s; }
+  .projects-section.reveal-section.is-visible .featured-case-card:nth-child(6) { animation-delay: .52s; }
+}
