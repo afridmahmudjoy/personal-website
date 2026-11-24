@@ -71,7 +71,13 @@
  // Sound effects are opt-in and generated locally with Web Audio.
   let soundEnabled = storage.get('amj-v4-sound') === 'on';
   let audioContext = null;
+  let activeClickEvent = null;
+  let clickSoundPlayed = false;
   const soundButtons = [...document.querySelectorAll('.sound-toggle')];
+  document.addEventListener('click', (event) => {
+    activeClickEvent = event;
+    clickSoundPlayed = false;
+  }, true);
   const syncSoundButtons = () => soundButtons.forEach((button) => {
     const word = button.querySelector('.sound-word');
     const symbol = button.querySelector('.sound-symbol');
@@ -94,7 +100,7 @@
       oscillator.type = type;
       oscillator.frequency.setValueAtTime(frequency, start);
       gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.exponentialRampToValueAtTime(volume, start + 0.012);
+      gain.gain.exponentialRampToValueAtTime(Math.min(0.075, volume * 2.8), start + 0.012);
       gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
       oscillator.connect(gain);
       gain.connect(audioContext.destination);
@@ -104,8 +110,9 @@
   };
   function playSound(kind = 'click') {
     if (!soundEnabled) return;
+    if (activeClickEvent?.eventPhase) clickSoundPlayed = true;
     const patterns = {
-      click: [[740, .045, 'sine', .01, 0], [980, .06, 'sine', .006, .022]],
+      click: [[740, .05, 'sine', .018, 0], [1040, .065, 'sine', .014, .022]],
       toggle: [[520, .07, 'sine', .012, 0], [760, .09, 'sine', .009, .05]],
       'theme-light': [[520, .085, 'sine', .012, 0], [720, .11, 'sine', .009, .055], [960, .13, 'sine', .006, .11]],
       'theme-dark': [[960, .085, 'sine', .009, 0], [720, .11, 'sine', .008, .055], [520, .13, 'sine', .006, .11]],
@@ -613,7 +620,7 @@ const AUTO_ROTATE_DELAY = 3200;
     updateScrollProgress();
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
     window.addEventListener('resize', updateScrollProgress, { passive: true });
-    // Draggable, elastic scroll-to-top control (touch + mouse).
+    // Draggable scroll-to-top control (touch + mouse).
     const dragKey = 'joy-scroll-progress-position';
     let dragPos = null;
     try { dragPos = JSON.parse(localStorage.getItem(dragKey) || 'null'); } catch (_) {}
@@ -633,7 +640,6 @@ const AUTO_ROTATE_DELAY = 3200;
       const p = clampPos(x, y);
       scrollTopButton.style.left = p.x + 'px'; scrollTopButton.style.top = p.y + 'px';
       scrollTopButton.style.right = 'auto'; scrollTopButton.style.bottom = 'auto';
-      scrollTopButton.style.setProperty('--jelly-x', '0deg'); scrollTopButton.style.setProperty('--jelly-y', '0deg');
       if (save) { try { localStorage.setItem(dragKey, JSON.stringify(p)); } catch (_) {} }
       return p;
     };
@@ -646,8 +652,6 @@ const AUTO_ROTATE_DELAY = 3200;
         if (x < 8 || x > maxX) { x = Math.max(8, Math.min(maxX, x)); vx *= -0.42; }
         if (y < 8 || y > maxY) { y = Math.max(8, Math.min(maxY, y)); vy *= -0.42; }
         place(x, y);
-        scrollTopButton.style.setProperty('--jelly-x', (vy * 0.7) + 'deg');
-        scrollTopButton.style.setProperty('--jelly-y', (-vx * 0.7) + 'deg');
         if (Math.abs(vx) + Math.abs(vy) > 0.6) raf = requestAnimationFrame(step);
         else { scrollTopButton.classList.remove('is-dragging','is-throwing'); place(x, y, true); }
       };
@@ -671,8 +675,6 @@ const AUTO_ROTATE_DELAY = 3200;
       velocity = { x: (e.clientX - lastPoint.x) / dt * 16, y: (e.clientY - lastPoint.y) / dt * 16 };
       lastPoint = { x: e.clientX, y: e.clientY, t: now };
       place(pointerStart.left + dx, pointerStart.top + dy);
-      scrollTopButton.style.setProperty('--jelly-x', (dy * 0.18) + 'deg');
-      scrollTopButton.style.setProperty('--jelly-y', (-dx * 0.18) + 'deg');
     });
     const finishDrag = (e) => {
       if (!dragging) return;
@@ -765,7 +767,9 @@ const AUTO_ROTATE_DELAY = 3200;
 
   // Universal click feedback — includes blank areas, side margins and non-interactive surfaces.
   document.addEventListener('click', (event) => {
-    const control = event.target.closest('a, button, [role="button"], [tabindex="0"], .document-reveal');
+    if (clickSoundPlayed) return;
+    const target = event.target instanceof Element ? event.target : null;
+    const control = target?.closest('a, button, [role="button"], [tabindex="0"], .document-reveal');
     if (!control) {
       playSound('click');
       return;
@@ -776,8 +780,6 @@ const AUTO_ROTATE_DELAY = 3200;
       control.classList.add('tap-pulse');
       window.setTimeout(() => control.classList.remove('tap-pulse'), 380);
     }
-    // These already trigger dedicated sounds in their own handlers.
-    if (control.matches('.theme-toggle, .sound-toggle, .menu-toggle, .skill-more, .expand-subjects, #explore-button, .skill-card, .nav a')) return;
     playSound('click');
   });
 
@@ -1173,46 +1175,51 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     });
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let autoFrame = 0;
-    let previousFrameTime = 0;
-    let resumeTimer = 0;
+    let autoTimer = 0;
+    let settleTimer = 0;
+    let railVisible = false;
     let drag = null;
     let suppressClick = false;
-    const loopPoint = loopCards[0]
-      ? loopCards[0].getBoundingClientRect().left - rail.getBoundingClientRect().left + rail.scrollLeft
-      : 0;
+    let loopPoint = 0;
     const motionAllowed = group.projects.length > 1 && !reduceMotion.matches;
+    const getContentLeft = (card) => card.getBoundingClientRect().left
+      - rail.getBoundingClientRect().left + rail.scrollLeft;
 
     const stopAuto = () => {
-      if (resumeTimer) window.clearTimeout(resumeTimer);
-      resumeTimer = 0;
-      if (autoFrame) window.cancelAnimationFrame(autoFrame);
-      autoFrame = 0;
+      if (autoTimer) window.clearTimeout(autoTimer);
+      if (settleTimer) window.clearTimeout(settleTimer);
+      autoTimer = 0;
+      settleTimer = 0;
+      if (rail.classList.contains('is-auto-scrolling')) {
+        rail.scrollTo({ left: rail.scrollLeft, behavior: 'auto' });
+      }
       rail.classList.remove('is-auto-scrolling');
-      previousFrameTime = 0;
     };
-    const runAuto = (time) => {
-      if (!autoFrame) return;
-      rail.classList.add('is-auto-scrolling');
-      if (dialog.open || document.hidden || drag) {
-        previousFrameTime = time;
-        autoFrame = window.requestAnimationFrame(runAuto);
-        return;
+    const canAutoScroll = () => motionAllowed && railVisible && !drag && !document.hidden
+      && !dialog.open && !rail.matches(':hover') && !rail.contains(document.activeElement);
+    const normalizeLoop = () => {
+      if (loopPoint > 0 && rail.scrollLeft >= loopPoint - 2) {
+        const wrapped = rail.scrollLeft - loopPoint;
+        rail.scrollLeft = wrapped > 0 ? wrapped % loopPoint : 0;
       }
-      if (previousFrameTime) {
-        const elapsed = Math.min(40, time - previousFrameTime);
-        rail.scrollLeft += elapsed * 0.018; // 18 pixels per second keeps the movement calm.
-        if (loopPoint > 0 && rail.scrollLeft >= loopPoint) rail.scrollLeft -= loopPoint;
-      }
-      previousFrameTime = time;
-      autoFrame = window.requestAnimationFrame(runAuto);
     };
-    const startAuto = (delay = 1800) => {
-      if (!motionAllowed || autoFrame || drag || rail.matches(':hover') || rail.contains(document.activeElement)) return;
-      resumeTimer = window.setTimeout(() => {
-        resumeTimer = 0;
-        previousFrameTime = 0;
-        autoFrame = window.requestAnimationFrame(runAuto);
+    const startAuto = (delay = 5200) => {
+      if (!canAutoScroll() || autoTimer || settleTimer) return;
+      autoTimer = window.setTimeout(() => {
+        autoTimer = 0;
+        if (!canAutoScroll()) return;
+        normalizeLoop();
+        const nextCard = [...projectCards, ...loopCards]
+          .find((card) => getContentLeft(card) > rail.scrollLeft + 8);
+        const nextLeft = nextCard ? Math.max(0, getContentLeft(nextCard) - 2) : loopPoint;
+        rail.classList.add('is-auto-scrolling');
+        rail.scrollTo({ left: nextLeft, behavior: 'smooth' });
+        settleTimer = window.setTimeout(() => {
+          settleTimer = 0;
+          normalizeLoop();
+          rail.classList.remove('is-auto-scrolling');
+          startAuto(4300);
+        }, 1050);
       }, delay);
     };
     const pauseAuto = (resumeDelay = 0) => {
@@ -1227,7 +1234,6 @@ document.querySelectorAll('.document-reveal').forEach(button => {
       rail.addEventListener('focusout', (event) => {
         if (!rail.contains(event.relatedTarget)) startAuto(1600);
       });
-      startAuto(2200);
     }
 
     rail.addEventListener('pointerdown', (event) => {
@@ -1255,6 +1261,7 @@ document.querySelectorAll('.document-reveal').forEach(button => {
       }
       drag = null;
       rail.classList.remove('is-dragging');
+      normalizeLoop();
       if (motionAllowed && !rail.matches(':hover')) startAuto(6500);
     };
     rail.addEventListener('pointerup', finishDrag);
@@ -1273,6 +1280,25 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     next.addEventListener('click', () => { pauseAuto(6500); scrollRail(1); });
     section.append(header, rail);
     mount.append(section);
+    if (loopCards[0]) loopPoint = getContentLeft(loopCards[0]);
+    if (motionAllowed) {
+      if ('IntersectionObserver' in window) {
+        const railObserver = new IntersectionObserver(([entry]) => {
+          railVisible = entry.isIntersecting;
+          if (railVisible) startAuto(2200);
+          else stopAuto();
+        }, { threshold: 0.12 });
+        railObserver.observe(rail);
+      } else {
+        railVisible = true;
+        startAuto(2200);
+      }
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopAuto();
+        else startAuto(1800);
+      });
+      dialog.addEventListener('close', () => startAuto(1800));
+    }
   });
 
   function showProject(groupIndex, projectIndex, openDialog = false) {
