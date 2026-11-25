@@ -1431,4 +1431,57 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     updateCoverFade();
   }
 
+  // V5 Phase 1: motion setup — only enhance content when motion is allowed.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const openingForMotion = document.querySelector('.opening');
+    if (openingForMotion) {
+      openingForMotion.classList.add('v5-motion-ready');
+      requestAnimationFrame(() => openingForMotion.classList.add('v5-motion-start'));
+    }
+
+    const motionSections = [...document.querySelectorAll('.portfolio-content main > section, .contact-section')];
+    motionSections.forEach((section) => section.classList.add('motion-heading-ready'));
+
+    // Count-up stats only once, using the displayed values as their source.
+    const countTargets = [...document.querySelectorAll('.hero-stats strong, .stats-strip strong')];
+    const countObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const node = entry.target;
+        const raw = node.textContent.trim();
+        const match = raw.match(/^(\d+)(\+?)$/);
+        if (!match || node.dataset.v5Counted) { observer.unobserve(node); return; }
+        node.dataset.v5Counted = 'true';
+        const target = Number(match[1]);
+        const suffix = match[2];
+        const start = performance.now();
+        const duration = 720;
+        const tick = (now) => {
+          const progress = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          node.textContent = Math.round(target * eased) + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+          else node.textContent = raw;
+        };
+        requestAnimationFrame(tick);
+        observer.unobserve(node);
+      });
+    }, { threshold: .25 });
+    countTargets.forEach((node) => countObserver.observe(node));
+
+    // Stagger each project rail when it first appears; no content is hidden if JS fails.
+    const cardObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const cards = entry.target.querySelectorAll('.portfolio-card');
+        cards.forEach((card, index) => {
+          card.classList.add('v5-card-ready');
+          card.style.setProperty('--v5-card-index', Math.min(index, 10));
+        });
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: .08 });
+    document.querySelectorAll('.portfolio-rail').forEach((rail) => cardObserver.observe(rail));
+  }
+
 })();
