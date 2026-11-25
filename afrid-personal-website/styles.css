@@ -5705,3 +5705,59 @@ html[data-theme="light"] .opening-grid.section-wrap {
   .portfolio-card:hover { transform:none; }
   .portfolio-card-art::after { transition-duration:.45s; }
 }
+
+
+/* V5.2 — Creative DNA, experience timeline, and TURQUOISE chapter polish */
+.creative-dna { margin-top:clamp(48px,7vw,92px);padding-top:clamp(22px,3vw,36px);border-top:1px solid var(--line); }
+.creative-dna-head { max-width:620px; }
+.creative-dna-kicker { color:var(--accent);font:600 8px/1.6 "DM Mono",monospace;letter-spacing:.12em; }
+.creative-dna-head h3 { margin:17px 0 12px;color:var(--ink);font:600 clamp(27px,4vw,48px)/1.04 "Space Grotesk",sans-serif;letter-spacing:-.06em; }
+.creative-dna-head h3 span { color:var(--muted); }
+.creative-dna-head p { max-width:440px;margin:0;color:var(--muted);font-size:12px;line-height:1.8; }
+.creative-dna-body { display:grid;grid-template-columns:minmax(230px,.82fr) minmax(0,1.18fr);gap:clamp(20px,5vw,64px);align-items:center;margin-top:32px; }
+.creative-dna-orbit { position:relative;display:grid;place-items:center;width:100%;max-width:340px;aspect-ratio:1;margin:auto;isolation:isolate; }
+.dna-orbit-ring { position:absolute;inset:11%;border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);border-radius:50%;pointer-events:none; }
+.dna-orbit-ring-outer { inset:5%;border-style:dashed;opacity:.6; }
+.dna-orbit-ring-inner { inset:24%;border-color:var(--line-strong); }
+.creative-dna-orbit::before { content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 12%,transparent),transparent 67%);opacity:.55; }
+.dna-orbit-core { z-index:1;display:grid;place-items:center;width:76px;height:76px;border:1px solid color-mix(in srgb,var(--accent) 65%,var(--line));border-radius:50%;background:var(--panel-solid);color:var(--accent);font:600 14px "DM Mono",monospace;box-shadow:0 0 36px color-mix(in srgb,var(--accent) 12%,transparent); }
+.dna-node { position:absolute;z-index:2;display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:var(--panel-solid);color:var(--muted);font:600 8px "DM Mono",monospace;letter-spacing:.08em;transition:color .3s,border-color .3s,box-shadow .3s,transform .3s; }
+.dna-node span { color:var(--accent);font-size:7px; }
+.dna-node b { font-weight:600; }
+.dna-node-business { top:8%;left:50%;transform:translateX(-50%); }
+.dna-node-design { bottom:11%;left:6%; }
+.dna-node-tech { bottom:11%;right:6%; }
+.creative-dna-orbit[data-active="business"] .dna-node-business,.creative-dna-orbit[data-active="design"] .dna-node-design,.creative-dna-orbit[data-active="tech"] .dna-node-tech { color:var(--ink);border-color:var(--accent);box-shadow:0 0 22px color-mix(in srgb,var(--accent) 14%,transparent); }
+.creative-dna-panel { min-width:0;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 5%,var(--panel-solid)),var(--panel-solid) 65%);padding:clamp(15px,3vw,25px); }
+.creative-dna-tabs { display:flex;flex-wrap:wrap;gap:6px;padding-bottom:16px;border-bottom:1px solid var(--line); }
+.creative-dna-tab { appearance:none;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);padding:9px 12px;font:600 8px "DM Mono",monospace;letter-spacing:.06em;cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .25s; }
+.creative-dna-tab:hover { transform:translateY(-1px);border-color:var(--accent); }
+.creative-dna-tab.is-active,.creative-dna-tab[aria-pressed="true"] { color:var(--panel-solid);background:var(--accent);border-color:var(--accent); }
+.creative-dna-detail { padding-top:clamp(18px,3vw,27px); }
+.creative-dna-index { color:var(--accent);font:600 8px/1.6 "DM Mono",monospace;letter-spacing:.12em; }
+.creative-dna-detail h4 { margin:12px 0 10px;color:var(--ink);font:600 clamp(19px,2.5vw,26px)/1.2 "Space Grotesk",sans-serif;letter-spacing:-.04em; }
+.creative-dna-detail p { margin:0;max-width:420px;color:var(--muted);font-size:12px;line-height:1.85; }
+.creative-dna-tags { display:flex;flex-wrap:wrap;gap:6px;margin-top:17px; }
+.creative-dna-tags span { border:1px solid var(--line);border-radius:999px;padding:6px 8px;color:var(--ink);font:500 8px/1.2 Manrope,sans-serif; }
+@media (max-width:760px) { .creative-dna-body { grid-template-columns:1fr;gap:20px; } .creative-dna-orbit { max-width:270px; } .creative-dna-panel { width:100%; } }
+@media (max-width:420px) { .creative-dna-head h3 { font-size:29px; } .creative-dna-orbit { max-width:240px; } .creative-dna-tabs { gap:5px; } .creative-dna-tab { padding:8px 10px;font-size:7px; } }
+
+/* Scroll-drawn experience timeline, progressively activated by section entry. */
+.experience-overview-list { position:relative; }
+.experience-overview-list::before { content:"";position:absolute;top:0;bottom:0;left:164px;width:1px;background:linear-gradient(var(--accent),var(--line));transform:scaleY(0);transform-origin:top;transition:transform 1.35s cubic-bezier(.2,.7,.2,1);pointer-events:none; }
+.experience-section.v5-timeline-active .experience-overview-list::before { transform:scaleY(1); }
+.experience-overview-card { position:relative;transition:border-color .35s,transform .35s; }
+.experience-overview-card::before { content:"";position:absolute;left:160px;top:27px;width:9px;height:9px;border-radius:50%;border:1px solid var(--line-strong);background:var(--panel-solid);transition:background .35s,border-color .35s,box-shadow .35s; }
+.experience-overview-card.v5-timeline-visible::before { border-color:var(--accent);background:var(--accent);box-shadow:0 0 13px color-mix(in srgb,var(--accent) 32%,transparent); }
+.experience-overview-card.v5-timeline-ready { opacity:0;transform:translateY(14px); }
+.experience-overview-card.v5-timeline-visible { opacity:1;transform:translateY(0);transition:opacity .65s ease,transform .7s cubic-bezier(.2,.72,.2,1),border-color .35s; }
+.experience-overview-card:hover { border-color:color-mix(in srgb,var(--accent) 38%,var(--line)); }
+.skills-overview-card { position:relative;overflow:hidden;transition:transform .32s,border-color .32s,box-shadow .32s; }
+.skills-overview-card::after { content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 24%,rgba(255,255,255,.05) 47%,transparent 68%);transform:translateX(-125%);transition:transform .7s cubic-bezier(.2,.7,.2,1); }
+.skills-overview-card:hover { transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 40%,var(--line));box-shadow:0 12px 35px color-mix(in srgb,var(--accent) 7%,transparent); }
+.skills-overview-card:hover::after { transform:translateX(125%); }
+.turquoise-section { position:relative;isolation:isolate;overflow:hidden; }
+.turquoise-section::before { content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;background:radial-gradient(ellipse at 12% 24%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 44%),radial-gradient(ellipse at 86% 72%,rgba(20,115,98,.13),transparent 40%);opacity:0;transition:opacity 1.2s ease; }
+.turquoise-section.v5-brand-on::before { opacity:1; }
+@media (prefers-reduced-motion:reduce) { .dna-node,.creative-dna-tab,.skills-overview-card,.skills-overview-card::after,.experience-overview-list::before,.experience-overview-card,.experience-overview-card::before,.turquoise-section::before { transition:none!important; } .experience-overview-card.v5-timeline-ready { opacity:1!important;transform:none!important; } }
+@media (max-width:540px) { .experience-overview-list::before { left:5px; } .experience-overview-card { padding-left:23px!important; } .experience-overview-card::before { left:1px;top:22px; } }
