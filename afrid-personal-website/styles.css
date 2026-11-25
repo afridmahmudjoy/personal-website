@@ -5601,3 +5601,107 @@ html[data-theme="light"] .opening-grid.section-wrap {
 @media (prefers-reduced-motion:reduce) {
   .opening { opacity:1!important;transform:none!important;filter:none!important;transition:none!important; }
 }
+
+
+/* V5 / Phase 1 — purposeful motion layer: hero, chapter reveals, featured work, project viewer */
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero: cinematic but quick entrance, with a clean fallback if JS is unavailable. */
+  .opening.v5-motion-ready .opening-copy > * {
+    opacity:0;
+    transform:translateY(18px);
+    animation:v5-hero-reveal .78s cubic-bezier(.2,.75,.25,1) forwards;
+  }
+  .opening.v5-motion-ready .opening-copy > *:nth-child(1) { animation-delay:.06s; }
+  .opening.v5-motion-ready .opening-copy > *:nth-child(2) { animation-delay:.14s; }
+  .opening.v5-motion-ready .opening-copy > *:nth-child(3) { animation-delay:.23s; }
+  .opening.v5-motion-ready .opening-copy > *:nth-child(4) { animation-delay:.32s; }
+  .opening.v5-motion-ready .opening-copy > *:nth-child(5) { animation-delay:.41s; }
+  .opening.v5-motion-ready .opening-copy > *:nth-child(6) { animation-delay:.5s; }
+  .opening.v5-motion-ready .opening-copy > *:nth-child(7) { animation-delay:.58s; }
+  .opening.v5-motion-ready .hero-visual {
+    opacity:0;
+    transform:translate3d(0,22px,0) scale(.985);
+    animation:v5-hero-visual .95s cubic-bezier(.18,.72,.22,1) .22s forwards;
+  }
+  @keyframes v5-hero-reveal { to { opacity:1; transform:translateY(0); } }
+  @keyframes v5-hero-visual { to { opacity:1; transform:translate3d(0,0,0) scale(1); } }
+
+  /* Section headings get a short editorial reveal after their section enters. */
+  .motion-heading-ready .section-heading > div,
+  .motion-heading-ready .about-grid h2,
+  .motion-heading-ready .education-section .section-kicker {
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity .7s ease,transform .75s cubic-bezier(.2,.72,.2,1);
+  }
+  .motion-heading-ready.is-visible .section-heading > div,
+  .motion-heading-ready.is-visible .about-grid h2,
+  .motion-heading-ready.is-visible .education-section .section-kicker {
+    opacity:1;
+    transform:translateY(0);
+  }
+  .motion-heading-ready .section-heading > p,
+  .motion-heading-ready .about-text,
+  .motion-heading-ready .stats-strip {
+    opacity:0;
+    transform:translateY(12px);
+    transition:opacity .75s ease .12s,transform .75s cubic-bezier(.2,.72,.2,1) .12s;
+  }
+  .motion-heading-ready.is-visible .section-heading > p,
+  .motion-heading-ready.is-visible .about-text,
+  .motion-heading-ready.is-visible .stats-strip { opacity:1;transform:translateY(0); }
+
+  /* Project cards: staggered rise, subtle artwork wipe and refined hover depth. */
+  .portfolio-card.v5-card-ready {
+    opacity:0;
+    transform:translateY(18px);
+    animation:v5-card-reveal .65s cubic-bezier(.2,.72,.22,1) forwards;
+    animation-delay:calc(var(--v5-card-index, 0) * 45ms);
+  }
+  @keyframes v5-card-reveal { to { opacity:1;transform:translateY(0); } }
+  .portfolio-card-art { isolation:isolate; }
+  .portfolio-card-art::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.065) 48%,transparent 67%);
+    transform:translateX(-125%);
+    transition:transform .72s cubic-bezier(.18,.7,.2,1);
+  }
+  .portfolio-card:hover .portfolio-card-art::after,
+  .portfolio-card:focus-visible .portfolio-card-art::after { transform:translateX(125%); }
+  .portfolio-card:hover { transform:translateY(-4px);transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s; }
+
+  /* Native project dialog: animate content/backdrop on open without hijacking focus. */
+  .portfolio-dialog[open] { animation:v5-dialog-in .42s cubic-bezier(.18,.72,.2,1) both; }
+  .portfolio-dialog[open]::backdrop { animation:v5-backdrop-in .36s ease both; }
+  .portfolio-dialog-media img,
+  .portfolio-dialog-media video,
+  .portfolio-dialog-media iframe { animation:v5-media-in .5s cubic-bezier(.18,.72,.2,1) both; }
+  @keyframes v5-dialog-in { from { opacity:0;transform:translateY(18px) scale(.985); } to { opacity:1;transform:translateY(0) scale(1); } }
+  @keyframes v5-backdrop-in { from { opacity:0; } to { opacity:1; } }
+  @keyframes v5-media-in { from { opacity:0;transform:scale(.985); } to { opacity:1;transform:scale(1); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .opening.v5-motion-ready .opening-copy > *,
+  .opening.v5-motion-ready .hero-visual,
+  .motion-heading-ready .section-heading > div,
+  .motion-heading-ready .section-heading > p,
+  .motion-heading-ready .about-grid h2,
+  .motion-heading-ready .about-text,
+  .motion-heading-ready .stats-strip,
+  .portfolio-card.v5-card-ready,
+  .portfolio-dialog[open],
+  .portfolio-dialog[open]::backdrop,
+  .portfolio-dialog-media img,
+  .portfolio-dialog-media video,
+  .portfolio-dialog-media iframe { animation:none!important;opacity:1!important;transform:none!important;filter:none!important;transition:none!important; }
+  .portfolio-card-art::after { display:none!important; }
+}
+/* V5 motion remains gentle on touch layouts and short screens. */
+@media (max-width:820px) {
+  .portfolio-card:hover { transform:none; }
+  .portfolio-card-art::after { transition-duration:.45s; }
+}
