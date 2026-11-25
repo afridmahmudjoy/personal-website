@@ -1485,4 +1485,83 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     document.querySelectorAll('.portfolio-rail').forEach((rail) => cardObserver.observe(rail));
   }
 
+  // V5.2 — Interactive Creative DNA + scroll-activated experience/brand chapters.
+  const dnaOrbit = document.querySelector('.creative-dna-orbit');
+  const dnaTabs = [...document.querySelectorAll('.creative-dna-tab[data-dna]')];
+  const dnaIndex = document.getElementById('creative-dna-index');
+  const dnaHeading = document.getElementById('creative-dna-heading');
+  const dnaDescription = document.getElementById('creative-dna-description');
+  const dnaTags = document.getElementById('creative-dna-tags');
+  const dnaContent = {
+    business: {
+      index: '01 / STRATEGY',
+      heading: 'Business thinking',
+      description: 'Understanding the purpose behind an idea—its audience, value, context and the problem it should solve.',
+      tags: ['Strategy', 'Audience', 'Problem solving']
+    },
+    design: {
+      index: '02 / COMMUNICATION',
+      heading: 'Visual storytelling',
+      description: 'Turning a message into a clear, memorable visual experience through composition, identity, detail and emotion.',
+      tags: ['Visual identity', 'Storytelling', 'Composition']
+    },
+    tech: {
+      index: '03 / BUILDING',
+      heading: 'Digital curiosity',
+      description: 'Exploring digital tools and technical foundations to make ideas more useful, accessible and interactive.',
+      tags: ['ICT', 'Digital tools', 'Experimentation']
+    }
+  };
+  const setDnaDimension = (key) => {
+    const content = dnaContent[key];
+    if (!content || !dnaOrbit) return;
+    dnaOrbit.dataset.active = key;
+    dnaTabs.forEach((tab) => {
+      const active = tab.dataset.dna === key;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-pressed', String(active));
+    });
+    if (dnaIndex) dnaIndex.textContent = content.index;
+    if (dnaHeading) dnaHeading.textContent = content.heading;
+    if (dnaDescription) dnaDescription.textContent = content.description;
+    if (dnaTags) dnaTags.replaceChildren(...content.tags.map((tag) => {
+      const pill = document.createElement('span');
+      pill.textContent = tag;
+      return pill;
+    }));
+  };
+  dnaTabs.forEach((tab) => tab.addEventListener('click', () => setDnaDimension(tab.dataset.dna)));
+  if (dnaOrbit) dnaOrbit.dataset.active = 'business';
+
+  const experienceSection = document.querySelector('.experience-section');
+  const timelineList = document.querySelector('.experience-overview-list');
+  const timelineCards = timelineList ? [...timelineList.querySelectorAll('.experience-overview-card')] : [];
+  if (experienceSection && timelineCards.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    timelineCards.forEach((card) => card.classList.add('v5-timeline-ready'));
+    const timelineObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        experienceSection.classList.add('v5-timeline-active');
+        timelineCards.forEach((card, index) => {
+          card.style.transitionDelay = Math.min(index * 85, 420) + 'ms';
+          card.classList.add('v5-timeline-visible');
+        });
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: .12 });
+    timelineObserver.observe(experienceSection);
+  }
+
+  const turquoiseChapter = document.querySelector('.turquoise-section');
+  if (turquoiseChapter && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const brandObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        turquoiseChapter.classList.add('v5-brand-on');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: .16 });
+    brandObserver.observe(turquoiseChapter);
+  }
+
 })();
