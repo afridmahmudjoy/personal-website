@@ -1416,9 +1416,9 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     let coverTickPending = false;
     const updateCoverFade = () => {
       coverTickPending = false;
-      const bounds = openingScreen.getBoundingClientRect();
       const distance = Math.max(1, openingScreen.offsetHeight);
-      const progress = Math.min(1, Math.max(0, -bounds.top / distance));
+      const scrollIntoCover = Math.max(0, window.scrollY - openingScreen.offsetTop);
+      const progress = Math.min(1, scrollIntoCover / distance);
       openingScreen.style.setProperty('--cover-scroll-progress', progress.toFixed(3));
     };
     const scheduleCoverFade = () => {
