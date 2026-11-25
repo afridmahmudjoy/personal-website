@@ -1409,4 +1409,26 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     media.replaceChildren();
     cursorNodes.forEach((node) => document.body.append(node));
   });
+
+  // Scroll-linked premium fade for the opening cover. Reverse scrolling restores it naturally.
+  const openingScreen = document.querySelector('.opening');
+  if (openingScreen && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let coverTickPending = false;
+    const updateCoverFade = () => {
+      coverTickPending = false;
+      const bounds = openingScreen.getBoundingClientRect();
+      const distance = Math.max(1, openingScreen.offsetHeight);
+      const progress = Math.min(1, Math.max(0, -bounds.top / distance));
+      openingScreen.style.setProperty('--cover-scroll-progress', progress.toFixed(3));
+    };
+    const scheduleCoverFade = () => {
+      if (coverTickPending) return;
+      coverTickPending = true;
+      requestAnimationFrame(updateCoverFade);
+    };
+    window.addEventListener('scroll', scheduleCoverFade, { passive: true });
+    window.addEventListener('resize', scheduleCoverFade, { passive: true });
+    updateCoverFade();
+  }
+
 })();
