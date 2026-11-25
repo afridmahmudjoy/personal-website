@@ -1448,6 +1448,7 @@ document.querySelectorAll('.document-reveal').forEach(button => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const node = entry.target;
+        const rawMarkup = node.innerHTML;
         const raw = node.textContent.trim();
         const match = raw.match(/^(\d+)(\+?)$/);
         if (!match || node.dataset.v5Counted) { observer.unobserve(node); return; }
@@ -1459,9 +1460,9 @@ document.querySelectorAll('.document-reveal').forEach(button => {
         const tick = (now) => {
           const progress = Math.min(1, (now - start) / duration);
           const eased = 1 - Math.pow(1 - progress, 3);
-          node.textContent = Math.round(target * eased) + suffix;
+          node.innerHTML = Math.round(target * eased) + (suffix ? '<span>+</span>' : '');
           if (progress < 1) requestAnimationFrame(tick);
-          else node.textContent = raw;
+          else node.innerHTML = rawMarkup;
         };
         requestAnimationFrame(tick);
         observer.unobserve(node);
