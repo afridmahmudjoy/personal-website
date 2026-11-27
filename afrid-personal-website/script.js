@@ -837,6 +837,25 @@ const AUTO_ROTATE_DELAY = 3200;
   });
 
 
+  // Lightweight scroll progress indicator; respects reduced-motion settings.
+  const progressBar = document.querySelector('.scroll-progress > span');
+  if (progressBar) {
+    let progressTicking = false;
+    const updateScrollProgress = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      progressBar.style.width = (progress * 100).toFixed(2) + '%';
+      progressTicking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (progressTicking) return;
+      progressTicking = true;
+      window.requestAnimationFrame(updateScrollProgress);
+    }, { passive: true });
+    window.addEventListener('resize', updateScrollProgress, { passive: true });
+    updateScrollProgress();
+  }
+
 })();
 
 /* V4 work gallery: nearby cards drift a few pixels toward the pointer. */

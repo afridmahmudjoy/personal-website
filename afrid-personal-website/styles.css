@@ -6948,3 +6948,9 @@ html[data-theme="light"] #home .hero-name > strong :is(.hero-name-support,.hero-
 #portfolio-content .about-section .stats-strip>div:nth-child(4) strong {
   min-width:1.16em!important;padding-inline:.14em!important;letter-spacing:0!important;
 }
+
+
+/* Joy 10/10 refinement: quiet, accessible scroll progress */
+.scroll-progress{position:fixed;inset:0 0 auto;height:2px;z-index:1000;pointer-events:none;background:transparent;opacity:.85}
+.scroll-progress span{display:block;height:100%;width:0;background:var(--accent);transform-origin:left center;box-shadow:0 0 8px color-mix(in srgb,var(--accent) 38%,transparent);transition:width .08s linear}
+@media(prefers-reduced-motion:reduce){.scroll-progress span{transition:none}}
