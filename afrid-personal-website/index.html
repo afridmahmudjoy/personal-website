@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#071312">
+  <meta name="theme-color" content="#ffffff">
   <script>
     try {
-      if (localStorage.getItem('amj-v4-theme') === 'light') {
-        document.documentElement.dataset.theme = 'light';
-        document.querySelector('meta[name="theme-color"]').content = '#ffffff';
-      }
+      const theme = localStorage.getItem('amj-v5-theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = theme;
+      document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#ffffff' : '#071312';
     } catch (_) {}
   </script>
   <meta name="description" content="The personal portfolio of Md. Afrid Mahmud Joy — exploring the intersection of business, visual design and digital technology. Incoming Global BBA student at NUCB, Japan (April 2027).">
@@ -22,19 +21,18 @@
   <title>Md. Afrid Mahmud Joy, Business · Technology · Creativity</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=loader-fix-20261124">
+  <link rel="stylesheet" href="styles.css?v=responsive-theme-polish-v2-20261127">
   <script src="assets/portfolio-data.js?v=20261125" defer></script>
-  <script src="script.js?v=portfolio-gallery-20261125" defer></script>
+  <script src="script.js?v=quiet-cursor-v1-20261127" defer></script>
+  <script src="assets/bowl-transition.js?v=bowl-edge-hero-gradient-v3-20261127" defer></script>
 </head>
 <body>
-  <div class="joy-loader" id="joy-loader" aria-hidden="true">
-    <span class="joy-loader-greeting" id="joy-loader-greeting">Hello</span>
-  </div>
-
   <div class="ambient ambient-stars" aria-hidden="true"></div>
   <div class="ambient ambient-clouds" aria-hidden="true"></div>
   <div class="ambient ambient-glow" aria-hidden="true"></div>
+  <div class="halden-atmosphere" aria-hidden="true"><canvas id="opening-bowl" width="96" height="60"></canvas></div>
 
 
   
@@ -49,14 +47,18 @@
       <a class="identity" href="#home" aria-label="Md. Afrid Mahmud Joy, home">
 <span class="identity-copy"><small>BUSINESS · DESIGN · DIGITAL</small></span>
       </a>
+      <nav class="hero-nav" aria-label="Quick navigation">
+        <a href="#about">About</a><a href="#work">Work</a><a href="#contact">Contact</a><a href="/cv/">CV <span aria-hidden="true">↗</span></a>
+        <button class="hero-theme-toggle theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Toggle appearance"><span class="theme-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></span><span class="theme-word">LIGHT</span></button>
+      </nav>
 
     </header>
 
     <div class="opening-grid section-wrap">
       <div class="opening-copy">
         <p class="eyebrow"><span class="eyebrow-pulse"></span> CREATIVE &amp; DIGITAL <span class="eyebrow-divider">/</span> DHAKA, BANGLADESH</p>
-        <div class="hero-name" aria-label="Md. Afrid Mahmud Joy"><span>BUSINESS · DESIGN · DIGITAL</span><strong>Md. Afrid Mahmud Joy</strong></div>
-        <h1 id="hero-title">Ideas into<br><span class="gradient-word">impact.</span></h1>
+          <div class="hero-name" aria-label="Md. Afrid Mahmud Joy"><span>BUSINESS · DESIGN · DIGITAL</span><strong aria-label="Md. Afrid Mahmud Joy"><span class="hero-name-support">Md. Afrid Mahmud</span><span class="hero-name-nickname" aria-hidden="true">JOY</span></strong></div>
+        <h1 id="hero-title" aria-label="Ideas into impact.">Ideas into<br><span class="gradient-word">impact.</span></h1>
         <p class="hero-intro">I work at the intersection of business, visual design and digital technology — turning thoughtful ideas into identities, experiences and meaningful work.</p>
 
         <div class="hero-stats" aria-label="Experience and project highlights">
@@ -65,7 +67,7 @@
         </div>
         <div class="hero-actions">
           <button class="explore-button interactive" id="explore-button" type="button">
-            <span class="explore-icon" aria-hidden="true">↘</span><span><strong>EXPLORE PORTFOLIO</strong><small>SCROLL INTO THE FULL EXPERIENCE</small></span><span class="explore-arrow" aria-hidden="true">↗</span>
+            <span><strong>EXPLORE PORTFOLIO</strong><small>SCROLL INTO THE FULL EXPERIENCE</small></span><span class="explore-arrow" aria-hidden="true">↗</span>
           </button>
           <a class="hero-contact-link interactive" href="#contact">LET’S CONNECT <span aria-hidden="true">↗</span></a>
           <a class="hero-contact-link interactive" href="/cv/">VIEW CV <span aria-hidden="true">↗</span></a>
@@ -89,6 +91,13 @@
       </div>
     </div>
     <div class="opening-footer section-wrap"><span>SCROLL TO EXPLORE</span><span class="footer-line"></span><span>01, 10</span></div>
+    </div>
+  </section>
+
+  <section class="scroll-statement" id="scroll-statement" aria-label="I work at the intersection of business, visual design and digital technology — turning thoughtful ideas into identities, experiences and meaningful work.">
+    <div class="scroll-statement-pin">
+      <p id="scroll-statement-copy" aria-label="I work at the intersection of business, visual design and digital technology — turning thoughtful ideas into identities, experiences and meaningful work.">I work at the intersection of business, visual design and digital technology — turning thoughtful ideas into identities, experiences and meaningful work.</p>
+      <span class="statement-cue" aria-hidden="true">SCROLL TO EXPLORE <span>↓</span></span>
     </div>
   </section>
 
@@ -156,7 +165,7 @@
             <div class="creative-dna-orbit" aria-hidden="true">
               <span class="dna-orbit-ring dna-orbit-ring-outer"></span>
               <span class="dna-orbit-ring dna-orbit-ring-inner"></span>
-              <span class="dna-orbit-core">AMJ</span>
+              <span class="dna-orbit-core"><img src="assets/personal-branding-logo.png" alt="" loading="lazy" decoding="async"></span>
               <span class="dna-node dna-node-business"><span>01</span><b>BUSINESS</b></span>
               <span class="dna-node dna-node-design"><span>02</span><b>DESIGN</b></span>
               <span class="dna-node dna-node-tech"><span>03</span><b>TECH</b></span>

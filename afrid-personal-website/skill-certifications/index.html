@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#071312">
+  <meta name="theme-color" content="#ffffff">
   <script>
     try {
-      if (localStorage.getItem('amj-v4-theme') === 'light') {
-        document.documentElement.dataset.theme = 'light';
-        document.querySelector('meta[name="theme-color"]').content = '#ffffff';
-      }
+      const theme = localStorage.getItem('amj-v5-theme') === 'dark' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = theme;
+      document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#ffffff' : '#071312';
     } catch (_) {}
   </script>
   <meta name="description" content="Training certificates and skill certifications for Md. Afrid Mahmud Joy.">
@@ -17,9 +16,12 @@
   <title>Skill Certifications — Md. Afrid Mahmud Joy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=portfolio-comments-20261123">
+  <link rel="stylesheet" href="/styles.css?v=portfolio-redesign-20261127">
+  <link rel="stylesheet" href="/assets/secondary-pages.css?v=secondary-theme-20261127">
   <script src="/script.js?v=portfolio-comments-20261123" defer></script>
+  <script src="/assets/secondary-theme.js?v=light-default-20261127" defer></script>
 </head>
 <body>
   <div class="ambient ambient-stars" aria-hidden="true"></div>
@@ -27,7 +29,7 @@
   <div class="detail-page-shell">
     <header class="detail-page-header">
       <a class="detail-page-brand" href="/#home">MD. AFRID MAHMUD JOY<small>BUSINESS · DESIGN · DIGITAL</small></a>
-      <a href="/cv/">VIEW CV ↗</a>
+      <nav class="detail-page-nav" aria-label="Supporting pages"><a href="/">PORTFOLIO</a><a class="current" href="/skill-certifications/" aria-current="page">CERTIFICATIONS</a><a href="/awards/">AWARDS</a><a href="/cv/">VIEW CV ↗</a><button class="detail-theme-toggle" type="button" aria-label="Switch theme">DARK</button></nav>
     </header>
     <main class="section-wrap detail-page-content">
       <a class="detail-page-back" href="/#credentials">← BACK TO RECOGNITION</a>

@@ -31,11 +31,11 @@
     });
     if (themeMeta) themeMeta.content = isLight ? '#ffffff' : '#071312';
   };
-  applyTheme(storage.get('amj-v4-theme') === 'light' ? 'light' : 'dark');
+  applyTheme(storage.get('amj-v5-theme') === 'dark' ? 'dark' : 'light');
   themeButtons.forEach((button) => button.addEventListener('click', () => {
     const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
     applyTheme(next);
-    storage.set('amj-v4-theme', next);
+    storage.set('amj-v5-theme', next);
     playSound(next === 'light' ? 'theme-light' : 'theme-dark');
   }));
 
@@ -726,7 +726,7 @@ const AUTO_ROTATE_DELAY = 3200;
   }
 
   // Scroll reveals for portfolio sections, without hiding content when observers are unavailable.
-  const revealSections = [...document.querySelectorAll('.portfolio-content main > section, .contact-section')];
+  const revealSections = [...document.querySelectorAll('.portfolio-content main > section, .contact-section, .detail-page-content > :not(.detail-page-back), .cv-page main > .section')];
   if ('IntersectionObserver' in window) {
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
@@ -738,10 +738,28 @@ const AUTO_ROTATE_DELAY = 3200;
     }, { threshold: 0, rootMargin: '0px 0px -35px 0px' });
     revealSections.forEach((section) => {
       section.classList.add('reveal-section');
-      revealObserver.observe(section);
+      if (section.getBoundingClientRect().bottom < 0) section.classList.add('is-visible');
+      else revealObserver.observe(section);
     });
   } else {
     revealSections.forEach((section) => section.classList.add('is-visible'));
+  }
+
+  // A slim cyan-to-indigo scroll trace ties the standalone pages back to the reference motion.
+  if (document.querySelector('.detail-page-shell, .cv-page')) {
+    let pageProgressQueued = false;
+    const updatePageProgress = () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+      document.documentElement.style.setProperty('--page-progress', String(progress));
+      pageProgressQueued = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (pageProgressQueued) return;
+      pageProgressQueued = true;
+      window.requestAnimationFrame(updatePageProgress);
+    }, { passive: true });
+    updatePageProgress();
   }
 
   // Desktop-only custom cursor. The native pointer remains on touch devices.
@@ -841,13 +859,13 @@ const AUTO_ROTATE_DELAY = 3200;
   let cursorY = 0;
   let frame = 0;
   let overCard = false;
-  const radius = 480;
+  const radius = 380;
 
   const updateAttraction = () => {
     const cursorDx = pointerX - cursorX;
     const cursorDy = pointerY - cursorY;
-    cursorX += cursorDx * .2;
-    cursorY += cursorDy * .2;
+    cursorX += cursorDx * .16;
+    cursorY += cursorDy * .16;
     cursor.style.left = `${cursorX}px`;
     cursor.style.top = `${cursorY}px`;
 
@@ -862,7 +880,7 @@ const AUTO_ROTATE_DELAY = 3200;
         return;
       }
       const strength = 1 - distance / radius;
-      const pull = Math.min(22, distance * .14) * strength;
+      const pull = Math.min(9, distance * .08) * strength;
       card.style.setProperty('--magnetic-x', `${(dx / distance * pull).toFixed(2)}px`);
       card.style.setProperty('--magnetic-y', `${(dy / distance * pull).toFixed(2)}px`);
     });
@@ -1193,6 +1211,19 @@ document.querySelectorAll('.document-reveal').forEach(button => {
       action.append(make('span', '', 'VIEW PROJECT'), make('span', '', '↗'));
       cardCopy.append(action);
       card.append(art, cardCopy);
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        card.addEventListener('pointermove', (event) => {
+          const bounds = card.getBoundingClientRect();
+          card.style.setProperty('--card-pointer-x', `${event.clientX - bounds.left}px`);
+          card.style.setProperty('--card-pointer-y', `${event.clientY - bounds.top}px`);
+          card.classList.add('is-pointer-active');
+        });
+        card.addEventListener('pointerleave', () => {
+          card.classList.remove('is-pointer-active');
+          card.style.removeProperty('--card-pointer-x');
+          card.style.removeProperty('--card-pointer-y');
+        });
+      }
       card.addEventListener('click', () => showProject(groups.indexOf(group), projectIndex, true));
       rail.append(card);
       projectCards.push(card);
@@ -1418,6 +1449,30 @@ document.querySelectorAll('.document-reveal').forEach(button => {
     cursorNodes.forEach((node) => document.body.append(node));
   });
 
+  // Keep collection navigation in step with the collection currently in view.
+  const categoryLinks = [...document.querySelectorAll('.portfolio-category-nav a')];
+  const categoryTargets = categoryLinks
+    .map((link) => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+  if ('IntersectionObserver' in window && categoryTargets.length) {
+    const categoryObserver = new IntersectionObserver((entries) => {
+      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+      if (!visibleEntries.length) return;
+      const activeEntry = visibleEntries.reduce((closest, entry) => {
+        const center = window.innerHeight * 0.35;
+        return Math.abs(entry.boundingClientRect.top - center)
+          < Math.abs(closest.boundingClientRect.top - center) ? entry : closest;
+      });
+      categoryLinks.forEach((link) => {
+        const active = link.hash === `#${activeEntry.target.id}`;
+        link.classList.toggle('is-active', active);
+        if (active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-32% 0px -54% 0px', threshold: 0 });
+    categoryTargets.forEach((section) => categoryObserver.observe(section));
+  }
+
   // Scroll-linked premium fade for the opening cover. Reverse scrolling restores it naturally.
   const openingScreen = document.querySelector('.opening');
   if (openingScreen && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -1520,23 +1575,31 @@ document.querySelectorAll('.document-reveal').forEach(button => {
       tags: ['ICT', 'Digital tools', 'Experimentation']
     }
   };
+  let dnaSwapTimer = 0;
   const setDnaDimension = (key) => {
     const content = dnaContent[key];
-    if (!content || !dnaOrbit) return;
+    if (!content || !dnaOrbit || dnaOrbit.dataset.active === key) return;
     dnaOrbit.dataset.active = key;
     dnaTabs.forEach((tab) => {
       const active = tab.dataset.dna === key;
       tab.classList.toggle('is-active', active);
       tab.setAttribute('aria-pressed', String(active));
     });
-    if (dnaIndex) dnaIndex.textContent = content.index;
-    if (dnaHeading) dnaHeading.textContent = content.heading;
-    if (dnaDescription) dnaDescription.textContent = content.description;
-    if (dnaTags) dnaTags.replaceChildren(...content.tags.map((tag) => {
-      const pill = document.createElement('span');
-      pill.textContent = tag;
-      return pill;
-    }));
+    const detail = document.querySelector('.creative-dna-detail');
+    if (dnaSwapTimer) window.clearTimeout(dnaSwapTimer);
+    detail?.classList.add('is-changing');
+    dnaSwapTimer = window.setTimeout(() => {
+      if (dnaIndex) dnaIndex.textContent = content.index;
+      if (dnaHeading) dnaHeading.textContent = content.heading;
+      if (dnaDescription) dnaDescription.textContent = content.description;
+      if (dnaTags) dnaTags.replaceChildren(...content.tags.map((tag) => {
+        const pill = document.createElement('span');
+        pill.textContent = tag;
+        return pill;
+      }));
+      requestAnimationFrame(() => detail?.classList.remove('is-changing'));
+      dnaSwapTimer = 0;
+    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 130);
   };
   dnaTabs.forEach((tab) => tab.addEventListener('click', () => setDnaDimension(tab.dataset.dna)));
   if (dnaOrbit) dnaOrbit.dataset.active = 'business';
